@@ -1,0 +1,30 @@
+---
+permalink: windows/task-deleting-backups.html 
+sidebar: sidebar 
+keywords: delete, backup, free, space, occupy, remove, snapshot, copies, copy, volume, deleting 
+summary: Você precisa excluir backups quando não precisar mais deles, o que libera o espaço que esses backups ocupam. Se você remover backups, reduzirá a chance de atingir o limite de 255 cópias Snapshot por volume. 
+---
+= Eliminar cópias de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa excluir backups quando não precisar mais deles, o que libera o espaço que esses backups ocupam. Se você remover backups, reduzirá a chance de atingir o limite de 255 cópias Snapshot por volume.
+
+* Você deve garantir que o backup não foi usado para criar um clone.
+
+
+Você pode excluir backups retidos em uma base ilimitada sem alterar a classe de retenção.
+
+Opcionalmente, você pode coletar os arquivos de despejo após a operação de exclusão de backup bem-sucedida ou com falha.
+
+Se você quiser excluir os backups do log de arquivamento, você precisa verificar a duração de retenção definida para o backup do log de arquivamento. Se o backup do log de arquivamento estiver dentro da duração de retenção e os arquivos de log de arquivamento forem necessários para a recuperação de um banco de dados restaurado, você não poderá excluir o backup do log de arquivamento.
+
+. Verifique se as operações estão concluídas digitando o seguinte comando: `smsap operation list -profileprofile_name-dump-quiet-verbose`
+. Para excluir um backup, digite o seguinte comando:``smsap backup delete -profile profile_name [-label label [data | -archivelogs] | -idid | -all] [-force] [ -dump] [-quiet | -verbose]``
++
+Use a opção -force para forçar a remoção do backup. Forçar a remoção de um backup que tenha operações incompletas pode deixar o backup em um estado inconsistente.
+
+

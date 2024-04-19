@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/concept-what-protection-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, state, backup, administrator, monitor, protection 
+summary: O SnapManager mostra o estado de cada backup. Os administradores devem conhecer os diferentes estados e monitorar o estado de seus backups. 
+---
+= Quais são os estados de proteção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager mostra o estado de cada backup. Os administradores devem conhecer os diferentes estados e monitorar o estado de seus backups.
+
+Um backup de banco de dados pode ter os seguintes estados de proteção:
+
+[cols="1a,2a,3a"]
+|===
+| Estado | Definição | Explicação 
+
+
+ a| 
+Protegido
+ a| 
+A proteção foi solicitada e foi ativada.
+ a| 
+A proteção está ativada para o backup no SnapManager e o Gerenciador de proteção copiou com êxito o backup para outro conjunto de discos físicos (também conhecido como storage secundário). Se o Gerenciador de proteção remover um backup do storage secundário devido a uma política de retenção, o backup poderá retornar a um estado não protegido.
+
+
+
+ a| 
+Não protegido
+ a| 
+A proteção foi solicitada, mas não foi concluída.
+ a| 
+A proteção está ativada para o backup, mas o backup não é copiado para outro conjunto de discos físicos. O backup ainda não está protegido, ou a proteção falhou, ou foi protegido anteriormente, mas não está mais protegido. Quando você cria um backup, o estado de proteção inicial do backup não é solicitado ou não está protegido. Se o backup não estiver protegido, ele ficará protegido quando for transferido para o storage secundário.
+
+
+
+ a| 
+Não solicitado
+ a| 
+A proteção não foi solicitada.
+ a| 
+A proteção não está ativada para a cópia de segurança. Existe uma cópia lógica dos dados nos mesmos discos físicos (também conhecido como um backup local). Se a proteção não for solicitada quando o backup foi criado, a proteção no backup é sempre mostrada como não solicitada.
+
+|===

@@ -1,0 +1,27 @@
+---
+permalink: windows/task-uninstall-the-software-from-a-windows-host.html 
+sidebar: sidebar 
+keywords: uninstall, snapmanager, host, server 
+summary: Você pode desinstalar o SnapManager do servidor host. 
+---
+= Desinstale o SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode desinstalar o SnapManager do servidor host.
+
+
+
+== O que você vai precisar
+
+* Pare o servidor host antes de desinstalar o SnapManager.
+
+
+.Passos
+. Clique em *Iniciar* > *Painel de controlo* > *Adicionar ou remover programas*.
+. Selecione *SnapManager para SAP*.
+. Clique em *Desinstalar*.
+

@@ -1,0 +1,33 @@
+---
+permalink: windows/task-create-operation-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, operation, dump, command, name, id, fail, log, information, level, profile, host, environment, create, operation-level 
+summary: Você pode usar o comando smsap operation dump com o nome ou ID da operação com falha para obter informações de log sobre uma determinada operação. Você pode especificar diferentes níveis de log para reunir informações sobre uma operação, perfil, host ou ambiente específico. 
+---
+= Crie arquivos de despejo de nível de operação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o `smsap operation dump` comando com o nome ou ID da operação com falha para obter informações de log sobre uma determinada operação. Você pode especificar diferentes níveis de log para reunir informações sobre uma operação, perfil, host ou ambiente específico.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap operation dump -id _guid_*`
+
++
+
+NOTE: O `smsap operation dump` comando fornece um super conjunto das informações fornecidas pelo `smsap profile dump` comando, que por sua vez fornece um super conjunto das informações fornecidas pelo `smsap system dump` comando.
+
++
+Local do ficheiro de descarga:
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----
+

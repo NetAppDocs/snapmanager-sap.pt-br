@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/concept-disabling-client-access-to-snapshot-copies.html 
+sidebar: sidebar 
+keywords: storage, system, volume, nfs, protocol, sap, tools, snapshot, copies, copy, snapshot, directory, directories, backup, diable, disabling, client, access 
+summary: Para qualquer volume de sistema de storage que use o protocolo NFS e contenha dados SAP em backup usando o BR*Tools, você deve desativar o acesso do cliente às cópias Snapshot desse volume. Se o acesso do cliente estiver ativado, o BR*Tools tentará criar backups dos  diretórios .snapshot ocultos que contêm backups anteriores. 
+---
+= Desativando o acesso do cliente às cópias Snapshot
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para qualquer volume de sistema de storage que use o protocolo NFS e contenha dados SAP em backup usando o BR*Tools, você deve desativar o acesso do cliente às cópias Snapshot desse volume. Se o acesso do cliente estiver ativado, o BR*Tools tentará criar backups dos diretórios .snapshot ocultos que contêm backups anteriores.
+
+Para desativar o acesso do cliente, use um dos seguintes métodos.
+
+* Usando Data ONTAP: Usando a interface de linha de comando Data ONTAP, digite o seguinte comando: Vol options volume_name nosnapdir em que volume_name é o nome do volume que contém dados SAP, por exemplo, `/vol/falls_sap_cer9i_data1`
+* Usando FilerView: Para desativar o acesso usando a interface gráfica do usuário do FilerView, você já deve ter uma cópia Snapshot do volume.
++
+.. No painel esquerdo do FilerView, selecione *volumes* > *instantâneos* > *Gerenciar*.
+.. Na página Gerenciar instantâneos, clique no nome do volume na coluna volume.
+.. Na página Configurar instantâneos, desmarque a caixa de seleção diretório instantâneo visível e clique em *aplicar.*
+
+
+
+
+Para obter mais informações sobre como desabilitar o acesso do cliente às cópias Snapshot, consulte o capítulo sobre o Gerenciamento de snapshots do _Guia de backup e recuperação on-line de proteção de dados do Data ONTAP_ para sua versão do Data ONTAP.

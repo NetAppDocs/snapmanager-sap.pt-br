@@ -1,0 +1,171 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-create-a-profile-for-your-database.html 
+sidebar: sidebar 
+keywords: create, profile, database, perform, operation, contain, information, reference, multiple 
+summary: Você deve criar um perfil para que seu banco de dados execute qualquer operação nesse banco de dados. O perfil contém informações sobre o banco de dados e pode referenciar apenas um banco de dados; no entanto, um banco de dados pode ser referenciado por vários perfis. Um backup criado usando um perfil não pode ser acessado de um perfil diferente, mesmo que ambos os perfis estejam associados ao mesmo banco de dados. 
+---
+= Crie um perfil para o seu banco de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve criar um perfil para que seu banco de dados execute qualquer operação nesse banco de dados. O perfil contém informações sobre o banco de dados e pode referenciar apenas um banco de dados; no entanto, um banco de dados pode ser referenciado por vários perfis. Um backup criado usando um perfil não pode ser acessado de um perfil diferente, mesmo que ambos os perfis estejam associados ao mesmo banco de dados.
+
+
+
+== O que você vai precisar
+
+Você deve garantir que os detalhes do banco de dados de destino sejam incluídos no `/etc/oratab` arquivo.
+
+
+
+== Sobre esta tarefa
+
+Estas etapas mostram como criar um perfil para seu banco de dados usando a IU do SnapManager. Você também pode usar a CLI, se preferir.
+
+Para obter informações sobre como criar perfis usando a CLI, consulte o guia _SnapManager for SAP Administration Guide for UNIX_.
+
+.Passos
+. Na árvore repositórios, clique com o botão direito do Mouse no repositório ou no host e selecione *Create Profile*.
+. Na página *informações de configuração do perfil*, insira o nome e a senha personalizados do perfil.
+. Na página *informações de configuração da base de dados*, introduza as seguintes informações:
++
+|===
+| Neste campo... | Faça isso... 
+
+
+ a| 
+*Nome da base de dados*
+ a| 
+Introduza o nome da base de dados que pretende efetuar a cópia de segurança.
+
+
+
+ a| 
+*Base de dados SID*
+ a| 
+Introduza a ID segura (SID) da base de dados. O nome do banco de dados e o SID do banco de dados podem ser os mesmos.
+
+
+
+ a| 
+*Anfitrião*
+ a| 
+Insira o endereço IP do host onde o banco de dados de destino reside. Você também pode especificar o nome do host se o nome do host for especificado no sistema de nomes de domínio (DNS).
+
+
+
+ a| 
+* Conta de host*
+ a| 
+Insira o nome de usuário Oracle do banco de dados de destino. O valor padrão para o usuário é oracle.
+
+
+
+ a| 
+*Grupo anfitrião*
+ a| 
+Introduza o nome do grupo de utilizadores Oracle. O valor padrão é dBA.
+
+|===
+. Na página *informações de conexão de banco de dados*, selecione uma das seguintes opções:
++
+|===
+| Escolha esta opção... | Se você quiser... 
+
+
+ a| 
+*Use a autenticação o/S*
+ a| 
+Use as credenciais mantidas pelo sistema operacional para autenticar usuários que acessam o banco de dados.
+
+
+
+ a| 
+*Use Autenticação de banco de dados*
+ a| 
+Permitir que a Oracle autentique um usuário administrativo usando autenticação de arquivo de senha. Insira as informações de conexão de banco de dados apropriadas.
+
+** No campo *SYSDBA Privileged User Name*, insira o nome do administrador do banco de dados com Privileges administrativo.
+** No campo *Password* (Palavra-passe), introduza a palavra-passe do administrador da base de dados.
+** No campo *Port*, insira o número da porta usada para se conetar ao host onde o banco de dados reside.
++
+O valor padrão é 1527.
+
+
+
+
+
+ a| 
+*Use ASM Instance Authentication*
+ a| 
+Permitir que a instância de banco de dados ASM (Automatic Storage Management) autentique um usuário administrativo. Introduza as informações de autenticação de instância ASM adequadas.
+
+** No campo *SYSDBA/SYSASM Privileged User Name*, insira o nome de usuário do administrador da instância ASM com Privileges administrativo.
+** No campo *Password* (Palavra-passe), introduza a palavra-passe do administrador.
+
+
+|===
++
+[NOTE]
+====
+Você pode selecionar o modo de autenticação ASM somente se tiver uma instância ASM no host do banco de dados.
+
+====
+. Na página *informações de configuração do RMAN*, selecione uma das seguintes opções:
++
+|===
+| Escolha esta opção... | Se... 
+
+
+ a| 
+***Não use RMAN***
+ a| 
+Você não está usando o RMAN para gerenciar operações de backup e restauração.
+
+
+
+ a| 
+***Use o RMAN através do arquivo de controle***
+ a| 
+Você está gerenciando o repositório RMAN usando arquivos de controle.
+
+
+
+ a| 
+***Use RMAN via Recovery Catalog***
+ a| 
+Você está gerenciando o repositório RMAN usando banco de dados de catálogo de recuperação. Insira o nome de usuário que tem acesso ao banco de dados do catálogo de recuperação, senha e o nome do serviço de rede Oracle do banco de dados que gerencia a conexão Transparency Network Substrate (TNS).
+
+|===
+. Na página *Informação de Nome do Snapshot*, selecione as variáveis para especificar um formato de nomenclatura para a cópia Snapshot.
++
+Você deve incluir a variável smid no formato de nomenclatura. A variável _smid_ cria um identificador de Snapshot exclusivo.
+
+. Na página *Configurações de política*, execute o seguinte:
++
+.. Insira a contagem de retenção e a duração para cada classe de retenção.
+.. Na lista suspensa *Política de proteção*, selecione a política de proteção.
++
+Você deve selecionar as políticas _SnapManager_cDOT_Mirror_ ou _SnapManager_cDOT_Vault_ dependendo se o relacionamento SnapMirror ou SnapVault está estabelecido.
+
+.. Se quiser fazer backup de logs de arquivamento separadamente, marque a caixa de seleção *Backup Archivelogs separately*, especifique a retenção e selecione a política de proteção.
++
+Você pode selecionar uma política diferente da política associada para datafiles. Por exemplo, se você selecionou _SnapManager_cDOT_Mirror_ para datafiles, você pode selecionar _SnapManager_cDOT_Vault_ para logs de arquivamento.
+
+
+
+. Na página *Configure Notification Settings*, especifique as configurações de notificação por e-mail.
+. Na página *informações de configuração do histórico*, selecione uma das opções para manter o histórico de operações do SnapManager.
+. Na página *Perform Profile Create Operation*, verifique as informações e clique em *Create*.
+. Clique em *Finish* para fechar o assistente.
++
+Se a operação falhar, clique em *Detalhes da operação* para ver o que causou a falha da operação.
+
+
+
+*Informações relacionadas*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guia de administração do SnapManager 3.4.1 para UNIX"^]

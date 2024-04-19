@@ -1,0 +1,106 @@
+---
+permalink: unix-administration/task-create-restore-specifications.html 
+sidebar: sidebar 
+keywords: restore, specification, file, xml, original, alternate, location, file, restore, snapmanager, specification, location, creating, create 
+summary: O arquivo de especificação de restauração é um arquivo XML que contém os locais originais e alternativos dos quais o arquivo pode ser restaurado. O SnapManager usa esse arquivo de especificação para restaurar arquivos do local especificado. 
+---
+= Criar especificações de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O arquivo de especificação de restauração é um arquivo XML que contém os locais originais e alternativos dos quais o arquivo pode ser restaurado. O SnapManager usa esse arquivo de especificação para restaurar arquivos do local especificado.
+
+*Sobre esta tarefa*
+
+Você pode criar o arquivo de especificação de restauração usando qualquer editor de texto. Você deve usar uma extensão .xml para o arquivo.
+
+.Passos
+. Abra um arquivo de texto.
+. Introduza o seguinte:
++
+`*<restore-specification xmlns="http://www.netapp.com">*`
+
+. Insira qualquer informação de mapeamento de arquivos usando o formato mostrado no exemplo a seguir:
++
+[listing]
+----
+<file-mapping>
+    <original-location>/path/dbfilename.dbf</original-location>
+    <alternate-location>/path/dbfilename1.dbf</alternate-location>
+</file-mapping>
+----
++
+Mapeamento de arquivos especifica de onde um arquivo é restaurado. O local original é o local do arquivo no sistema de arquivos ativo no momento do backup. O local alternativo é o local de onde o arquivo é restaurado.
+
+. Insira qualquer informação de mapeamento do sistema de arquivos montado usando o formato mostrado no exemplo:
++
+[listing]
+----
+<mountpoint-mapping>
+     <original-location>/path/db_name</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>/path/vaultlocation</alternate-location>
+</mountpoint-mapping>
+<mountpoint-mapping>
+     <original-location>+DiskGroup_1</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>+DiskGroup_2</alternate-location>
+</mountpoint-mapping>
+----
++
+Ponto de montagem refere-se ao caminho do diretório `/mnt/myfs/` ). O mapeamento de ponto de montagem especifica o ponto de montagem a partir do qual os arquivos são restaurados. O local original é o local do ponto de montagem no sistema de arquivos ativo no momento do backup. O local alternativo é o ponto de montagem a partir do qual os arquivos no local original são restaurados. O `_snapname_` é o nome da cópia Snapshot na qual os arquivos originais foram copiados.
+
++
+
+NOTE: O nome da cópia Snapshot é um componente necessário porque o mesmo sistema de arquivos pode ser usado várias vezes em uma única operação de backup (por exemplo, uma vez para os arquivos de dados e uma vez para os logs).
+
+. Insira tags e locais de mapeamento de dispositivos brutos usando o formato mostrado no exemplo:
++
+[listing]
+----
+<raw-device-mapping>
+     <original-location>/path/raw_device_name</original-location>
+     <alternate-location>/path/raw_device_name</alternate-location>
+</raw-device-mapping>
+----
++
+O mapeamento de dispositivo bruto especifica o local a partir do qual um dispositivo bruto é restaurado.
+
+. Introduza o seguinte:
++
+`*</restore-specification>*`
+
+. Salve o arquivo como um arquivo .xml e feche a especificação.
+
+
+
+
+== Exemplo de especificação de restauração
+
+O exemplo a seguir mostra a estrutura de especificação de restauração:
+
+[listing]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<restore-specification xmlns="http://www.netapp.com">
+<!-- "Restore from file(s)" -->
+     <file-mapping>
+          <original-location>/mnt/pathname/dbname/users01.dbf</original-location>
+          <alternate-location>/mnt/vault/users01.dbf</alternate-location>
+     </file-mapping>
+<!-- "Restore from host mounted file system(s)" -->
+     <mountpoint-mapping>
+          <original-location>/mnt/pathname/dbname/fs</original-location>
+          <snapname>Snapshotname</snapname>
+          <alternate-location>/mnt/vaultlocation</alternate-location>
+     </mountpoint-mapping>
+<!-- "Restore from raw device" -->
+     <raw-device-mapping>
+          <original-location>/pathname/devicename</original-location>
+          <alternate-location>/pathname/devicename</alternate-location>
+     </raw-device-mapping>
+</restore-specification>
+----

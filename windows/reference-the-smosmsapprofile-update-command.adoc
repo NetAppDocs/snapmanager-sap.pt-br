@@ -1,0 +1,214 @@
+---
+permalink: windows/reference-the-smosmsapprofile-update-command.html 
+sidebar: sidebar 
+keywords: run, profile, update, command, information, exist, smsap 
+summary: Você pode executar o comando de atualização de perfil para atualizar as informações de um perfil existente. 
+---
+= O comando smsap profile update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `profile update` comando para atualizar as informações de um perfil existente.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap profile update
+-profile profile
+[-new-profile new_profile_name]
+[-profile-password profile_password]
+[-database
+-dbname db_dbname
+-host db_host
+[-sid db_sid]
+[-login
+[-username db_username -password db_password -port db_port]
+]
+[{-rman  {-controlfile | {{-login
+-username  rman_username
+-password  rman_password }
+[-tnsname  tnsname]}}} |
+-remove-rman]
+
+
+[-retain
+[-hourly [-count n] [-duration m]]
+[-daily [-count n] [-duration m]]
+[-weekly [-count n] [-duration m]]
+[-monthly [-count n] [-duration m]]]]
+-comment comment
+-snapname-patternpattern
+[]
+[-summary-notification]
+[-notification
+[-success
+-email email_address1,email_address2
+-subject subject_pattern]
+[-failure
+-email email_address1,email_address2
+-subject subject_pattern]
+[-separate-archivelog-backups
+-retain-archivelog-backups
+-hours  hours |
+-days days |
+-weeks weeks |
+-months months
+[]
+[-include-with-online-backups | -no-include-with-online-backups]]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_`*
++
+Especifica o nome do perfil. Esse nome pode ter até 30 carateres e deve ser único dentro do host.
+
+* *`-profile-password _profile_password_`*
++
+Especifica a senha do perfil.
+
+* *`-new-profile _new_profile_name_`*
++
+Especifica o novo nome que você pode fornecer para um perfil.
+
+* *`-database`*
++
+Especifica os detalhes do banco de dados que o perfil descreve. Este é o banco de dados que será feito backup, restaurado e assim por diante.
+
+* *`-dbname _db_dbname_`*
++
+Especifica o nome do banco de dados descrito pelo perfil. Você pode usar o nome global ou o identificador do sistema.
+
+* *`-host _db_host_`*
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados é executado.
+
+* *`-sid _db_sid_`*
++
+Especifica o identificador do sistema do banco de dados descrito pelo perfil. Por padrão, o SnapManager usa o nome do banco de dados como o identificador do sistema. Se o identificador do sistema for diferente do nome do banco de dados, você deve especificá-lo usando a `-sid` opção.
+
+* *`-login`*
++
+Especifica os detalhes de login do repositório.
+
+* *`-username _repo_username_`*
++
+Especifica o nome de usuário necessário para acessar o banco de dados do repositório.
+
+* *`-port _repo_port_`*
++
+Especifica o número da porta TCP necessário para acessar o banco de dados do repositório.
+
+* *`-database`*
++
+Especifica os detalhes do banco de dados que o perfil descreve. Este é o banco de dados que será feito backup, restaurado ou clonado.
+
+* *`-dbname _db_dbname_`*
++
+Especifica o nome do banco de dados descrito pelo perfil. Você pode usar o nome global ou o identificador do sistema.
+
+* *`-host _db_host_`*
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados é executado.
+
+* *`-login`*
++
+Especifica os detalhes de login do banco de dados.
+
+* *`-username _db_username_`*
++
+Especifica o nome de usuário necessário para acessar o banco de dados descrito pelo perfil.
+
+* *`-password _db_password_`*
++
+Especifica a senha necessária para acessar o banco de dados descrito pelo perfil.
+
+* *`-port _db_port_`*
++
+Especifica o número da porta TCP necessário para acessar o banco de dados descrito pelo perfil.
+
+* *`-retain [-hourly [-countn] [-duration m]] [-daily [-count n] [-duration m]] [-weekly [-count n][-duration m]] [-monthly [-count n][-duration m]]`*
++
+Especifica a classe de retenção (hora, dia, semanal, mensal) para um backup.
+
++
+Para cada classe de retenção, uma contagem de retenção ou uma duração de retenção ou ambas podem ser especificadas. A duração é em unidades da classe (por exemplo, horas por hora ou dias por dia). Por exemplo, se o usuário especificar apenas uma duração de retenção de 7 para backups diários, o SnapManager não limitará o número de backups diários para o perfil (porque a contagem de retenção é 0), mas o SnapManager excluirá automaticamente backups diários criados há mais de 7 dias.
+
+* *`-comment _comment_`*
++
+Especifica o comentário para um perfil.
+
+* *`-snapname-pattern _pattern_`*
++
+Especifica o padrão de nomenclatura para cópias Snapshot. Você também pode incluir texto personalizado, por exemplo, HAOPS para operações altamente disponíveis, em todos os nomes de cópia Snapshot. Você pode alterar o padrão de nomenclatura da cópia Snapshot ao criar um perfil ou após o perfil ser criado. O padrão atualizado se aplica apenas a cópias Snapshot que ainda não ocorreram. As cópias snapshot que existem mantêm o padrão Snapname anterior. Você pode usar várias variáveis no texto padrão.
+
+* *`-summary-notification`*
++
+Especifica que a notificação de resumo por e-mail está ativada para o perfil existente.
+
+* *`-notification  [-success-email  _e-mail_address1,e-mail address2_  -subject  _subject_pattern_]`*
++
+Ativa a notificação por e-mail do perfil existente para que os e-mails sejam recebidos pelos destinatários quando a operação SnapManager for bem-sucedida. Você deve inserir um único endereço de e-mail ou vários endereços de e-mail para os quais os alertas serão enviados e um padrão de assunto de e-mail para o perfil existente.
+
++
+Você pode alterar o texto do assunto durante a atualização do perfil ou incluir texto de assunto personalizado. O assunto atualizado aplica-se apenas aos e-mails que não são enviados. Você pode usar várias variáveis para o assunto do e-mail.
+
+* *`-notification  [-failure  -email  _e-mail_address1,e-mail address2_  -subject  _subject_pattern_]`*
++
+Ativa a notificação por e-mail do perfil existente para que os e-mails sejam recebidos pelos destinatários quando a operação SnapManager falhar. Você deve inserir um único endereço de e-mail ou vários endereços de e-mail para os quais os alertas serão enviados e um padrão de assunto de e-mail para o perfil existente.
+
++
+Você pode alterar o texto do assunto durante a atualização do perfil ou incluir texto de assunto personalizado. O assunto atualizado aplica-se apenas aos e-mails que não são enviados. Você pode usar várias variáveis para o assunto do e-mail.
+
+* *`-separate-archivelog-backups`*
++
+Separa a cópia de segurança do registo de arquivo de dados. Este é um parâmetro opcional que você pode fornecer ao criar o perfil. Depois de separar os backups usando essa opção, você pode criar um backup somente de arquivos de dados ou um backup somente de logs de arquivamento.
+
+* *`-retain-archivelog-backups -hours _hours_ | -days _days_ | -weeks _weeks_| -months _months_`*
++
+Especifica que os backups de log de arquivamento são mantidos com base na duração de retenção de log de arquivamento (hora, dia, semanal, mensal).
+
+* *`-include-with-online-backups | -no-include-with-online-backups`*
++
+Especifica que o backup do log de arquivamento está incluído junto com o backup do banco de dados on-line.
+
++
+Especifica que os backups de log de arquivamento não são incluídos juntamente com o backup de banco de dados on-line.
+
+* *`-dump`*
++
+Especifica que os arquivos de despejo são coletados após a operação de criação de perfil bem-sucedida.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo
+
+O exemplo a seguir altera as informações de login para o banco de dados descrito pelo perfil e a notificação por e-mail é configurada para esse perfil:
+
+[listing]
+----
+smsap profile update -profile SALES1 -database -dbname SALESDB
+-sid SALESDB -login -username admin2 -password d4jPe7bw -port 1521
+-host server1 -profile-notification -success -e-mail Preston.Davis@org.com -subject success
+Operation Id [8abc01ec0e78ec33010e78ec3b410001] succeeded.
+----

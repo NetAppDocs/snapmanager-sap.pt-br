@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/task-unmount-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, automatic, unmount, backup, unavailable, host, server, unmount, external, tool, oracle, recovery, manager, rman, file, backup, state, remove, access 
+summary: 'O SnapManager desmonta automaticamente o backup para torná-lo indisponível para o servidor host. O SnapManager também permite desmontar se você estiver usando uma ferramenta externa, como o Gerenciador de recuperação Oracle (RMAN), para acessar os arquivos no backup e alterar o estado do backup para remover o acesso.' 
+---
+= Desmontar backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager desmonta automaticamente o backup para torná-lo indisponível para o servidor host. O SnapManager também permite desmontar se você estiver usando uma ferramenta externa, como o Gerenciador de recuperação Oracle (RMAN), para acessar os arquivos no backup e alterar o estado do backup para remover o acesso.
+
+*Sobre esta tarefa*
+
+Se você estiver desinstalando um backup de banco de dados de um host remoto, certifique-se de que as credenciais de Gerenciamento Automático de armazenamento (ASM) sejam as mesmas em ambos os hosts.
+
+Opcionalmente, você pode coletar os arquivos de despejo após uma operação de backup de desmontagem bem-sucedida ou com falha.
+
+A operação de desmontagem pode falhar em algum momento com uma mensagem de erro se o ponto de montagem estiver ocupado, por exemplo, `--[ERROR] FLOW-11019: Failure in Disconnect: SD-10046: You cannot unmount the backup as the mount point is busy with the following mount paths and PID's: /opt/NetApp/smsap/mnt/-mnt-neuse_nfsvrdb_arch-20120427052319903_0 with PID 6598.`
+
+Você deve identificar o PID da sessão que está resultando na falha da operação de desmontagem. Pare a sessão executando o seguinte comando:
+
+`*kill _pid_*`
+
+Em seguida, você pode executar a operação de desmontagem com êxito.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap backup unmount -profile _profile_name_ {label _label_ [data | -archivelogs] | -id _id_} [-quiet | -verbose]*`
+
+

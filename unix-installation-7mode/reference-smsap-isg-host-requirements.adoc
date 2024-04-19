@@ -1,0 +1,35 @@
+---
+permalink: unix-installation-7mode/reference-smsap-isg-host-requirements.html 
+sidebar: sidebar 
+keywords: install, snapmanager, sap, host, database, backup, host, minimum, requirement, configuration, unix, requirement 
+summary: Você deve instalar o SnapManager para SAP em cada host onde o banco de dados que você deseja fazer backup está hospedado. Você precisa garantir que seus hosts atendam aos requisitos mínimos de configuração do SnapManager. 
+---
+= Requisitos de host UNIX
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve instalar o SnapManager para SAP em cada host onde o banco de dados que você deseja fazer backup está hospedado. Você precisa garantir que seus hosts atendam aos requisitos mínimos de configuração do SnapManager.
+
+* Você deve instalar o SnapDrive no host do banco de dados antes de instalar o SnapManager.
+* Você pode instalar o SnapManager em máquinas físicas ou virtuais.
+* Você deve instalar a mesma versão do SnapManager em todos os hosts que compartilham o mesmo repositório.
+* Você deve instalar o Oracle patch `13366202` se estiver usando o Oracle Databases 11.2.0.2 ou 11,2.0,3.
++
+Se você estiver usando o DNFS, também deverá instalar os patches listados no relatório My Oracle Support (MOS) `1495104.1` para obter o máximo desempenho e estabilidade.
+
+
+
+Para usar a interface gráfica do usuário (GUI) do SnapManager, você deve ter um host em execução em uma das seguintes plataformas. A GUI também requer que o Java Runtime Environment (JRE) 1,8 esteja instalado no host.
+
+* Red Hat Enterprise Linux
+* Oracle Enterprise Linux
+* SUSE Enterprise Linux
+* Solaris SPARC, x86 e x86_64
+* IBM AIX
+
+
+
+NOTE: O SnapManager também opera no ambiente virtualizado VMware ESX.

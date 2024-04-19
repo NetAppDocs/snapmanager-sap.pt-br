@@ -1,0 +1,102 @@
+---
+permalink: windows/task-updating-profiles.html 
+sidebar: sidebar 
+keywords: update, profile, modify, password, backup, database, operating, system, authentication, information, host, oracle, updating 
+summary: Você pode atualizar os perfis para modificar a senha do perfil, o número de backups a reter, o acesso ao banco de dados, a autenticação do sistema operacional para autenticação do banco de dados e vice-versa, e informações sobre o host. Se as informações de senha do banco de dados Oracle forem alteradas, você também deverá alterar essas informações no perfil. 
+---
+= A atualizar perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode atualizar os perfis para modificar a senha do perfil, o número de backups a serem mantidos, o acesso ao banco de dados, a autenticação do sistema operacional (SO) para autenticação do banco de dados e vice-versa, e informações sobre o host. Se as informações de senha do banco de dados Oracle forem alteradas, você também deverá alterar essas informações no perfil.
+
+O SnapManager (3,2 ou posterior) permite atualizar o perfil para separar os backups de log de arquivamento dos backups de arquivos de dados usando a opção -separate-archivelog-backups. Você pode especificar a duração de retenção separada para o backup do log de arquivamento. O SnapManager permite que você inclua o backup de log de arquivamento juntamente com o backup de banco de dados on-line. Você também pode criar um backup de arquivo de dados on-line e um backup de log de arquivamento juntos para clonagem. Quando você cria um backup de arquivos de dados on-line, os backups de Registros de arquivamento são imediatamente criados juntamente com os arquivos de dados.
+
+.Passo
+. Introduza o seguinte comando:
++
+`smsap profile update -profileprofile [-new-profilenew_profile_name] [-profile-passwordprofile_password][-database-dbnamedb_dbname-host db_host [-siddb_sid] [-login -usernamedb_username-password db_password-port db_port]] [{-rman{-controlfile | {-login  -usernamerman_username-password  rman_password-tnsname  rman_tnsname}}} | -remove-rman] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern] [-summary-notification] [-notification [-success-emailemail_address1, email_address2-subjectsubject_pattern] [-failure-emailemail_address1, email_address2-subjectsubject_pattern]] [-separate-archivelog-backups-retain-archivelog-backups-hourshours | -daysdays | -weeksweeks| -monthsmonths [-include-with-online-backups | -no-include-with-online-backups]] [-dump]`
+
++
+Outras opções para este comando são as seguintes:
+
++
+[-force] [-noprompt]
+
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+*Altere a política de retenção de backup para backups do banco de dados no perfil*
+ a| 
+Especifique a contagem de retenção ou a duração de retenção para uma classe de retenção ou ambos para alterar a política de retenção. A duração é em unidades da classe (por exemplo, horas por hora, dias por dia).
+
+** -a hora é a classe de retenção por hora, para a qual [-countn] [-durationm]] são a contagem de retenção e duração de retenção, respetivamente.
+** -diariamente é a classe de retenção diária, para a qual [-countn] [-durationm]] são a contagem de retenção e duração de retenção, respetivamente.
+** -semanal é a classe de retenção semanal, para a qual [-countn] [-durationm]] são a contagem de retenção e duração de retenção, respetivamente.
+** -mensal é a classe de retenção mensal, para a qual [-countn] [-durationm]] são a contagem de retenção e duração de retenção, respetivamente.
+
+
+
+
+ a| 
+*Ativar notificações por e-mail para o status de conclusão das operações do banco de dados*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** -summary-notification permite configurar uma notificação de e-mail de resumo para vários perfis em um banco de dados de repositório.
+** -notificação permite que você receba uma notificação por e-mail sobre o status de conclusão da operação do banco de dados para um perfil.
+** -success-emailemail_address2 permite que você receba uma notificação por e-mail após a conclusão de uma operação de banco de dados bem-sucedida realizada usando um perfil novo ou existente.
+** -failure-emailemail_address2 permite que você receba uma notificação por e-mail em uma operação de banco de dados com falha realizada usando um perfil novo ou existente.
+** -subjectsubject_text especifica o texto do assunto para a notificação de e-mail ao criar um novo perfil ou um perfil existente. Se as configurações de notificação não estiverem configuradas para o repositório e você estiver tentando configurar notificações de perfil ou resumo usando a interface de linha de comando (CLI), a seguinte mensagem será registrada no log do console: SMSAP-14577: Configurações de notificação não configuradas.
++
+Se você tiver configurado as configurações de notificação e estiver tentando configurar a notificação de resumo usando a CLI sem ativar a notificação de resumo para o repositório, a seguinte mensagem será registrada no log do console: __**__SMSAP-14575: Configuração de notificação de resumo não disponível para este repositório
+
+
+
+
+
+ a| 
+*Atualize o perfil para criar backup dos arquivos de log de arquivo separadamente*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** -separate-archivelog-backups permite que você crie um backup dos arquivos de log de arquivo separadamente dos arquivos de banco de dados.
++
+Depois de especificar essa opção, você pode criar um backup somente de arquivos de dados ou um backup somente de arquivogs. Não é possível criar uma cópia de segurança completa. Além disso, você não pode reverter as configurações de perfil separando o backup. O SnapManager retém os backups com base na política de retenção dos backups criados antes de fazer backup somente de arquivogs.
+
+** -ret-archivelog-backups define a duração de retenção para backups de log de arquivo.
++
+
+NOTE: Se você estiver atualizando o perfil pela primeira vez, você pode separar os backups de log de arquivamento do backup de arquivos de dados usando a opção -separate-archivelog-backups; você deve fornecer a duração de retenção para os backups de log de arquivamento usando a opção -ret-archivelog-backups. Definir a duração de retenção é opcional quando você atualizar o perfil posteriormente.
+
+** -include-with-online-backups especifica que o backup de log de arquivamento está incluído junto com o backup do banco de dados.
+** -no-include-with-online-backups especifica que o backup do arquivo de log não está incluído junto com o backup do banco de dados.
+
+
+
+
+ a| 
+*Altere o nome do host do banco de dados de destino*
+ a| 
+Especifique -hostnew_dB_host para alterar o nome do host do perfil.
+
+
+
+ a| 
+*Colete os arquivos de despejo após a operação de atualização de perfil*
+ a| 
+Especifique a opção -dump.
+
+|===
+. Para exibir o perfil atualizado, digite o seguinte comando: Smsap profile show
+
+
+*Informações relacionadas*
+
+xref:concept-how-to-collect-dump-files.adoc[Como coletar arquivos de despejo]

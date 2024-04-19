@@ -1,0 +1,20 @@
+---
+permalink: unix-administration/concept-full-or-partial-restoration-of-the-database.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, flexibility, restore, full, database, specific, tablespace, control, file, combination, full, partial 
+summary: O SnapManager oferece a flexibilidade para restaurar bancos de dados completos, espaços de tabela específicos, arquivos, arquivos de controle ou uma combinação dessas entidades. O SnapManager permite restaurar dados usando um processo de restauração baseado em arquivo ou um processo de restauração mais rápido baseado em volume. Os administradores de banco de dados podem selecionar o processo que desejam usar ou permitir que o SnapManager decida qual processo é apropriado. 
+---
+= Restauração total ou parcial de bancos de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager oferece a flexibilidade para restaurar bancos de dados completos, espaços de tabela específicos, arquivos, arquivos de controle ou uma combinação dessas entidades. O SnapManager permite restaurar dados usando um processador de restauração baseado em arquivo um processo de restauração mais rápido e baseado em volume. Os administradores de banco de dados podem selecionar o processo que desejam usar ou permitir que o SnapManager decida qual processo é apropriado.
+
+O SnapManager permite que administradores de banco de dados (DBAs) visualizem operações de restauração. O recurso de visualização permite que os DBAs visualizem cada operação de restauração em uma base arquivo por arquivo.
+
+Os DBAs podem especificar o nível para o qual o SnapManager restaura e recupera informações ao executar operações de restauração. Por exemplo, os DBAs podem restaurar e recuperar dados em pontos específicos no tempo. O ponto de restauração pode ser uma data e hora ou um SCN (Oracle System Change Number).
+
+O SnapManager (3,2 ou posterior) permite restaurar e recuperar backups de bancos de dados automaticamente sem a intervenção do DBA. Você pode usar o SnapManager para criar backups de log de arquivamento e, em seguida, usar esses backups de log de arquivamento para restaurar e recuperar os backups de banco de dados. Mesmo que os arquivos de log de arquivo do backup sejam gerenciados em um local de log de arquivo externo, você pode especificar esse local externo para que esses logs de arquivamento possam ajudar a recuperar o banco de dados restaurado.

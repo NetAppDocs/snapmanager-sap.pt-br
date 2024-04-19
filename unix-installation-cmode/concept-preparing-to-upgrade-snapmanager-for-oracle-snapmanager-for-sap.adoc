@@ -1,0 +1,26 @@
+---
+permalink: unix-installation-cmode/concept-preparing-to-upgrade-snapmanager-for-oracle-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: environment, upgrade, snapmanager, software, hardware, browser, database, operate, system, requirement, information, interoperability, matrix, prepare 
+summary: O ambiente no qual você deseja atualizar o SnapManager deve atender aos requisitos específicos de software, hardware, navegador, banco de dados e sistema operacional. Para obter as informações mais recentes sobre os requisitos, consulte a Matriz de interoperabilidade. 
+---
+= Preparando-se para atualizar o SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O ambiente no qual você deseja atualizar o SnapManager deve atender aos requisitos específicos de software, hardware, navegador, banco de dados e sistema operacional. Para obter as informações mais recentes sobre os requisitos, consulte o http://support.netapp.com/NOW/products/interoperability/["Matriz de interoperabilidade"^].
+
+Você deve garantir que você execute as seguintes tarefas antes de atualizar:
+
+* Conclua as tarefas de pré-instalação necessárias.
+* Baixe o pacote de instalação mais recente do SnapManager para SAP.
+* Instale e configure a versão apropriada do SnapDrive para UNIX em todos os hosts de destino.
+* Crie um backup do banco de dados de repositório SnapManager para SAP existente.
+
+
+*Informações relacionadas*
+
+http://support.netapp.com/NOW/products/interoperability/["Matriz de interoperabilidade"^]

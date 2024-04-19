@@ -1,0 +1,17 @@
+---
+permalink: unix-installation-7mode/concept-post-upgrade-tasks.html 
+sidebar: sidebar 
+keywords: upgrading, upgrade, version, snapmanager, update, exist, repository, backup, identify, post-upgrade, task 
+summary: Depois de atualizar para uma versão posterior do SnapManager, você deve atualizar o repositório existente. Você também pode querer modificar a classe de retenção de backup atribuída aos backups existentes e identificar qual processo de restauração você pode usar. 
+---
+= Tarefas pós-atualização
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de atualizar para uma versão posterior do SnapManager, você deve atualizar o repositório existente. Você também pode querer modificar a classe de retenção de backup atribuída ao backupsand existente identificar qual processo de restauração você pode usar.
+
+
+NOTE: Depois de atualizar para o SnapManager 3,3 ou posterior, você precisa definir `_sqlnet.authentication_services_` como `*NONE*` se deseja usar a autenticação de banco de dados (DB) como o único método de autenticação. Este recurso não é suportado para bancos de dados RAC.

@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-provision-the-new-dataset.html 
+sidebar: sidebar 
+keywords: smsap_paydb, dataset, create, storage, administrator, protection, manager, assign, system, resource, provision, backup, node 
+summary: Depois que o conjunto de dados smsap_paydb é criado, o administrador de armazenamento usa o Protection Manager para atribuir recursos do sistema de armazenamento para provisionar o nó Backup do conjunto de dados. 
+---
+= Use o Protection Manager para provisionar o novo conjunto de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois que o conjunto de dados smsap_paydb é criado, o administrador de armazenamento usa o Protection Manager para atribuir recursos do sistema de armazenamento para provisionar o nó Backup do conjunto de dados.
+
+*O que você vai precisar*
+
+Antes de provisionar o conjunto de dados recém-criado, o administrador de armazenamento confere ao parceiro DBA o nome do conjunto de dados especificado no perfil.
+
+Neste caso, o nome do conjunto de dados é smsap_prod01.sample.com_P01.
+
+.Passos
+. Vá para o console de gerenciamento do NetApp do Gerenciador de proteção.
+. Na barra de menus, clique em *Data* > *Datasets* > *Overview*.
++
+A guia Datasets (conjuntos de dados) da janela Datasets (conjuntos de dados) exibe uma lista de conjuntos de dados que inclui o conjunto de dados que acabou de ser criado através do SnapManager.
+
+. Localize e selecione o conjunto de dados *smsap_prod01.sample.com_p01*.
++
+Quando você seleciona este conjunto de dados, a área de gráfico exibe o conjunto de dados smsap_P01 com seu nó de backup não provisionado. Seu status de conformidade é sinalizado como não-conformante.
+
+. Com o conjunto de dados smsap_P01 ainda realçado, clique em *Edit*.
++
+O console de gerenciamento NetApp do Gerenciador de proteção exibe a janela Editar conjunto de dados para o conjunto de dados *smsap_prod01.sample.com_p01*. O painel de navegação da janela exibe opções de configuração para o nó principal do conjunto de dados, a conexão de backup e o nó de backup.
+
+. No painel de navegação, localize as opções para o nó de backup do conjunto de dados e selecione *Provisioning/pools de recursos*.
++
+A janela Editar conjunto de dados exibe uma configuração para a política de provisionamento padrão e uma lista de pools de recursos disponíveis.
+
+. Para este exemplo, selecione o pool de recursos *P01_backup_resource* e clique em *>*.
++
+O pool de recursos selecionado é listado no campo "pools de recursos para este nó".
+
+. Clique em *Finish* para salvar suas alterações.
+
+
+*Resultado*
+
+O Protection Manager provisiona automaticamente o nó de backup secundário com recursos do pool de recursos paydb_backup_resource.

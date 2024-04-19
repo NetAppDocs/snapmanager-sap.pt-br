@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/reference-how-to-locate-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, locate, client, system, easy, access, troubleshoot, profile, system, operation 
+summary: O arquivo dump está localizado no sistema cliente para fácil acesso. Esses arquivos são úteis se você precisar solucionar um problema relacionado ao perfil, sistema ou qualquer operação. 
+---
+= Como localizar arquivos de despejo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O arquivo dump está localizado no sistema cliente para fácil acesso. Esses arquivos são úteis se você precisar solucionar um problema relacionado ao perfil, sistema ou qualquer operação.
+
+O arquivo dump está localizado no diretório home do usuário no sistema cliente.
+
+* Se você estiver usando a interface gráfica do usuário (GUI), o arquivo dump está localizado em:
++
+[listing]
+----
+user_home/Application Data/NetApp/smsap/3.3.0/smsap_dump dump_file_type_name
+server_host.jar
+----
+* Se você estiver usando a interface de linha de comando (CLI), o arquivo dump está localizado em:
++
+[listing]
+----
+user_home/.netapp/smsap/3.3.0/smsap_dump_dump_file_type_name server_host.jar
+----
+
+
+O arquivo dump contém a saída do comando dump. O nome do ficheiro depende das informações fornecidas. A tabela a seguir mostra os tipos de operações de despejo e os nomes de arquivo resultantes:
+
+[cols="1a,4a"]
+|===
+| Tipo de operação de despejo | Nome do ficheiro resultante 
+
+
+ a| 
+Comando dump da operação com ID da operação
+ a| 
+`smsap_dump_ _operation-id_.jar`
+
+
+
+ a| 
+Comando dump de operação sem ID de operação
+ a| 
+`smsap operation dump -profile _VH1_ -verbose` É apresentada a seguinte saída:
+
+[listing]
+----
+smsap operation dump -profile VH1 -verbose
+[ INFO] SMSAP-13048: Dump Operation Status: SUCCESS
+[ INFO] SMSAP-13049: Elapsed Time: 0:00:01.404
+Dump file created.
+Path: /oracle/VH1/<path>/smsap/3.3.0/smsap_dump_VH1_kaw.rtp.foo.com.jar
+----
+
+
+ a| 
+Comando dump do sistema
+ a| 
+`smsap_dump_ _host-name_.jar`
+
+
+
+ a| 
+Comando dump do perfil
+ a| 
+`smsap_dump_ _profile-name_host-name_.jar`
+
+|===

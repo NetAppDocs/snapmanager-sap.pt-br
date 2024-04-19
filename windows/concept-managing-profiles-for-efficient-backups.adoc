@@ -1,0 +1,64 @@
+---
+permalink: windows/concept-managing-profiles-for-efficient-backups.html 
+sidebar: sidebar 
+keywords: create, profile, snapmanager, database, perform, operation, manage, efficient, backup 
+summary: Você deve criar um perfil no SnapManager para o banco de dados no qual deseja executar uma operação. Tem de selecionar o perfil e, em seguida, selecionar a operação que pretende executar. 
+---
+= Gerenciamento de perfis para backups eficientes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve criar um perfil no SnapManager para o banco de dados no qual deseja executar uma operação. Tem de selecionar o perfil e, em seguida, selecionar a operação que pretende executar.
+
+
+
+== Tarefas relacionadas a perfis
+
+Você pode executar as seguintes tarefas:
+
+* Crie perfis para habilitar backups e backups completos ou parciais para storage primário ou secundário.
++
+Você também pode criar perfis para separar os backups de log de arquivamento dos backups de arquivos de dados.
+
+* Verifique os perfis.
+* Atualizar perfis.
+* Eliminar perfis.
+
+
+
+
+== Sobre perfis e autenticação
+
+Ao criar um perfil, você pode especificar um banco de dados e escolher um dos seguintes métodos para se conetar ao banco de dados:
+
+* Autenticação Oracle com um nome de usuário, senha e porta
+* Autenticação do sistema operacional (SO) sem nome de usuário, senha ou porta.
++
+Para autenticação do SO, tem de introduzir as informações do utilizador e do grupo da conta do SO.
+
+* Autenticação de banco de dados `sqlnet.authentication_services` quando está definido como *NENHUM*. Em seguida, o SnapManager usa o nome de usuário e a senha do banco de dados para todas as conexões com o banco de dados de destino. O SnapManager também pode usar a autenticação nativa do Windows quando `sqlnet.authentication_services` está definido como *NTS*.
+
+
+Você pode definir `sqlnet.authentication_services` como *NENHUM* apenas nos seguintes ambientes:
+
+|===
+| Layout do banco de dados | Versão Oracle | A autenticação de banco de dados é suportada para o banco de dados de destino 
+
+
+ a| 
+Qualquer banco de dados não ASM e não RAC
+ a| 
+Oracle 10gi e Oracle 11gi (menor que 11,2.0,3)
+ a| 
+Sim
+
+|===
+[NOTE]
+====
+Depois de desativar `sqlnet.authentication_services` e alterar o método de autenticação para autenticação de banco de dados, você deve definir `sqlnet.authentication_services` como *NENHUM*.
+
+====
+Se estiver a aceder a um perfil pela primeira vez, tem de introduzir a palavra-passe do perfil. Depois de inserir suas credenciais, você pode exibir os backups do banco de dados dentro do perfil.

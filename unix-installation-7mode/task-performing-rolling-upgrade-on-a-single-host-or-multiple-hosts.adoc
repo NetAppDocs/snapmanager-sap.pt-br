@@ -1,0 +1,94 @@
+---
+permalink: unix-installation-7mode/task-perform-rolling-upgrade-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, single, multiple, snapmanager, server, host, command-line, interface, cli, version 
+summary: 'Você pode executar a atualização contínua em um único ou vários hosts de servidor SnapManager usando a interface de linha de comando (CLI). O host do servidor SnapManager atualizado é gerenciado somente com a versão posterior do SnapManager.' 
+---
+= Realizar atualização contínua em um único host ou em vários hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar a atualização contínua em um único ou vários hosts de servidor SnapManager usando a interface de linha de comando (CLI). O host do servidor SnapManager atualizado é gerenciado somente com a versão posterior do SnapManager.
+
+*O que você vai precisar*
+
+Você deve garantir que todos os pré-requisitos para executar a atualização contínua estejam concluídos.
+
+.Passos
+. Para executar uma atualização contínua em um único host, digite o seguinte comando:
++
+`*smsap repository rollingupgrade-repository-dbname _repo_service_name_ -host _repo_host_ -login-username _repo_username_ -port _repo_port_ -upgradehost _host_with_target_database_ -force [-quiet | -verbose]*`
+
++
+O comando a seguir executa a atualização contínua de todos os bancos de dados de destino montados no HostA e um banco de dados de repositório chamado repoA localizado em repo_host:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA
+----
+. Para executar uma atualização contínua em vários hosts, digite o seguinte comando: `smsaprepository rollingupgrade-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-upgradehosthost_with_target_database1,host_with_target_database2-force [-quiet | -verbose]`
++
+
+NOTE: Para vários hosts, insira os nomes de host separados por uma vírgula e certifique-se de que não inclua nenhum espaço entre a vírgula e o próximo nome de host.se estiver usando uma configuração de Real Application clusters (RAC), você deverá atualizar manualmente todos os hosts associados ao RAC. Você pode usar -allhosts para executar a atualização contínua de todos os hosts.
+
++
+O comando a seguir executa a atualização contínua de todos os bancos de dados de destino montados nos hosts, HostA e HostB e um banco de dados de repositório chamado repoA localizado em repo_host:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA,hostB
+----
+. Para executar uma atualização contínua em todos os hosts em um banco de dados de repositório, digite o seguinte comando: `smsaprepository rollingupgrade-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-allhosts-force [-quiet | -verbose]`
++
+Depois de atualizar com sucesso o banco de dados do repositório, você pode executar todas as operações do SnapManager no banco de dados de destino.
+
++
+O comando a seguir executa a atualização contínua de todos os bancos de dados de destino disponíveis em um banco de dados de repositório chamado repoA localizado em repo_host:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+      -allhosts
+----
++
+** Se o servidor SnapManager for iniciado automaticamente, você deverá reiniciar o servidor para garantir que você possa exibir as programações.
+** Se você atualizar um dos dois hosts relacionados, você deve atualizar o segundo host depois de atualizar o primeiro.
++
+Por exemplo, se você criou um clone do host A para o host B ou montou um backup do host A para o host B, os hosts A e B estão relacionados uns com os outros. Quando você atualiza o host A, uma mensagem de aviso é exibida pedindo que você atualize o host B logo após a atualização do host A.
+
++
+
+NOTE: As mensagens de aviso são exibidas mesmo que o clone seja excluído ou o backup seja desmontado do host B durante a atualização progressiva do host A. isso ocorre porque os metadados existem no repositório para as operações realizadas no host remoto.
+
+
+
+

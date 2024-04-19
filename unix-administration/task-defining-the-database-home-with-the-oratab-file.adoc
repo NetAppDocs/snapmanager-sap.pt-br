@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/task-define-the-database-home-with-the-oratab-file.html 
+sidebar: sidebar 
+keywords: snapmanager, oratab, file, operation, determine, oracle, database, home, directory, software, installation, defining, define 
+summary: O SnapManager usa o arquivo oratab durante as operações para determinar o diretório inicial do banco de dados Oracle. Uma entrada para seu banco de dados Oracle deve estar no arquivo oratab para que o SnapManager funcione corretamente. O arquivo oratab é criado durante a instalação do software Oracle. 
+---
+= Defina a base de dados com o arquivo oratab
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager usa o `oratab` arquivo durante as operações para determinar o diretório inicial do banco de dados Oracle. Uma entrada para seu banco de dados Oracle deve estar no `oratab` arquivo para que o SnapManager funcione corretamente. O `oratab` arquivo é criado durante a instalação do software Oracle.
+
+
+NOTE: O diretório inicial da Oracle está definido no `oratab` arquivo para sistemas SAP, assim como para sistemas somente Oracle. Os sistemas SAP também têm um diretório base de banco de dados, que normalmente `/oracle/SID/ _xxx_yy_,` `xxx` representa a versão do banco de dados e `yy` é 32 ou 64.
+
+O `oratab` arquivo reside em diferentes locais com base no sistema operacional host, como mostrado na tabela a seguir:
+
+|===
+| Sistema operacional de host | Localização do ficheiro 
+
+
+ a| 
+Linux
+ a| 
+/etc/oratab
+
+
+
+ a| 
+Solaris
+ a| 
+/var/opt/oracle/oratab
+
+
+
+ a| 
+IBM AIX
+ a| 
+/etc/oratab
+
+|===
+O arquivo de exemplo `oratab` contém as seguintes informações:
+
+[listing]
+----
++ASM1:/u01/app/11.2.0/grid:N   # line added by Agent
+oelpro:/u01/app/11.2.0/oracle:N         # line added by Agent
+# SnapManager generated entry          (DO NOT REMOVE THIS LINE)
+smsapclone:/u01/app/11.2.0/oracle:N
+----
+
+NOTE: Após a instalação do Oracle, você deve garantir que o `oratab` arquivo reside no local especificado na tabela anterior. Se o `oratab` arquivo não residir no local correto de acordo com o sistema operacional, você deve entrar em Contato com o suporte técnico para obter assistência.

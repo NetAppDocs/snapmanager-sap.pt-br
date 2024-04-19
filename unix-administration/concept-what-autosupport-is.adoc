@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/concept-what-autosupport-is.html 
+sidebar: sidebar 
+keywords: autosupport, enable, feature, snapmanager, server, storage, system, operation 
+summary: O recurso AutoSupport permite que o servidor SnapManager envie mensagens AutoSupport para o sistema de armazenamento após a conclusão da operação de backup. 
+---
+= O que é AutoSupport
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O recurso AutoSupport permite que o servidor SnapManager envie mensagens AutoSupport para o sistema de armazenamento após a conclusão da operação de backup.
+
+
+NOTE: O SnapManager envia mensagens AutoSupport apenas para as operações de backup bem-sucedidas.
+
+Pode ativar ou desativar o AutoSupport atribuindo os seguintes valores ao `auto_support.on` parâmetro de configuração no `smsap.config` ficheiro de configuração:
+
+* `*TRUE*` - Ativa o AutoSupport
+* `*FALSE*` - Desativa o AutoSupport
+
+
+
+NOTE: Por padrão, o AutoSupport está habilitado no SnapManager.

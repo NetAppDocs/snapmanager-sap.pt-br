@@ -1,0 +1,71 @@
+---
+permalink: windows/task-upgrade-snapmanager-for-oraclesnapmanager-for-sap-hosts.html 
+sidebar: sidebar 
+keywords: upgrade, exist, snapmanager, host, version, simultaneous, result, downtime, schedule, operation, time 
+summary: Você pode atualizar todos os hosts SnapManager existentes para usar a versão mais recente do SnapManager. Todos os hosts são atualizados simultaneamente. No entanto, isso pode resultar em inatividade de todos os hosts do SnapManager e das operações agendadas durante esse tempo. 
+---
+= Atualizar hosts SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode atualizar todos os hosts SnapManager existentes para usar a versão mais recente do SnapManager. Todos os hosts são atualizados simultaneamente. No entanto, isso pode resultar em inatividade de todos os hosts do SnapManager e das operações agendadas durante esse tempo.
+
+.Passos
+. Pare o servidor SnapManager executando as seguintes etapas:
++
+.. Na janela *Serviços do Windows*, selecione *NetApp SnapManager para SAP*.
+.. No painel esquerdo, clique em *Parar*.
+
+
+. Clique duas vezes no arquivo de instalação do SnapManager.
++
+|===
+| Se o sistema operativo for... | Então use... 
+
+
+ a| 
+Windows x86
+ a| 
+`netapp.smsap.windows-x86-version_number.exe`
+
+
+
+ a| 
+Windows x64
+ a| 
+`netapp.smsap.windows-x64-version_number.exe`
+
+|===
++
+É apresentada a seguinte mensagem: `The publisher could not be verified. Are you sure you want to run this software?`
+
+. Clique em *OK*.
++
+É apresentada a janela Introdução.
+
+. Clique em *seguinte*.
++
+É apresentada a janela Choose Install Folder (escolher pasta de instalação).
+
+. Clique em *Next* para aceitar o local de instalação padrão ou selecionar um novo local.
++
+A localização predefinida é: `C:\Program Files\NetApp\SnapManager for SAP`.
+
+. Na janela *Menu Availability*, clique em *Next*.
+. Na janela *Specify Service Properties* (especificar propriedades de serviço*), introduza as informações de conta e palavra-passe do serviço Windows.
++
+A conta especificada deve ser membro dos seguintes grupos:
+
++
+** O grupo de administração local do sistema de storage
+** O grupo do administrador local
+** O grupo ORA_DBA você pode especificar se o serviço deve iniciar automaticamente após a reinicialização ou o serviço deve ser iniciado manualmente.
+
+
+. Na janela *Resumo de pré-instalação*, clique em *Instalar*.
+. Na janela *Install Complete* (Instalar completo), clique em *Next* (seguinte).
+. Na janela *informações importantes*, clique em *Concluído* para sair do instalador.
+

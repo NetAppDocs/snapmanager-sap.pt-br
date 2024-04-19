@@ -1,0 +1,173 @@
+---
+permalink: unix-administration/task-create-backup-schedules.html 
+sidebar: sidebar 
+keywords: schedule, backup, occur, frequency, suited, data, environment, creating, create 
+summary: Você pode agendar um backup para ocorrer no momento e na frequência adequados para seus dados e ambiente. 
+---
+= Criar agendas de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode agendar um backup para ocorrer no momento e na frequência adequados para seus dados e ambiente.
+
+*Sobre esta tarefa*
+
+No SnapManager 3,2 para SAP, você pode agendar os backups dos arquivos de log de arquivamento separadamente. No entanto, você deve usar o perfil que você criou para separar os arquivos de log do arquivo.
+
+Se você tiver agendado os backups dos arquivos de dados e arquivos de log de arquivamento ao mesmo tempo, o SnapManager cria primeiro o backup dos arquivos de dados.
+
+Se selecionar o intervalo de programação como `-onetimeonly`, todas as opções de eliminação estarão disponíveis. Se você selecionar um intervalo de programação diferente `-onetimeonly`do , as opções de eliminação `-until-SCN` e `-until-date` não forem suportadas e a seguinte mensagem de erro será exibida: `The archive log pruning option you have specified, -until-scn or -until-date for the schedule interval hourly is invalid. Specify either the -onetimeonly option for the schedule interval, or prune the archive logs using any one of the option all, or -before {-months | -days | -weeks| -hours}.`
+
+Quando um failover acontece em um ambiente de alta disponibilidade de Cluster multiprocessamento (HACMP), você deve reiniciar o servidor SnapManager para SAP para que o endereço de serviço (virtual) seja mapeado para o host ativo e as programações do SnapManager sejam ajustadas ao host SnapManager ativo. Pode adicionar estas informações nos scripts de failover HACMP de pré-processamento ou pós-processamento.
+
+
+NOTE: Se o mesmo nome de perfil e programação existir em outro repositório, a operação de agendamento de backup não será iniciada nesse repositório. A operação será encerrada com a seguinte mensagem: `operation is already running`.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap schedule create -profile _profile_name_ {[-full {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-data [-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-archivelogs]} [-comment _comment_] [-protect | -protectnow | -noprotect] [-backup-dest _path1_ [,[_path2_]] [-exclude-destpath1 [,path2]] [-prunelogs{-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd HH:mm:ss_ | -before {-months | -weeks | -days | -hours}} -prune-dest _prune_dest1,prune_dest2_] -schedule-name _schedule_name_ [-schedule-comment _schedule_comment_] -interval {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-onetimeonly_} -cronstring _cronstring_ -start-time {_start-timestart_time <yyyy-MM-dd HH:mm>_} -runasuser _-runasuser_ [-force] [-taskspec _-taskspec_] [-quiet | -verbose]*`
+
++
+[cols="2a,4a"]
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+*Agendar um backup de um banco de dados on-line ou off-line*
+ a| 
+Especifique `-offline` ou `-online` agende uma cópia de segurança da base de dados offline ou online. Se você especificar essas opções, não será possível usar `-auto`.
+
+
+
+ a| 
+*Deixe o SnapManager lidar com o agendamento de um banco de dados, independentemente de ele estar on-line ou off-line*
+ a| 
+ `-auto`Especifique . Se `-auto` especificar , não poderá utilizar `--offline` ou `-online`.
+
+
+
+ a| 
+*Agendar um backup de arquivos de dados*
+ a| 
+Especifique `-data -files` para listar os arquivos separados por vírgulas. Por exemplo, use nomes de arquivo F1,F2,F3.
+
+
+
+ a| 
+*Agendar um backup parcial de espaços de tabela específicos*
+ a| 
+Especifique `-tablespaces` para listar os espaços de tablespaces separados por vírgulas. Por exemplo, use TS1,TS2,TS3.
+
+
+
+ a| 
+*Agendar backup de arquivos de log de arquivo*
+ a| 
+Especifique o seguinte:
+
+** `-archivelogs` para programar a cópia de segurança dos ficheiros de registo de arquivo
+** `-backup-dest` para agendar destinos de arquivo de log a serem incluídos no backup
+** `-exclude-dest` para programar os destinos de registo de arquivo a serem excluídos da cópia de segurança
+
+
+
+
+ a| 
+*Especifique os valores da classe de retenção*
+ a| 
+Especifique `-retain` e indique se o backup deve ser retido de acordo com uma das seguintes classes de retenção:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-unlimited`
+
+
+O padrão do SnapManager é de hora em hora.
+
+
+
+ a| 
+*Agendar a eliminação de arquivos de log de arquivo*
+ a| 
+Especifique o seguinte:
+
+** `-prunelogs` para definir os arquivos de log de arquivo durante o agendamento de um backup
+** `-prune-dest` para especificar o destino do registo de arquivo a partir do qual os ficheiros de registo de arquivo são podados
+
+
+
+
+ a| 
+*Inclua um nome para a programação*
+ a| 
+ `-schedule-name`Especifique .
+
+
+
+ a| 
+*Programe o backup do banco de dados em um intervalo de tempo específico*
+ a| 
+Especifique a `interval` opção e selecione o intervalo de tempo a partir do seguinte, pelo qual os backups devem ser criados:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-onetimeonly`
+
+
+
+
+ a| 
+*Configurar uma programação*
+ a| 
+Especifique `-cronstring` e inclua as sete subexpressões a seguir que descrevem a opção individual:
+
+** 1 refere-se a segundos.
+** 2 refere-se a minutos.
+** 3 refere-se a horas.
+** 4 refere-se a um dia em um mês.
+** 5 refere-se ao mês.
+** 6 refere-se a um dia em uma semana.
+** *Opcional:* 7 refere-se ao ano.
+
+
+*Observação:* se você agendou o backup com diferentes horários no `-cronstring` e `-start-time`, a programação do backup será substituída e acionada pelo `-start-time`.
+
+
+
+ a| 
+*Adicione um comentário sobre o agendamento de backup*
+ a| 
+Especifique `-schedule-comment` seguido da string de descrição.
+
+
+
+ a| 
+*Especifique a hora de início da operação de programação*
+ a| 
+Especifique `-start-time` no formato aaaa-mm-dd hh:mm.
+
+
+
+ a| 
+*Altere o usuário da operação de backup agendada ao agendar o backup*
+ a| 
+ `-runasuser`Especifique . A operação é executada como o usuário (usuário raiz ou usuário Oracle) que criou a programação. No entanto, você pode usar seu próprio ID de usuário, se você tiver credenciais válidas para o perfil do banco de dados e o host.
+
+
+
+ a| 
+*Ative uma atividade de pré-tarefa ou pós-tarefa da operação de agendamento de backup usando o arquivo XML de especificação de pré-tarefa e pós-tarefa*
+ a| 
+Especifique a `-taskspec` opção e forneça o caminho absoluto do arquivo XML de especificação de tarefa para executar uma atividade de pré-processamento ou pós-processamento antes ou depois da operação de agendamento de backup.
+
+|===
+

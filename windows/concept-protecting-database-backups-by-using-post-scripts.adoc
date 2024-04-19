@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-protecting-database-backups-by-using-post-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, protect, database, backup, postscript, snapmirror, snapvault, establish, primary, secondary, storage, system, default, post-process, activity, cli, gui 
+summary: O SnapManager permite proteger backups de bancos de dados usando pós-scripts quando a relação SnapMirror ou SnapVault é estabelecida entre os sistemas de storage primário e secundário. Você pode usar os postscripts padrão para a atividade de pós-processamento da operação de backup a partir da CLI e GUI do SnapManager. 
+---
+= Proteger backups de bancos de dados usando postscripts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite proteger backups de bancos de dados usando pós-scripts quando a relação SnapMirror ou SnapVault é estabelecida entre os sistemas de storage primário e secundário. Você pode usar os postscripts padrão para a atividade de pós-processamento da operação de backup a partir da CLI e GUI do SnapManager.
+
+Você pode usar os seguintes postscripts padrão disponíveis em `default_install_directory\plugins\backup\create\post`:
+
+* O postscript SnapMirror, `Mirror_the_backup.cmd` se estiver a utilizar o Data ONTAP a funcionar no modo 7D.
+* O postscript SnapVault, `Vault_the_backup.cmd` se estiver a utilizar o Data ONTAP a funcionar no modo 7D.
+* O postscript SnapMirror, `Mirror_the_backup_cDOT.cmd` se você estiver usando o Clustered Data ONTAP
+* O postscript SnapVault, `Vault_the_backup_cDOT.cmd` se você estiver usando o Clustered Data ONTAP
+
+
+Para obter mais informações, consulte o `readme.txt` disponível em `default_install_directory\plugins`.
+
+O SnapManager 3,1 ou anterior fornece scripts de pré-processamento ou pós-processamento apenas para operações de clone. O SnapManager 3,2 ou posterior fornece scripts de pré-processamento e pós-processamento para operações de backup e restauração. Você pode usar esses scripts para executar antes ou depois das operações de backup ou restauração.
+
+
+NOTE: Os scripts são fornecidos apenas para referência. Eles foram testados com o SnapDrive 7,0 para Windows ou posterior ou posterior, mas podem não funcionar em todos os ambientes. Você deve personalizar os scripts com base em seus requisitos de proteção secundária. Os scripts não funcionam com versões do SnapDrive anteriores a 6,2.

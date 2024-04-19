@@ -1,0 +1,60 @@
+---
+permalink: windows/task-cloning-databases-from-backups.html 
+sidebar: sidebar 
+keywords: clone, database, backup, create, command, cloning 
+summary: Você pode clonar um banco de dados de um backup usando o comando clone create. 
+---
+= Clonar bancos de dados de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode clonar um banco de dados de um backup usando o comando clone create.
+
+Primeiro, você deve criar um arquivo de especificação de clone para o banco de dados. O SnapManager cria o clone com base nas informações neste arquivo de especificação.
+
+Depois de clonar um banco de dados, você pode querer atualizar seus arquivos tnsnames.ora em suas máquinas cliente com as novas informações de conexão de banco de dados clonadas. Os arquivos tnsnames.ora são usados para se conetar a uma instância Oracle sem precisar especificar as informações completas do banco de dados. O SnapManager não atualiza os arquivos tnsnames.ora.
+
+O SnapManager sempre cria um backup, incluindo arquivos de log de arquivamento, se você estiver usando o perfil criado com -include-with-online-backups. O SnapManager permite clonar apenas os backups completos do banco de dados.
+
+O SnapManager (3,2 ou posterior) permite clonar os backups que contêm os arquivos de dados e arquivos de log de arquivamento.
+
+Se o log de arquivamento estiver disponível em um local externo, você poderá especificar o local externo durante a clonagem para recuperar o banco de dados clonado para um estado consistente. Você deve garantir que o local externo seja acessível pela Oracle. A clonagem dos backups somente de log de arquivamento não é suportada.
+
+Embora o backup de log de arquivamento seja criado juntamente com o backup parcial on-line, você não pode criar um clone de banco de dados usando esse backup.
+
+Quando você especifica os locais de log de arquivo externo para recuperar o banco de dados clonado para um estado consistente, você deve garantir que você inclua os nomes de local externo completamente em maiúsculas. No sistema de arquivos, os nomes de todas as pastas e subpastas devem estar em maiúsculas porque o banco de dados Oracle traduz o caminho de destino para maiúsculas e espera que os caminhos de destino externos, nomes de pastas e nomes de subpastas estejam em maiúsculas. Se você especificar os caminhos de destino do log de arquivamento externo em minúsculas, o banco de dados talvez não consiga identificar o caminho especificado e não consiga recuperar o banco de dados clonado.
+
+Você pode clonar o backup do banco de dados a partir do local do arquivo de log de arquivamento externo apenas para um banco de dados autônomo.
+
+Você pode especificar a opção -dump como um parâmetro opcional para coletar os arquivos de despejo após a operação de criação de clone bem-sucedida ou com falha.
+
+* Cópia de segurança de ficheiros de dados de clonagem sem cópia de segurança de registo de arquivo*
+
+Quando o backup de arquivos de dados não inclui o backup de log de arquivamento, o SnapManager para SAP clona o banco de dados com base no número de alteração do sistema (SCN) registrado durante o backup. Se o banco de dados clonado não puder ser recuperado, o arquivo de log arquivado para thread <number> e Change <SCN> necessários para concluir a mensagem de erro de recuperação é exibido, mesmo que o SnapManager para SAP continue clonando o banco de dados e, finalmente, tenha êxito na criação do clone.
+
+Ao clonar usando o backup de arquivos de dados sem incluir o backup de log de arquivamento, o SnapManager recupera o banco de dados clonado até o último SCN de log de arquivamento, que é gravado durante o backup.
+
+. Crie um arquivo de especificação clone.
+. Para criar um clone, digite o seguinte comando: `+smsap clone create-backup-labelbackup_name-newsidnew_sid-labelclone_label-profileprofile_name-clonespecfull_path_to_clonespecfile [-taskspectaskspec] [-recover-from-location] path1 \[,<path2\>...\]] [-dump]+`
+
+
+*Informações relacionadas*
+
+xref:task-cloning-databases-in-the-current-state.adoc[Clonar bancos de dados no estado atual]
+
+xref:concept-considerations-for-cloning-a-database-to-an-alternate-host.adoc[Considerações para clonar um banco de dados para um host alternativo]
+
+xref:task-creating-clone-specifications.adoc[Criando especificações de clone]
+
+xref:reference-the-smosmsapclone-create-command.adoc[O comando smsap clone create]
+
+xref:task-creating-pretask-post-task-and-policy-scripts.adoc[Criando scripts de pré-tarefa, pós-tarefa e política]
+
+xref:concept-variables-available-in-the-task-scripts-for-clone-operation.adoc[Variáveis disponíveis nos scripts de tarefa para operação clone]
+
+xref:task-creating-task-scripts.adoc[Criando scripts de tarefa]
+
+xref:task-storing-the-task-scripts.adoc[Armazenando os scripts de tarefa]

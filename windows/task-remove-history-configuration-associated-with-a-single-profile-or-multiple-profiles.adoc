@@ -1,0 +1,21 @@
+---
+permalink: windows/task-remove-history-configuration-associated-with-a-single-profile-or-multiple-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, remove, history, set, operation, purge, information, profile, single, multiple, associate 
+summary: O SnapManager permite remover as definições do histórico de uma operação SnapManager. Esta operação elimina todas as informações de histórico associadas a um único perfil ou vários perfis. 
+---
+= Remova as configurações de histórico associadas a um único perfil ou a vários perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite remover as definições do histórico de uma operação SnapManager. Esta operação elimina todas as informações de histórico associadas a um único perfil ou vários perfis.
+
+.Passo
+. Para remover o histórico de operações do SnapManager associadas a um único perfil ou vários perfis, digite o seguinte comando:
++
+`*smsap history remove -profile {_-name_, _profile_name_ [_profile_name1_, _profile_name2_] | all -repository -login [-password _repo_password_] -username _repo_username_ -dbname _repo_dbname_ -host _repo_host_ -port _repo_port_} -operation {-operations _operation_name_ [_operation_name1_, _operation_name2_] | -all} [-quiet | -verbose]*`
+
+

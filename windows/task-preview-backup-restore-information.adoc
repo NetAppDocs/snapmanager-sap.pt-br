@@ -1,0 +1,68 @@
+---
+permalink: windows/task-preview-backup-restore-information.html 
+sidebar: sidebar 
+keywords: preview, information, backup, restore, process, snapmanager, sap, analyze, determine, successful 
+summary: Você pode visualizar informações sobre um processo de restauração de backup antes que ele ocorra para ver informações sobre a elegibilidade de restauração que o SnapManager para SAP encontrou no seu backup. O SnapManager analisa os dados do seu backup para determinar se o processo de restauração pode ser concluído com sucesso. 
+---
+= Visualizar informações de restauração de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode visualizar informações sobre um processo de restauração de backup antes que ele ocorra para ver informações sobre a elegibilidade de restauração que o SnapManager para SAP encontrou no seu backup. O SnapManager analisa os dados do seu backup para determinar se o processo de restauração pode ser concluído com sucesso.
+
+
+
+== Sobre esta tarefa
+
+A visualização de restauração fornece as seguintes informações:
+
+* Que mecanismo de restauração (restauração do sistema de arquivos no lado do storage, restauração de arquivos no lado do storage ou restauração de cópia de arquivo no lado do host) pode ser usado para restaurar cada arquivo.
+* Por que mecanismos mais eficientes não foram usados para restaurar cada arquivo, quando você especifica a `-verbose` opção.
+
+
+Se você especificar a `-preview` opção no `backup restore` comando, o SnapManager não restaura nada, mas lista os arquivos a serem restaurados e indica como eles serão restaurados.
+
+
+NOTE: Você pode visualizar todos os tipos de mecanismos de restauração. A visualização mostra informações sobre até 20 arquivos.
+
+.Passos
+. Introduza o seguinte comando:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -preview -verbose*`
+
++
+*Exemplo*
+
++
+Por exemplo, digite:
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -preview -verbose
+----
++
+O exemplo a seguir mostra os arquivos prontos para serem restaurados e lista os diferentes métodos usados para cada um:
+
++
+[listing]
+----
+The following files will be restored via storage side full file system
+restore:
+E:\disks\sysaux.dbf
+E:\disks\system.dbf
+
+The following files will be restored via host side file copy restore:
+E:\disks\undotbs1.dbf
+E:\disks\undotbs2.dbf
+----
+. Reveja os motivos pelos quais outros processos de restauração não podem ser usados.
+. Inicie a operação de restauração sem a `-preview` opção, se apenas forem exibidas razões que sejam sobrepostas.
++
+Você ainda pode substituir verificações não obrigatórias.
+
+

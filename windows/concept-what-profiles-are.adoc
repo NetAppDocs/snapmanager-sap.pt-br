@@ -1,0 +1,48 @@
+---
+permalink: windows/concept-what-profiles-are.html 
+sidebar: sidebar 
+keywords: snapmanager, profile, store, information, perform, operation, database, credential, backup, clone 
+summary: O SnapManager usa perfis para armazenar as informações necessárias para executar operações em um determinado banco de dados. Um perfil contém as informações sobre o banco de dados, incluindo suas credenciais, backups e clones. Ao criar um perfil, você não precisa especificar os detalhes do banco de dados sempre que executar uma operação nesse banco de dados. 
+---
+= Quais são os perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager usa perfis para armazenar as informações necessárias para executar operações em um determinado banco de dados. Um perfil contém as informações sobre o banco de dados, incluindo suas credenciais, backups e clones. Ao criar um perfil, você não precisa especificar os detalhes do banco de dados sempre que executar uma operação nesse banco de dados.
+
+Um perfil pode referenciar apenas um banco de dados. O mesmo banco de dados pode ser referenciado por mais de um perfil. Os backups criados usando um perfil não podem ser acessados de um perfil diferente, mesmo que ambos os perfis façam referência ao mesmo banco de dados.
+
+As informações de perfil são armazenadas em um repositório. O repositório contém as informações de perfil do banco de dados e informações sobre as cópias Snapshot que servem como backup do banco de dados. As cópias Snapshot reais são armazenadas no sistema de storage. Os nomes de cópia Snapshot são armazenados no repositório que contém o perfil desse banco de dados. Ao executar uma operação em um banco de dados, você deve selecionar o perfil do repositório.
+
+A figura a seguir ilustra como os repositórios podem conter vários perfis, mas também que cada perfil pode definir apenas um banco de dados:
+
+image::../media/prnt_en_drw_smo_smsap_rep_prof.gif[prnt en drw smo smsap rep prof]
+
+No exemplo anterior, Repository2 está no banco de dados DB1 e Repository1 está no banco de dados DB4.
+
+Cada perfil contém as credenciais do banco de dados associado ao perfil. As credenciais permitem que o SnapManager se conete e trabalhe com o banco de dados. As credenciais armazenadas incluem o nome de usuário e os pares de senha para acessar o host, o repositório, o banco de dados e as informações de conexão necessárias se você estiver usando o Oracle Recovery Manager (RMAN).
+
+Não é possível acessar um backup que foi criado usando um perfil de um perfil diferente, mesmo que ambos os perfis estejam associados ao mesmo banco de dados. O SnapManager coloca um bloqueio no banco de dados para evitar que duas operações incompatíveis sejam executadas simultaneamente.
+
+*Perfil para criar backups completos e parciais*
+
+Você pode criar perfis para fazer backups completos ou backups parciais.
+
+Os perfis especificados para criar os backups completos e parciais contêm os arquivos de dados e os arquivos de log de arquivamento. O SnapManager não permite que esses perfis separem os backups de log de arquivamento dos backups de arquivos de dados. Os backups totais e parciais são retidos com base nas políticas de retenção de backup existentes. Você pode agendar backups completos e parciais com base no tempo e na frequência que mais lhe convier.
+
+*Perfis para criar backups somente de arquivos de dados e backups somente de log de arquivamento*
+
+O SnapManager (3,2 ou posterior) permite criar perfis que fazem backups dos arquivos de log de arquivamento separadamente dos arquivos de dados. Depois de utilizar o perfil para separar os tipos de cópia de segurança, pode criar cópias de segurança apenas para ficheiros de dados ou arquivar cópias de segurança apenas de registo da base de dados. Você também pode criar um backup contendo os arquivos de dados e arquivos de log de arquivamento juntos.
+
+A política de retenção aplica-se a todos os backups do banco de dados quando os backups do log de arquivamento não são separados. Depois de separar os backups de log de arquivamento, o SnapManager permite especificar diferentes durações de retenção .
+
+*Política de retenção*
+
+O SnapManager determina se um backup deve ser retido considerando tanto a contagem de retenção (por exemplo, backups 15) quanto a duração de retenção (por exemplo, 10 dias de backups diários). Um backup expira quando sua idade excede a duração de retenção definida para sua classe de retenção e o número de backups excede a contagem de retenção. Por exemplo, se a contagem de backup for 15 (o que significa que o SnapManager fez 15 backups bem-sucedidos) e o requisito de duração for definido para 10 dias de backups diários, os cinco backups mais antigos, bem-sucedidos e qualificados expirarão.
+
+*Duração de retenção do registo de arquivo*
+
+Depois que os backups do log de arquivamento são separados, eles são retidos com base na duração de retenção do log de arquivamento. Os backups de log de arquivamento feitos com backups de arquivos de dados são sempre mantidos junto com esses backups de arquivos de dados, independentemente da duração de retenção de log de arquivamento.

@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/task-configure-e-mail-notification-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: updating, update, profile, configure, receive, email, notification, completion, database, operation, configuring, exist 
+summary: Ao atualizar um perfil, você pode configurar para receber uma notificação por e-mail após a conclusão da operação do banco de dados. 
+---
+= Configurar notificação por e-mail para um perfil existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao atualizar um perfil, você pode configurar para receber uma notificação por e-mail após a conclusão da operação do banco de dados.
+
+*O que você vai precisar*
+
+* Você deve configurar o endereço de e-mail a partir do qual os alertas são enviados.
+* Você deve inserir um único endereço de e-mail ou vários endereços de e-mail para os quais os alertas serão enviados.
++
+Você pode usar uma lista separada por vírgulas para vários endereços. Você deve garantir que não há espaço entre a vírgula e o próximo endereço de e-mail. Opcionalmente, você também pode adicionar um assunto ao e-mail.
+
+
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap profile update -profile _profile_ [-profile-password _profile_password_][-database-dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password  _rman_password_ -tnsname _rman_tnsname_}}} | -remove-rman]-osaccount _osaccount_-osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][[-protect [-protection-policy _policy_name_]]| [[-noprotect]] [-notification [-success-email _email_address1,email_address2_ -subject _subject_pattern_] [-failure-email _email_address1,email_address2_ -subject _subject_pattern_]]*`
+
++
+Você pode usar a opção sucesso para receber uma notificação somente para operações bem-sucedidas do banco de dados e a opção falha para receber uma notificação somente para operações falhadas do banco de dados.
+
+

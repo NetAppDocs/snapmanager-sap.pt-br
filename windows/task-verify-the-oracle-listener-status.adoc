@@ -1,0 +1,41 @@
+---
+permalink: windows/task-verify-the-oracle-listener-status.html 
+sidebar: sidebar 
+keywords: verify, oracle, listener, lsnrctl, status, command 
+summary: Você pode verificar o status do ouvinte Oracle usando o comando lsnrctl status. 
+---
+= Verifique o status do ouvinte Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode verificar o status do ouvinte Oracle usando o `lsnrctl status` comando.
+
+
+
+== O que você vai precisar
+
+* Você deve se conetar ao banco de dados.
+
+
+
+
+== Sobre esta tarefa
+
+Os detalhes da porta do ouvinte são os seguintes:
+
+* Uma instalação padrão do SAP Oracle define a porta de ouvinte para 1527.
+* Qualquer coisa que faça referência a uma porta de ouvinte de banco de dados gerenciado deve ter o valor como 1527.
+* Qualquer coisa que faça referência à porta ouvinte do banco de dados do repositório deve ter o valor como 1521.
+
+
+O log do ouvinte Oracle está localizado `%ORACLE_HOME%\network\log` em onde `ORACLE_HOME is \oracle\SID\oracle version`.
+
+.Passo
+. No prompt de comando, digite o comando:
++
+`*lsnrctl status*`
+
+

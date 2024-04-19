@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/concept-deprecated-versions-of-oracle-database.html 
+sidebar: sidebar 
+keywords: oracle, database, 9i, snapmanager, 10gr2, deprecate 
+summary: 'O banco de dados Oracle 9i não é suportado pelo SnapManager 3,2 ou posterior e o banco de dados Oracle 10gR2 (anterior a 10,2.0,4) não é suportado pelo SnapManager 3.3.1 ou posterior.' 
+---
+= Versões obsoletas do banco de dados Oracle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O banco de dados Oracle 9i não é suportado pelo SnapManager 3,2 ou posterior e o banco de dados Oracle 10gR2 (anterior a 10,2.0,4) não é suportado pelo SnapManager 3.3.1 ou posterior.
+
+Se você estiver usando bancos de dados Oracle 9ii ou 10gR2 (anteriores a 10,2.0,4) e quiser atualizar para o SnapManager 3,2 ou posterior, não será possível criar novos perfis; uma mensagem de aviso será exibida.
+
+Se você estiver usando bancos de dados Oracle 9ii ou 10gR2 (anteriores a 10,2.0,4) e quiser atualizar para o SnapManager 3,2 ou posterior, execute um dos seguintes procedimentos:
+
+* Atualize os bancos de dados Oracle 9i ou 10gR2 (anteriores a 10,2.0,4) para os bancos de dados Oracle 10gR2 (10,2.0,5), 11gR1 ou 11gR2 e, em seguida, atualize para o SnapManager 3,2 ou 3,3.
++
+Se você estiver atualizando para o Oracle 12__c__, então você deve atualizar para o SnapManager 3.3.1 ou posterior.
+
++
+
+NOTE: O banco de dados Oracle 12__c__ é suportado apenas a partir do SnapManager 3,3.1.
+
+* Gerenciar os bancos de dados Oracle 9ii usando uma versão de patch do SnapManager 3,1.
++
+Você pode usar o SnapManager 3,2 ou 3,3 se quiser gerenciar bancos de dados Oracle 10gR2, 11gR1 ou 11gR2 e usar o SnapManager 3.3.1 ou posterior se quiser gerenciar bancos de dados Oracle 12__c_ junto com os outros bancos de dados suportados.
+
+

@@ -1,0 +1,187 @@
+---
+permalink: unix-administration/reference-the-smosmsapclone-create-command.html 
+sidebar: sidebar 
+keywords: clone, create, command, backed-up, database, primary, secondary, storage, smsap 
+summary: Você pode executar o comando clone create para criar um clone de um banco de dados de backup. Você pode clonar um backup de storage primário ou secundário. 
+---
+= O comando smsap clone create
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `clone create` comando para criar um clone de um banco de dados de backup. Você pode clonar um backup de storage primário ou secundário.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone create
+-profile _profile_name_
+[-backup-id _backup_guid_ | -backup-label _backup_label_name_ | -current\]
+-newsid _new_sid_
+[-host _target_host_\]
+[-label _clone_label_]
+pass:quotes[[-comment _string_\]
+-clonespec _full_path_to_clonespec_file_
+[-asminstance -asmusername _asminstance_username_  -asmpassword _asminstance_password_\]\]
+[-syspassword syspassword]] pass:quotes[[-reserve {*yes* | *no* | *inherit*}]
+pass:quotes[[-from-secondary {-copy-id _id_}]
+pass:quotes[[-no-resetlogs | -recover-from-location _path1_ [, _path2_\]\] [-taskspec taskspec\] [-dump]
+[-quiet | -verbose]]
+----
+
+
+== Parâmetros
+
+* ``*-profile _name_*``
++
+Especifica o banco de dados que você deseja clonar. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* ``*-backup-id _guid_*``
++
+Clones o backup com o GUID especificado. O GUID é gerado pelo SnapManager quando cria uma cópia de segurança. Você pode usar o comando smsap backup list-verbose para exibir o GUID para cada backup.
+
+* ``*-backup-label _backup_label_name_*``
++
+Especifica para clonar o backup com o nome do rótulo especificado.
+
+* ``*-current*``
++
+Especifica para criar backup e clone a partir do estado atual do banco de dados.
+
++
+
+NOTE: Se o banco de dados estiver no modo noarchivelog, o SnapManager criará um backup off-line.
+
+* ``*-newsid _new_sid_*``
++
+Especifica um novo identificador de sistema Oracle exclusivo para o banco de dados clonado. O valor do identificador do sistema é um máximo de oito carateres. O Oracle não permite a execução simultânea de dois bancos de dados com o mesmo identificador de sistema no mesmo host.
+
+* ``*-host _target_host_*``
++
+Especifica o host no qual o clone deve ser criado.
+
+* ``*-label _clone_label_*``
++
+Especifica um rótulo para o clone.
+
+* ``*-comment _string_*``
++
+Especifica um comentário opcional para descrever este clone. Você deve incluir a string dentro de aspas simples.
+
++
+
+NOTE: Alguns shells excluem as aspas. Se isso for verdade para o seu shell, você deve escapar da citação com uma barra invertida ('). Por exemplo, talvez seja necessário inserir: `\' this is a comment\'`
+
+* ``*-clonespec _full_path_to_clonespec_file_*``
++
+Especifica o caminho para o arquivo XML de especificação de clone. Este pode ser um nome relativo ou um caminho absoluto.
+
+* ``*-asminstance*``
++
+Especifica as credenciais que são usadas para fazer login na instância ASM.
+
+* ``*-asmusername _asminstance_username_*``
++
+Especifica o nome de usuário que é usado para fazer login na instância ASM.
+
+* ``*-asmpassword _asminstance_password_*``
++
+Especifica a senha usada para fazer login na instância ASM.
+
+* ``*-syspassword _syspassword_*``
++
+Especifica a senha para o usuário privilegiado do sistema.
+
++
+
+NOTE: Você deve fornecer a senha para o usuário privilegiado do sistema se as credenciais do banco de dados fornecidas não forem as mesmas para o usuário privilegiado do sistema.
+
+* ``*-reserve*``
++
+Definir a `-reserve` opção como sim garante que a reserva de espaço de garantia de volume esteja ativada para os novos volumes de clone. Definir a `-reserve` opção como não garante que a reserva de espaço de garantia de volume esteja desativada para os novos volumes clone. Definir a `-reserve` opção para `*inherit*` garantir que o novo clone herda as caraterísticas de reserva de espaço da cópia Snapshot pai. A predefinição é `*no*`.
+
++
+A tabela a seguir descreve os métodos de clonagem e seu efeito na operação criar clone e `-reserve` sua opção. Um LUN pode ser clonado usando qualquer um dos métodos.
+
++
+[cols="1a,2a,2a"]
+|===
+| Método de clonagem | Descrição | Resultado 
+
+
+ a| 
+Clonagem de LUN
+ a| 
+Um novo LUN clone é criado dentro do mesmo volume.
+ a| 
+Quando a `-reserve` opção para um LUN é definida como sim, o espaço é reservado para o tamanho total do LUN dentro do volume.
+
+
+
+ a| 
+Clonagem de volume
+ a| 
+Um novo FlexClone é criado e o clone LUN existe dentro do novo volume de clone. Utiliza a tecnologia FlexClone.
+ a| 
+Quando a `-reserve` opção para um volume é definida como sim, o espaço é reservado para o tamanho total do volume dentro do agregado.
+
+|===
+* ``*-from-secondary [-copy-id _copy_id_]*``
++
+Especifica que o SnapManager deve clonar uma cópia de um backup que tenha sido protegida para o storage secundário. Se essa opção não for especificada, o SnapManager clonará a cópia do storage primário.
+
++
+Você deve especificar a `-copy-id` opção sempre que especificar a `-from-secondary` opção. Se houver mais de um backup no sistema de armazenamento secundário, a opção -copy-id é usada para especificar qual cópia de backup no armazenamento secundário deve ser usada para clonagem.
+
++
+
+NOTE: Se você estiver usando o Data ONTAP operando no modo 7, você deve especificar um valor válido para a `-copy-id` opção. No entanto, se você estiver usando o Clustered Data ONTAP, a `-copy-id` opção não será necessária.
+
+* ``*-no-resetlogs*``
++
+Especifica para ignorar a recuperação do banco de dados, executar o utilitário DBNEWID e não abrir o banco de dados com os resetlogs ao criar o clone.
+
+* ``*-recover-from-location*``
++
+Especifica o local de log de arquivamento externo dos backups de log de arquivamento onde o SnapManager pega os arquivos de log de arquivamento do local externo e os usa para clonagem.
+
+* ``*-taskspec*``
++
+Especifica o arquivo XML de especificação de tarefa para atividade de pré-processamento ou atividade de pós-processamento da operação clone. Você deve fornecer o caminho completo do arquivo XML de especificação de tarefa.
+
+* ``*-dump*``
++
+Especifica para coletar os arquivos de despejo após a operação de criação do clone.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. A predefinição é apresentar mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+'''
+
+
+== Exemplo
+
+O exemplo a seguir clona o backup usando uma especificação de clone criada para esse clone:
+
+[listing]
+----
+smsap clone create -profile SALES1 -backup-label full_backup_sales_May -newsid
+CLONE -label sales1_clone -clonespec /opt/<path>/smsap/clonespecs/sales1_clonespec.xml
+----
+[listing]
+----
+Operation Id [8abc01ec0e794e3f010e794e6e9b0001] succeeded.
+----
+'''

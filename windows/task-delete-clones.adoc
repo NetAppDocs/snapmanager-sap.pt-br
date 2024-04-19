@@ -1,0 +1,48 @@
+---
+permalink: windows/task-delete-clones.html 
+sidebar: sidebar 
+keywords: delete, clone, size, snapshot, copy, backup, data 
+summary: 'É possível excluir os clones quando o tamanho da cópia Snapshot atingir entre 10% e 20% do backup. Isso também garante que o clone tenha os dados mais atuais.' 
+---
+= Excluir clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+É possível excluir os clones quando o tamanho da cópia Snapshot atingir entre 10% e 20% do backup. Isso também garante que o clone tenha os dados mais atuais.
+
+
+
+== Sobre esta tarefa
+
+O rótulo é o identificador exclusivo para cada clone em um perfil. Você pode usar o rótulo ou ID do clone, mas não o identificador do sistema (SID) para excluir o clone.
+
+
+NOTE: O SID clone e o rótulo clone não são os mesmos.
+
+Quando você está excluindo um clone, o banco de dados deve estar em execução. Caso contrário, muitos arquivos e diretórios para o clone existente não serão excluídos, resultando em mais trabalho antes que outro clone possa ser criado.
+
+Os diretórios especificados para determinados parâmetros Oracle no clone são destruídos quando o clone é excluído, e devem conter apenas dados para o banco de dados clonado: Destinos de Registro de arquivamento, Fundo, núcleo e destino de despejo de usuário. Os arquivos de auditoria não são excluídos.
+
+
+NOTE: Não é possível excluir um clone quando o clone é usado em outras operações.
+
+Opcionalmente, você pode coletar os arquivos de despejo após uma operação de exclusão de clone bem-sucedida ou com falha.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap clone delete -profile _profile_name_ [-label _label_ | -id _guid_] [-force][-dump][-quiet]|[-verbose]*`
+
+
+
+
+
+== Exemplo
+
+[listing]
+----
+smsap clone delete -profile targetdb1_prof1 -label sales0908_clone1
+----

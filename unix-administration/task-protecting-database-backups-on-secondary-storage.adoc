@@ -1,0 +1,116 @@
+---
+permalink: unix-administration/task-protect-database-backups-on-secondary-storage.html 
+sidebar: sidebar 
+keywords: snapmanager, protect, backup, copies, copy, secondary, tertiary, storage, system 
+summary: Você pode usar o SnapManager para proteger as cópias de backup em sistemas de storage secundário ou terciário. 
+---
+= Proteja os backups de bancos de dados em storage secundário ou terciário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapManager para proteger as cópias de backup em sistemas de storage secundário ou terciário.
+
+*Sobre esta tarefa*
+
+Você não pode proteger imediatamente o backup criado usando o comando BRBACKUP para armazenamento secundário depois de executar o backup bem-sucedido no armazenamento primário.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap backup create -profile _profile_name_ {[-full {-online | -offline | -auto} [-retain {-hourly | -daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] [-datalabel _label_] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-label _label_] [-comment _comment_] [-snapvaultlabel _SnapVault_label_][-protect | -noprotect | -protectnow] [-backup-dest _path1_ [,[_path2_]]] [-exclude-dest _path1_ [_,path2_]]] [-prunelogs {-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}} -prune-dest _prune_dest1_,[_prune_dest2_]] [-taskspec _taskspec_]} [-dump] [-force] [-quiet | -verbose]*`
+
++
+[cols="1a,3a"]
+|===
+| Se você quiser... | Então faça isso... 
+
+
+ a| 
+* Criar um backup de um banco de dados online ou offline, em vez de permitir que o SnapManager gerencie se ele está on-line ou off-line*
+ a| 
+Especifique a `-offline` opção ou `-online` para criar uma cópia de segurança da base de dados offline ou da base de dados online. Se utilizar a `-offline` opção ou `-online`, não poderá utilizar a opção -auto.
+
+
+
+ a| 
+*Deixe o SnapManager gerenciar o backup de um banco de dados, independentemente de estar on-line ou off-line*
+ a| 
+Especifique a `-auto` opção. Se utilizar a opção -auto, não poderá utilizar a `-offline` opção ou `-online` .
+
+
+
+ a| 
+*Adicione um comentário sobre o backup*
+ a| 
+Especifique a `-comment` opção, seguida da cadeia de carateres de descrição.
+
+
+
+ a| 
+*Force o banco de dados para o estado em que você especificou para fazer o backup, independentemente do estado em que está atualmente*
+ a| 
+Especifique a `-force` opção.
+
+
+
+ a| 
+*Verifique o backup no momento da criação*
+ a| 
+Especifique a `-verify` opção.
+
+
+
+ a| 
+* Criar um backup no armazenamento secundário*
+ a| 
+Especifique a `-protect` opção.
+
+** Se você estiver usando o ONTAP e quiser proteger o backup imediatamente para o storage secundário, especifique a `-protect` opção.
++
+
+NOTE: A `-protectnow` opção não é aplicável no Clustered Data ONTAP.
+
+** Se você estiver usando o Data ONTAP operando no modo 7 e quiser proteger o backup imediatamente para o armazenamento secundário substituindo o cronograma de proteção do Gerenciador de proteção, especifique a `-protectnow` opção.
+** Para impedir o backup em armazenamento secundário, especifique a `-noprotect` opção. Se você estiver usando o ONTAP e tiver selecionado a política de proteção _SnapManager_cDOT_Vault_ ao criar o perfil, especifique a `-snapvaultlabel` opção. Você deve fornecer o rótulo SnapMirror que você especificou nas regras da política SnapMirror enquanto configura o relacionamento SnapVault como o valor.
+
+
+
+
+ a| 
+*Especifique os valores da classe de retenção*
+ a| 
+Especifique a `-retain` opção e indique se o backup deve ser retido dependendo de uma das seguintes classes de retenção:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-unlimited`
+
+
+Se você não especificar a classe de retenção, o SnapManager usará -por padrão.
+
+|===
+
+
+'''
+
+
+== Exemplos
+
+O comando a seguir protege um backup de banco de dados:
+
+[listing]
+----
+smsap backup create -profile PAYDB -protect -retain -daily -full auto -label full_bkup_sales
+----
+O seguinte comando protege imediatamente um backup de banco de dados:
+
+[listing]
+----
+smsap backup create -profile PAYDB -protectnow -retain -daily -full auto -label full_bkup_sales
+----
+'''

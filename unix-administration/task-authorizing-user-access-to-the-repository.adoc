@@ -1,0 +1,27 @@
+---
+permalink: unix-administration/task-authorize-user-access-to-the-repository.html 
+sidebar: sidebar 
+keywords: addition, role-based, access, control, rbac, snapmanager, enable, set, credential, database, repository, restrict, prevent, host, profile, database, authorizing, authorize 
+summary: 'Além do controle de acesso baseado em função (RBAC), o SnapManager permite que você defina credenciais para que os usuários de banco de dados acessem o repositório. Usando credenciais, você pode restringir ou impedir o acesso aos hosts, repositórios, perfis e bancos de dados do SnapManager.' 
+---
+= Autorize o acesso ao repositório
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Além do controle de acesso baseado em função (RBAC), o SnapManager permite que você defina credenciais para que os usuários de banco de dados acessem o repositório. Usando credenciais, você pode restringir ou impedir o acesso aos hosts, repositórios, perfis e bancos de dados do SnapManager.
+
+*Sobre esta tarefa*
+
+Se você definir credenciais usando o comando Credential SET, o SnapManager não solicitará uma senha.
+
+Você pode definir credenciais de usuário ao instalar o SnapManager ou posterior.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap credential set -repository -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ [-password _repo_password_] -port _repo_port_*`
+
+

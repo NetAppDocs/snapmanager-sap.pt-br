@@ -1,0 +1,68 @@
+---
+permalink: windows/concept-configuring-e-mail-notification.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, email, notification, completion, status, profile-executed, database, operation, profile, execute, generate, status, configure 
+summary: O SnapManager permite que você receba uma notificação por e-mail sobre o status de conclusão das operações de banco de dados executadas por perfil. O SnapManager gera o e-mail e ajuda você a tomar as medidas apropriadas com base no status de conclusão da operação do banco de dados. Configurar a notificação de e-mail é um parâmetro opcional. 
+---
+= Configurando uma notificação por e-mail
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite que você receba uma notificação por e-mail sobre o status de conclusão das operações de banco de dados executadas por perfil. O SnapManager gera o e-mail e ajuda você a tomar as medidas apropriadas com base no status de conclusão da operação do banco de dados. Configurar a notificação de e-mail é um parâmetro opcional.
+
+Você pode configurar uma notificação de e-mail para um perfil individual como uma notificação de perfil e para vários perfis em um banco de dados de repositório como uma notificação de resumo.
+
+*Notificação de perfil*
+
+Para um perfil individual, você pode receber um e-mail para uma ou ambas as operações de banco de dados bem-sucedidas e com falha.
+
+
+NOTE: Por padrão, a notificação por e-mail é ativada para operações com falha no banco de dados.
+
+*Notificação de resumo*
+
+A notificação de resumo permite receber um e-mail de resumo sobre operações de banco de dados realizadas usando vários perfis. Você pode ativar notificações por hora, por dia, por semana ou por mês.
+
+
+NOTE: No SnapManager 3,3, as notificações resumidas são enviadas somente se você especificar o servidor host que tem que enviar a notificação. Se você atualizar o SnapManager de uma versão anterior a 3,3, as notificações de resumo podem não ser enviadas se você não tiver especificado o servidor host na configuração de notificações de resumo.
+
+
+NOTE: Se você criar um repositório em um nó de um banco de dados que esteja em um ambiente RAC (Real Application clusters) e ativar a notificação de resumo, mais tarde, quando você adicionar o mesmo repositório a outro nó do banco de dados, o e-mail de notificação de resumo será enviado duas vezes.
+
+Você pode usar a notificação de perfil ou a notificação de resumo de cada vez.
+
+O SnapManager permite a notificação por e-mail para as seguintes operações de banco de dados executadas por perfil:
+
+* Criar backup no storage primário
+* Restaurar backups
+* Criar clones
+* Verifique os backups
+
+
+Depois de criar ou atualizar perfis com a notificação de e-mail ativada, você pode desativá-la. Se você desativar a notificação por e-mail, não receberá mais alertas de e-mail para as operações de banco de dados executadas por perfil.
+
+O e-mail que você recebe contém os seguintes detalhes:
+
+* Nome da operação do banco de dados, por exemplo, backup, restauração ou clone
+* Nome do perfil usado para a operação do banco de dados
+* Nome do servidor anfitrião
+* Identificador do sistema da base de dados
+* Hora de início e fim da operação do banco de dados
+* Estado da operação da base de dados
+* Mensagem de erro, se houver
+* Mensagens de aviso, se houver
+
+
+Você pode configurar o seguinte:
+
+* Servidor de correio para um repositório
+* Notificação por e-mail para um novo perfil
+* Notificação por e-mail para um perfil existente
+* Notificação de e-mail de resumo para vários perfis em um repositório
+
+
+
+NOTE: Você pode configurar a notificação por e-mail a partir da interface de linha de comando (CLI) e da interface gráfica do usuário (GUI).

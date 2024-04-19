@@ -1,0 +1,114 @@
+---
+permalink: unix-administration/reference-the-smosmsapclone-delete-command.html 
+sidebar: sidebar 
+keywords: run, clone, delete, command, operation, smsap 
+summary: Você pode executar o comando clone delete para excluir um clone. Você não pode excluir um clone se o clone for usado por qualquer operação. 
+---
+= O comando smsap clone delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `clone delete` comando para excluir um clone. Você não pode excluir um clone se o clone for usado por qualquer operação.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone delete
+-profile _profile_name_
+[-id _guid_ | -label _clone_name_\]
+[-login
+[-username _db_username_ -password _db_password_ -port _db_port_\]
+[-asminstance -asmusername _asminstance_username_ -asmpassword _asminstance_password_\]]]
+[-syspassword _syspassword_] -force
+[-dump] [-quiet | -verbose]
+
+----
+
+
+== Parâmetros
+
+* ``*-profile _profile_name_*``
++
+Especifica o nome do perfil que contém o clone que está sendo excluído. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* ``*-force*``
++
+Exclui o clone mesmo que haja recursos associados ao clone.
+
+* ``*-id _guid_*``
++
+Especifica o GUID para o clone que está sendo excluído. O GUID é gerado pelo SnapManager quando você cria um clone. Você pode usar o `smsap clone list` comando para exibir o GUID para cada clone.
+
+* ``*-label _name_*``
++
+Especifica o rótulo para o clone que está sendo excluído.
+
+* ``*-asminstance*``
++
+Especifica as credenciais que são usadas para fazer login na instância de Gerenciamento Automático de armazenamento (ASM).
+
+* ``*-asmusername _asminstance_username_*``
++
+Especifica o nome de usuário usado para fazer login na instância ASM.
+
+* ``*-asmpassword _asminstance_password_*``
++
+Especifica a senha usada para fazer login na instância ASM.
+
+* ``*-syspassword _syspassword_*``
++
+Especifica a senha para o usuário privilegiado do sistema.
+
++
+
+NOTE: Você deve fornecer a senha para o usuário privilegiado do sistema se as credenciais do banco de dados fornecidas não forem as mesmas para o usuário privilegiado do sistema.
+
+* ``*-login*``
++
+Permite-lhe introduzir os detalhes de início de sessão da base de dados.
+
+* ``*-username _db_username_*``
++
+Especifica o nome de usuário necessário para acessar o banco de dados.
+
+* ``*-password _db_password_*``
++
+Especifica a senha necessária para acessar o banco de dados.
+
+* ``*-port _db_port_*``
++
+Especifica o número da porta TCP usado para acessar o banco de dados descrito pelo perfil.
+
+* ``*-dump*``
++
+Especifica para coletar os arquivos de despejo após a operação de exclusão do clone.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+'''
+
+
+== Exemplo
+
+O exemplo a seguir exclui o clone:
+
+[listing]
+----
+smsap clone delete -profile SALES1 -label SALES_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----
+'''

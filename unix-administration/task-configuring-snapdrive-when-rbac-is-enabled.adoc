@@ -1,0 +1,97 @@
+---
+permalink: unix-administration/task-configure-snapdrive-when-rbac-is-enabled.html 
+sidebar: sidebar 
+keywords: role-based, access, control, rbac, enable, configure, datafabric, manager, server, capability, capabilities, snapdrive, create, storage, system, regiser, configure, configuring 
+summary: 'Quando o controle de acesso baseado em função (RBAC) está ativado, é necessário configurar o servidor DataFabric Manager para incluir os recursos RBAC. Você também deve Registrar o usuário do SnapDrive criado no servidor Gerenciador DataFabric e o usuário raiz do sistema de storage no SnapDrive.' 
+---
+= Configure o servidor do Gerenciador DataFabric e o SnapDrive quando o RBAC estiver habilitado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando o controle de acesso baseado em função (RBAC) está ativado, é necessário configurar o servidor DataFabric Manager para incluir os recursos RBAC. Você também deve Registrar o usuário do SnapDrive criado no servidor Gerenciador DataFabric e o usuário raiz do sistema de storage no SnapDrive.
+
+.Passos
+. Configure o servidor DataFabric Manager.
++
+.. Para atualizar o servidor DataFabric Manager para atualizar as alterações feitas diretamente no sistema de armazenamento pelo banco de dados de destino, digite o seguinte comando:
++
+`*dfm host discover _storage_system_*`
+
+.. Crie um novo usuário no servidor DataFabric Manager e defina a senha.
+.. Para adicionar o usuário do sistema operacional à lista de administração do servidor DataFabric Manager, digite o seguinte comando:
++
+`*dfm user add _sd-admin_*`
+
+.. Para criar uma nova função no servidor DataFabric Manager, digite o seguinte comando:
++
+`*dfm role create _sd-admin-role_*`
+
+.. Para adicionar a capacidade global DFM.Core.AccessCheck à função, digite o seguinte comando:
++
+`*dfm role add _sd-admin-role_ DFM.Core.AccessCheck Global*`
+
+.. Para adicionar `sd-admin-role` ao usuário do sistema operacional, digite o seguinte comando:
++
+`*dfm user role set _sd-adminsd-admin-role_*`
+
+.. Para criar outra função no servidor Gerenciador DataFabric para o usuário raiz do SnapDrive, digite o seguinte comando:
++
+`*dfm role create _sd-protect_*`
+
+.. Para adicionar recursos RBAC à função criada para o usuário raiz do SnapDrive ou para o administrador, digite os seguintes comandos:
++
+`*dfm role add _sd-protect_ SD.Config.Read Global*`
+
++
+`*dfm role add _sd-protect_ SD.Config.Write Global*`
+
++
+`*dfm role add _sd-protect_ SD.Config.Delete Global*`
+
++
+`*dfm role add _sd-protect_ SD.Storage.Read Global*`
+
++
+`*dfm role add _sd-protect_ DFM.Database.Write Global*`
+
++
+`*dfm role add _sd-protect_ GlobalDataProtection*`
+
+.. Para adicionar o usuário oracle do banco de dados de destino à lista de administradores no servidor DataFabric Manager e atribuir a função sd-Protect, digite o seguinte comando:
++
+`*dfm user add -r _sd-protecttardb_host1_\oracle*`
+
+.. Para adicionar o sistema de armazenamento usado pelo banco de dados de destino no servidor DataFabric Manager, digite o seguinte comando:
++
+`*dfm host set _storage_system_ hostLogin=oracle hostPassword=_password_*`
+
+.. Para criar uma nova função no sistema de armazenamento usado pelo banco de dados de destino no servidor DataFabric Manager, digite o seguinte comando:
++
+`*dfm host role create -h _storage_system-c_ "api-**,login-*" _storage-rbac-role_**`
+
+.. Para criar um novo grupo no sistema de armazenamento e atribuir a nova função criada no servidor DataFabric Manager, digite o seguinte comando:
++
+`*dfm host usergroup create -h _storage_system_-r _storage-rbac-rolestorage-rbac-group_*`
+
+.. Para criar um novo usuário no sistema de armazenamento e atribuir a nova função e o grupo criados no servidor DataFabric Manager, digite o seguinte comando:
++
+`*dfm host user create -h _storage_system_-r _storage-rbac-role_ -p _password_ -g _storage-rbac-grouptardb_host1_*`
+
+
+
+. Configurar o SnapDrive.
++
+.. Para Registrar as credenciais `_sd-admin_` do usuário com o SnapDrive, digite o seguinte comando:
++
+`*snapdrive config set -dfm _sd-admindfm_host_*`
+
+.. Para Registrar o usuário raiz ou o administrador do sistema de armazenamento com o SnapDrive, digite o seguinte comando:
++
+`*snapdrive config set _tardb_host1storage_system_*`
+
+
+
+

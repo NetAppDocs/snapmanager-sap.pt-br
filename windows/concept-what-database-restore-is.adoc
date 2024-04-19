@@ -1,0 +1,60 @@
+---
+permalink: windows/concept-what-database-restore-is.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, file-based, backup, restore, operation, database 
+summary: O SnapManager permite executar operações de backup e restauração baseadas em arquivos. 
+---
+= Qual é a restauração do banco de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite executar operações de backup e restauração baseadas em arquivos.
+
+A tabela a seguir descreve os métodos de restauração:
+
+|===
+| Processo de restauração | Detalhes 
+
+
+ a| 
+Restaurações baseadas em arquivos
+ a| 
+Restauração completa do sistema de arquivos no lado do storage (primária ou secundária): O SnapManager executa uma restauração completa do número de unidade lógica (LUN).
+
+|===
+
+
+== Restauração completa do sistema de arquivos no lado do storage
+
+Uma restauração completa do sistema de arquivos no lado do armazenamento é executada quando uma restauração de volume não pode ser executada, mas todo o sistema de arquivos pode ser restaurado no sistema de armazenamento.
+
+Quando uma restauração do sistema de arquivos no lado do storage é executada, ocorre o seguinte:
+
+* Em um ambiente SAN, todos os LUNs usados pelo sistema de arquivos (e grupo de volumes subjacente, se houver) são restaurados no sistema de storage.
+
+
+Quando uma restauração do sistema de arquivos no lado do armazenamento é executada, o seguinte ocorre, dependendo do local de armazenamento:
+
+* Quando o SnapManager restaura de sistemas de storage primário, os LUNs (SAN) são restaurados através do SFSR.
+* Quando o SnapManager restaura de sistemas de storage secundário, os LUNs (SAN) são copiados de sistemas de storage secundário de volta para o sistema de storage primário pela rede.
+
+
+Como o sistema de arquivos é totalmente restaurado, os arquivos que não fazem parte do backup também são revertidos. Uma substituição é necessária se os arquivos, que não fazem parte da restauração, existirem no sistema de arquivos que está sendo restaurado.
+
+
+
+== Restauração de arquivos no lado do host
+
+Uma restauração de cópia de arquivo no lado do host é usada como último recurso em ambientes SAN quando a restauração do sistema de arquivos no lado do armazenamento e a restauração de arquivos no lado do armazenamento não podem ser executadas.
+
+Uma restauração de cópia de arquivo no lado do host envolve as seguintes tarefas:
+
+* Clonagem do storage
+* Conexão do armazenamento clonado ao host
+* Copiando arquivos dos sistemas de arquivos clone de volta para os sistemas de arquivos ativos
+* Desconetar o storage clone do host
+* Exclusão do storage clone
+

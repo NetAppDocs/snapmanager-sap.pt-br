@@ -1,0 +1,124 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-mount-command.html 
+sidebar: sidebar 
+keywords: run, backup, mount, command, backup, recover, operation, external, tool, smsap 
+summary: Você pode executar o comando backup mount para montar um backup para executar uma operação de recuperação usando uma ferramenta externa. 
+---
+= O comando smsap backup mount
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `backup mount` comando para montar um backup para executar uma operação de recuperação usando uma ferramenta externa.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup mount
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _id_\]
+[-host  _host_]
+[-from-secondary {-copy-id _id_}]
+[-dump]
+[-quiet | -verbose]]
+----
+
+
+== Parâmetros
+
+* `*-profile _profile_name_*`
++
+Especifica o perfil associado ao backup que você deseja montar. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* `*-id guid*`
++
+Monta a cópia de segurança com o GUID especificado. O GUID é gerado pelo SnapManager quando cria uma cópia de segurança. Pode utilizar o `smsap backup list` comando para apresentar o GUID para cada cópia de segurança.
+
+* `*-label _label_*`
++
+Monta o backup com a etiqueta especificada.
+
+* `*-data*`
++
+Especifica os arquivos de dados.
+
+* `*-archivelogs*`
++
+Especifica os arquivos de log de arquivamento.
+
+* `*-from-secondary -copy-id _id_*`
++
+Monta o backup do armazenamento secundário. Se essa opção não for especificada, o SnapManager monta o backup do armazenamento primário. Você pode usar essa opção se o backup for liberado.
+
++
+Você deve especificar a `-copy-id` opção sempre que especificar a  `-from-secondary` opção. Se houver mais de um backup no sistema de armazenamento secundário, a `-copy-id` opção será usada para especificar qual cópia de backup no armazenamento secundário deve ser usada para montar o backup.
+
++
+
+NOTE: Se você estiver usando o Data ONTAP operando no modo 7, você deve especificar um valor válido para a `-copy-id` opção. No entanto, se você estiver usando o Clustered Data ONTAP, a `-copy-id` opção não será necessária.
+
+* `*-host _host_*`
++
+Especifica o host no qual você deseja montar o backup.
+
+* `*-dump*`
++
+Coleta os arquivos de despejo após a operação de montagem bem-sucedida ou com falha.
+
+* `*-quiet*`
++
+Exibe apenas mensagens de erro no console. A predefinição é apresentar mensagens de erro e aviso.
+
+* `*-verbose*`
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+NOTE: Você deve usar esse comando somente se estiver usando uma ferramenta externa, como o Oracle Recovery Manager (RMAN). O SnapManager manipula automaticamente a montagem de backups se você usar o `smsap backup restore` comando para restaurar o backup. Este comando exibe uma lista, que mostra os caminhos onde as cópias Snapshot foram montadas. Esta lista é apresentada apenas quando a `-verbose` opção é especificada.
+
+'''
+
+
+== Exemplo
+
+O exemplo a seguir monta o backup:
+
+[listing]
+----
+smsap backup mount -profile S10_BACKUP -label full_monthly_10 -verbose
+SMSAP-13046 [INFO ]: Operation GUID 8abc013111b9088e0111b908a7560001
+starting on Profile S10_BACKUP
+SMSAP-08052 [INFO ]: Beginning to connect mount(s)
+[/oracle/S10_mirrlogs, /oracle/S10_sapdata] from logical snapshot
+SMSAP_S10_BACKUP_S10_F_C_1_8abc013111a450480111a45066210001.
+SMSAP-08025 [INFO ]: Beginning to connect mount
+/oracle/S10_mirrlogs from snapshot
+SMSAP_S10_BACKUP_S10_F_C_1_8abc013111a450480111a45066210001_0 of
+volume saplog_S10.
+SMSAP-08027 [INFO ]: Finished connecting mount /oracle/S10_mirrlogs from snapshot
+SMSAP_S10_BACKUP_S10_F_C_1_8abc013111a450480111a45066210001_0 of
+volume saplog_S10.
+SMSAP-08025 [INFO ]: Beginning to connect mount /oracle/S10_sapdata
+from snapshot
+SMSAP_S10_BACKUP_S10_F_C_1_8abc013111a450480111a45066210001_0 of
+volume sapdata_S10.
+SMSAP-08027 [INFO ]: Finished connecting mount /oracle/S10_sapdata
+from snapshot
+SMSAP_S10_BACKUP_S10_F_C_1_8abc013111a450480111a45066210001_0 of
+volume sapdata_S10.
+SMSAP-08053 [INFO ]: Finished connecting mount(s)
+[/oracle/S10_mirrlogs, /oracle/S10_sapdata] from logical snapshot
+SMSAP_S10_BACKUP_S10_F_C_1_8abc013111a450480111a45066210001.
+SMSAP-13037 [INFO ]: Successfully completed operation: Backup Mount
+SMSAP-13048 [INFO ]: Operation Status: SUCCESS
+SMSAP-13049 [INFO ]: Elapsed Time: 0:01:00.981
+Operation Id [8abc013111b9088e0111b908a7560001] succeeded.
+----
+'''

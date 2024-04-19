@@ -1,0 +1,21 @@
+---
+permalink: windows/task-customize-the-email-subject-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, customize, email, subject, pattern, exist, profile, applicable, update 
+summary: O SnapManager permite personalizar o padrão de assunto do e-mail para um perfil existente, atualizando esse perfil. Este padrão de assunto personalizado é aplicável apenas para o perfil atualizado. 
+---
+= Personalize o assunto do e-mail para um perfil existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite personalizar o padrão de assunto do e-mail para um perfil existente, atualizando esse perfil. Este padrão de assunto personalizado é aplicável apenas para o perfil atualizado.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap profile update -profile _profile_ [-profile -password _profile_password_][-database -dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password  _rman_password_ -tnsname  _rman_tnsname_}}} | -remove-rman] [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname -pattern _pattern_][[-protect [-protection-policy _policy_name_]]| [[-noprotect]] [-notification [-success -email _email_address1_, _email_address2_ -subject _subject_pattern_] [-failure -email _email_address1_, _email_address2_ -subject _subject_pattern_]]*`
+
+

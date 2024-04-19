@@ -1,0 +1,25 @@
+---
+permalink: windows/task-creating-system-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, system, dump, command, log, information, snapmanager, environment, log, operation, profile, host, system-level, creating, create 
+summary: Você pode usar o comando smsap system dump para obter informações de log sobre o host e o ambiente do SnapManager. Você pode especificar diferentes níveis de log para coletar informações sobre uma operação, perfil ou host específico e ambiente. 
+---
+= Criando arquivos de despejo no nível do sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o comando smsap system dump para obter informações de log sobre o host e o ambiente do SnapManager. Você pode especificar diferentes níveis de log para coletar informações sobre uma operação, perfil ou host específico e ambiente.
+
+. Introduza o seguinte comando: `smsap system dump`
++
+Despejo resultante
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_server_host.jar
+----
+

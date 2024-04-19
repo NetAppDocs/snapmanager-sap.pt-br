@@ -1,0 +1,75 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-secondary-backup-schedules.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, configure, schedule 
+summary: Para dar suporte ao backup do banco de dados para o storage secundário, o administrador de storage usa o Protection Manager para configurar um agendamento de backup. 
+---
+= Use o Protection Manager para configurar programações de backup secundárias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para dar suporte ao backup do banco de dados para o storage secundário, o administrador de storage usa o Protection Manager para configurar um agendamento de backup.
+
+*O que você vai precisar*
+
+Antes de configurar o agendamento para backups secundários, o administrador de storage confere ao parceiro DBA as seguintes informações:
+
+* O cronograma que o DBA deseja que os backups secundários sigam.
++
+Nesse caso, backups uma vez por dia ocorrem às 7 horas e backups uma vez por semana ocorrem no sábado às 1 horas
+
+
+
+.Passos
+. Vá para o console de gerenciamento do NetApp do Gerenciador de proteção.
+. Na barra de menus, clique em *políticas* > *proteção* > *horários*.
++
+É apresentado o separador agendas da janela políticas de proteção.
+
+. Selecione a programação diária**diária às 8:00 PM** na lista de horários.
+. Clique em *Copiar*.
++
+Uma nova agenda diária, *cópia do Diário às 8:00 PM*, é exibida na lista. Já está selecionado.
+
+. Clique em *Editar*.
++
+A folha de propriedades Editar agendamento diário abre-se para a guia Agendamento.
+
+. Altere o nome da programação para *Folha de pagamento diariamente às 7h*, atualize a descrição e clique em *aplicar*.
++
+Suas alterações são salvas.
+
+. Clique na guia *Eventos diários*.
++
+É apresentado o horário de cópia de segurança diário atual da programação das 8:00 p.m.
+
+. Clique em *Add* e insira *7:00 PM* no novo campo de hora e, em seguida, clique em *Apply*.
++
+O tempo atual de backup diário do agendamento é agora 7:00 p.m.
+
+. Clique em *OK* para salvar as alterações e sair da folha de propriedades.
++
+Sua nova programação diária, *Folha de pagamento diariamente às 7h*, é exibida na lista de horários.
+
+. Selecione o horário semanal**domingo às 8:00 horas mais diariamente** na lista de horários.
+. Clique em *Copiar*.
++
+Uma nova programação semanal, *cópia de domingo às 8:00 horas mais diariamente*, é exibida na lista. Já está selecionado.
+
+. Clique em *Editar*.
++
+A folha de propriedades Editar horário semanal abre-se para a guia Agendamento.
+
+. Altere o nome da programação para *Payroll Saturday at 1 AM plus daily at 7 PM* e atualize a descrição.
+. Na lista suspensa *Programação diária*, selecione a programação diária que você acabou de criar, *Folha de pagamento diária às 7 horas*.
++
+Selecionar *Folha de pagamento diária às 7 PM* significa que este horário define quando as operações diárias ocorrem quando o horário *Folha de pagamento às 1 AM mais diariamente às 7 PM* é aplicado a uma política.
+
+. Clique em *OK* para salvar as alterações e sair da folha de propriedades.
++
+A sua nova agenda semanal, *Folha de pagamento às 1:00, mais diariamente às 7:00*, é apresentada na lista de horários.
+
+

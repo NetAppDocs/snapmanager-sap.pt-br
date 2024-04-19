@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-update-a-backup-schedule.html 
+sidebar: sidebar 
+keywords: view, list, schedule, operation, update, frequency, start, time, cronstring, expression, user, updating, backup 
+summary: Você pode visualizar uma lista de operações agendadas e atualizá-las, se necessário. Você pode atualizar a frequência de agendamento, a hora de início da programação, a expressão de cronstring e o usuário que agendou o backup. 
+---
+= Atualizar um agendamento de cópia de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode visualizar uma lista de operações agendadas e atualizá-las, se necessário. Você pode atualizar a frequência de agendamento, a hora de início da programação, a expressão de cronstring e o usuário que agendou o backup.
+
+.Passo
+. Para atualizar a programação de uma cópia de segurança, introduza este comando:
++
+`*smsap schedule update -profile _profile_name_ -schedule-name _schedulename_ [-schedule-comment _schedule comment_] -interval {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-onetimeonly_} -start-time _starttime_ -cronstring _cronstring_ -runasuser _runasuser_ [-quiet | -verbose]*`
+
+

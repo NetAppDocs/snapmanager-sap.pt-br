@@ -1,0 +1,45 @@
+---
+permalink: unix-installation-cmode/concept-prerequisites-for-performing-a-rollback.html 
+sidebar: sidebar 
+keywords: perform, rollback, ensure, environment, certain, requirement, prerequisite 
+summary: Antes de executar uma reversão, você deve garantir que seu ambiente atenda a certos requisitos. 
+---
+= Pré-requisitos para executar uma reversão
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de executar uma reversão, você deve garantir que seu ambiente atenda a certos requisitos.
+
+* Se você estiver usando o SnapManager 3,3 ou posterior e quiser reverter para uma versão anterior ao SnapManager 3,1, você precisa reverter para 3,2 e, em seguida, para a versão desejada.
+* É necessário fazer backup de scripts externos usados para executar qualquer proteção ou retenção de dados externa.
+* A versão do SnapManager para a qual você deseja reverter deve ser instalada.
++
+
+NOTE: Se você quiser executar uma reversão do SnapManager 3,3 ou posterior para uma versão anterior ao SnapManager 3,1, primeiro instale o SnapManager 3,2 e execute uma reversão. Depois de voltar para 3,2, você pode instalar o SnapManager 3,1 ou anterior e executar outra reversão para essa versão.
+
+* A versão do SnapDrive para UNIX suportada com a versão do SnapManager para a qual pretende reverter tem de ser instalada.
++
+Para obter informações sobre a instalação do SnapDrive, consulte o conjunto de documentação do SnapDrive.
+
+* O banco de dados do repositório deve ser feito backup.
+* Se o host a ser revertido estiver usando um repositório, as operações do SnapManager não devem ser executadas nos outros hosts que estão usando o mesmo repositório.
++
+As operações agendadas ou em execução nos outros hosts esperam que a reversão seja concluída.
+
+* Os perfis que apontam para o mesmo banco de dados do repositório devem ser criados com nomes diferentes nos hosts do servidor SnapManager.
++
+Se você usar perfis com o mesmo nome, a operação de reversão envolvendo esse banco de dados do repositório falhará sem aviso.
+
+* As operações do SnapManager não devem ser executadas no host que você deseja reverter.
++
+Se houver uma operação em execução, você deve esperar até que essa operação seja concluída e antes de prosseguir com a reversão.
+
+
+
+
+NOTE: A operação de reversão é executada por um tempo mais longo, à medida que o número acumulado de backups dos hosts que estão sendo revertidos juntos aumenta. A duração da reversão pode variar dependendo do número de perfis e backups associados a um determinado host.
+
+http://mysupport.netapp.com/["Documentação no site de suporte da NetApp: Mysupport.NetApp.com"^]

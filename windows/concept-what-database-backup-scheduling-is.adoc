@@ -1,0 +1,118 @@
+---
+permalink: windows/concept-what-database-backup-scheduling-is.html 
+sidebar: sidebar 
+keywords: schedule, update, monitor, backup, database, graphical, user, interface 
+summary: Você pode agendar, atualizar e monitorar backups de bancos de dados usando a guia Agendamento da interface gráfica do usuário. 
+---
+= Qual é o agendamento de backup de banco de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode agendar, atualizar e monitorar backups de bancos de dados usando a guia Agendamento da interface gráfica do usuário.
+
+A tabela a seguir aborda algumas perguntas comuns de agendamento:
+
+|===
+| Pergunta | Resposta 
+
+
+ a| 
+O que acontece com os backups programados quando o servidor SnapManager é reiniciado?
+ a| 
+Quando o servidor SnapManager é reiniciado, ele reinicia automaticamente todas as programações. No entanto, o SnapManager não faz acompanhamento de quaisquer ocorrências perdidas.
+
+
+
+ a| 
+O que acontece quando dois backups são programados para ocorrer em dois bancos de dados ao mesmo tempo?
+ a| 
+O SnapManager inicia as operações de backup uma de cada vez e, em seguida, permite que os backups sejam executados em paralelo. Por exemplo, se um administrador de banco de dados criar seis programações diárias de backup para seis perfis diferentes de banco de dados a ocorrer às 1:00 da manhã, todos os seis backups serão executados em paralelo.
+
+Se forem programados vários backups em um único perfil de banco de dados em um curto período de tempo, o servidor SnapManager executará apenas a operação de backup com a maior duração de retenção.
+
+Antes de iniciar uma operação de backup, o SnapManager determina primeiro o seguinte:
+
+* Nos últimos 30 minutos, outro agendamento criou com sucesso um backup, com maior retenção, para o mesmo perfil?
+* Nos próximos 30 minutos, outro agendamento tentará criar um backup, com maior retenção, para o mesmo perfil?
+
+
+Se a resposta para qualquer pergunta for sim, o SnapManager ignora o backup.
+
+Por exemplo, um administrador de banco de dados pode criar uma programação diária, semanal e mensal para um perfil de banco de dados, todos programados para fazer backups às 1:00 da manhã naquele dia do mês em que três backups estão programados para ocorrer simultaneamente às 1:00 da manhã, o SnapManager executa apenas a operação de backup com base na programação mensal.
+
+A janela de tempo de 30 minutos pode ser alterada em um arquivo de propriedades do SnapManager.
+
+
+
+ a| 
+Em que utilizador é executada a operação de cópia de segurança?
+ a| 
+A operação é executada sob o usuário que criou a programação. No entanto, você pode alterar isso para sua própria ID de usuário, se você tiver credenciais válidas para o perfil do banco de dados e o host. Por exemplo, ao iniciar as Propriedades de backup agendadas para o agendamento de backup criado pela Avida Davis, Stella Morrow pode selecionar seu ID de usuário em executar esta operação como usuário para executar o backup programado.
+
+
+
+ a| 
+Como o agendador do SnapManager interage com o agendador do sistema operacional nativo?
+ a| 
+No servidor SnapManager, não é possível visualizar os backups programados através do agendador nativo do sistema operacional. Por exemplo, depois de criar um backup agendado, você não verá uma nova entrada na janela tarefas agendadas.
+
+
+
+ a| 
+O que acontece se os relógios na interface gráfica do usuário e o servidor não estiverem sincronizados?
+ a| 
+Os relógios no cliente e no servidor não são sincronizados. Portanto, você pode agendar um backup no qual a hora de início é no futuro no cliente, mas no passado no servidor.
+
+Para backups recorrentes, o servidor ainda atende a solicitação. Por exemplo, se o servidor receber uma solicitação para executar backups por hora a partir de um 01/30/08 às 3:00:3:30, mas a hora atual for às 17:00, nesse dia, o servidor executa seu primeiro backup às 4:00:00, e continua a executar backups a cada hora.
+
+No entanto, para backups únicos, o servidor lida com a solicitação da seguinte forma:
+
+* Se a hora de início estiver nos últimos cinco minutos da hora atual do servidor, o SnapManager inicia imediatamente a cópia de segurança.
+* Se a hora de início for superior a cinco minutos, o SnapManager não inicia a cópia de segurança.
+
+
+Por exemplo, considere o seguinte cenário:
+
+* O relógio no host de interface gráfica está três minutos atrás do tempo real.
+* A hora atual do cliente é 8:58 da manhã
+* Você agenda um backup único para ocorrer às 9:00 da manhã
+* Você agenda outro backup único para ocorrer às 8:30 da manhã
+
+
+Quando o servidor recebe a primeira solicitação, a hora no servidor é 9:01:00. Embora a hora de início do backup seja no passado, o SnapManager realiza imediatamente o backup.
+
+Quando o servidor recebe a segunda solicitação, a hora de início do backup é superior a cinco minutos no passado. Você receberá uma mensagem informando que a solicitação de agendamento falhou porque a hora de início está no passado.
+
+Você pode alterar o tempo de cinco minutos em um arquivo de propriedades do SnapManager.
+
+
+
+ a| 
+O que acontece com os backups programados para um perfil quando o perfil é excluído?
+ a| 
+Quando um perfil de banco de dados é excluído, o servidor SnapManager exclui backups programados definidos para esse perfil.
+
+
+
+ a| 
+Como os backups programados se comportam durante o horário de verão ou quando você altera a hora do servidor SnapManager?
+ a| 
+As programações de backup do SnapManager são afetadas devido ao horário de verão ou ao alterar a hora do servidor SnapManager.
+
+Considere as seguintes implicações quando a hora do servidor SnapManager for alterada:
+
+* Depois que o agendamento de backup é acionado, se a hora do servidor SnapManager cair, a programação de backup não será acionada novamente.
+* Se o horário de Verão começar antes da hora de início agendada, as programações de backup serão acionadas automaticamente.
+* Por exemplo, se você estiver nos Estados Unidos e agendar backups por hora às 4 da manhã que devem ocorrer a cada 4 horas, os backups ocorrerão às 4 da manhã, às 8 da manhã, às 12 da manhã, às 4 da manhã, às 8 da tarde e à meia-noite nos dias anteriores e posteriores aos ajustes do horário de verão em março e novembro.
+* Observe o seguinte se os backups estiverem programados para as 2:30 da manhã todas as noites:
++
+** Quando os relógios caem uma hora, como o backup já é acionado, o backup não é acionado novamente.
+** Quando os relógios avançam uma hora, o backup é acionado imediatamente. Se você estiver nos Estados Unidos e quiser evitar esse problema, você deve agendar seus backups para começar fora do intervalo das 2:00 às 3:00 horas.
+
+
+
+
+|===

@@ -1,0 +1,213 @@
+---
+permalink: unix-administration/concept-variables-available-in-custom-script-for-restore-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, context, information, form, environment, variable, script, restore, operation, host 
+summary: O SnapManager fornece informações de contexto na forma de variáveis de ambiente relacionadas à operação de restauração que está sendo executada. Por exemplo, seu script pode recuperar o nome do host original e o rótulo do backup que é restaurado. 
+---
+= Variáveis disponíveis nos scripts de tarefa para a operação de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager fornece informações de contexto na forma de variáveis de ambiente relacionadas à operação de restauração que está sendo executada. Por exemplo, seu script pode recuperar o nome do host original e o rótulo do backup que é restaurado.
+
+A tabela a seguir lista as variáveis de ambiente que você pode usar em seus scripts:
+
+[cols="2a,3a,1a"]
+|===
+| Variáveis | Descrição | Formato 
+
+
+ a| 
+`_SM_OPERATION_ID_`
+ a| 
+Especifica o ID da operação atual
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_PROFILE_NAME_`
+ a| 
+Especifica o nome do perfil usado
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_HOST_`
+ a| 
+Especifica o nome do host do banco de dados
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_OS_USER_`
+ a| 
+Especifica o proprietário do sistema operacional (SO) do banco de dados
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_OS_GROUP_`
+ a| 
+Especifica o grupo de SO do banco de dados
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_BACKUP_TYPE_`
+ a| 
+Especifica o tipo de backup (on-line, off-line ou automático)
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_BACKUP_LABEL_`
+ a| 
+Especifica a etiqueta de backup
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_BACKUP_ID_`
+ a| 
+Especifica o ID de backup
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_BACKUP_PROFILE_`
+ a| 
+Especifica o perfil usado para o backup
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_RECOVERY_TYPE_`
+ a| 
+Especifica as informações de configuração de recuperação
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_VOLUME_RESTORE_MODE_`
+ a| 
+Especifica a configuração de restauração de volume
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_TARGET_FILER_NAME_`
+ a| 
+Especifica o nome do sistema de armazenamento de destino
+
+
+NOTE: Se mais de um sistema de armazenamento for usado, os nomes do sistema de armazenamento devem ser separados por vírgulas.
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_TARGET_VOLUME_NAME_`
+ a| 
+Especifica o nome do volume de destino
+
+
+NOTE: O nome do volume de destino deve ser prefixado com o nome do dispositivo de armazenamento, por exemplo, SM_TARGET_ARQUIVADOR_name/SM_TARGET_VOLUME_NAME.
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_HOST_FILE_SYSTEM_`
+ a| 
+Especifica o sistema de arquivos host
+ a| 
+cadeia de carateres
+
+
+
+ a| 
+`_SM_SNAPSHOT_NAMES_`
+ a| 
+Especifica a lista Snapshot (Instantâneo)
+
+
+NOTE: O nome das cópias Snapshot deve ser pré-fixado com o nome do sistema de storage e o nome do volume. Os nomes das cópias Snapshot são separados por vírgulas.
+ a| 
+array de cadeia de carateres
+
+
+
+ a| 
+`_SM_ARCHIVE_LOGS_DIRECTORY_`
+ a| 
+Especifica o diretório de logs de arquivo
+
+
+NOTE: Se os logs do arquivo estiverem localizados em mais de um diretório, os nomes desses diretórios serão separados por vírgulas.
+ a| 
+array de cadeia de carateres
+
+
+
+ a| 
+`_SM_REDO_LOGS_DIRECTORY_`
+ a| 
+Especifica o diretório refazer logs
+
+
+NOTE: Se os logs de refazer estiverem localizados em mais de um diretório, os nomes desses diretórios serão separados por vírgulas.
+ a| 
+array de cadeia de carateres
+
+
+
+ a| 
+`_SM_CONTROL_FILES_DIRECTORY_`
+ a| 
+Especifica o diretório de arquivos de controle
+
+
+NOTE: Se os arquivos de controle estiverem localizados em mais de um diretório, os nomes desses diretórios serão separados por vírgulas.
+ a| 
+array de cadeia de carateres
+
+
+
+ a| 
+`_SM_DATA_FILES_DIRECTORY_`
+ a| 
+Especifica o diretório de arquivos de dados
+
+
+NOTE: Se os arquivos de dados estiverem localizados em mais de um diretório, os nomes desses diretórios serão separados por vírgulas.
+ a| 
+array de cadeia de carateres
+
+|===

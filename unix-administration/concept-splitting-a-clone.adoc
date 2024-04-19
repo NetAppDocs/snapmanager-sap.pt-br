@@ -1,0 +1,31 @@
+---
+permalink: unix-administration/concept-splitting-a-clone.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, split, manage, clone, exist, flexclone, technology, data, block, database 
+summary: O SnapManager permite dividir e gerenciar um clone existente que foi criado com a tecnologia FlexClone. Na tecnologia FlexClone, o clone e o banco de dados original compartilham os mesmos blocos de dados físicos. 
+---
+= Dividindo um clone
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite dividir e gerenciar um clone existente que foi criado com a tecnologia FlexClone. Na tecnologia FlexClone, o clone e o banco de dados original compartilham os mesmos blocos de dados físicos.
+
+Antes de executar a operação de divisão de clones, você pode saber que o tamanho estimado do clone a ser dividido e o espaço necessário disponível no agregado.
+
+Um novo perfil é gerado pelo SnapManager se a operação de divisão de clones for bem-sucedida. Se o SnapManager não conseguir criar o novo perfil, você poderá criar manualmente um novo perfil. Você pode usar o novo perfil para criar backups de bancos de dados, restaurar dados e criar clones. Se a operação de divisão de clones for bem-sucedida, independentemente de o novo perfil ser criado ou não, os metadados relacionados a clones serão removidos do banco de dados do repositório.
+
+Você pode executar as seguintes tarefas relacionadas à divisão de clones:
+
+* Veja a estimativa de divisão de clones.
+* Dividir um clone em um storage primário.
+* Dividir um clone em um storage secundário.
+* Veja o status da operação dividida do clone.
+* Pare a operação de divisão de clones.
+* Destrua o perfil junto com o armazenamento subjacente.
+* Exclua o perfil criado para um clone dividido.
+
+
+Quando você divide um clone de seu volume pai, as cópias Snapshot associadas ao volume clonado são excluídas. Os backups criados para o banco de dados clonados antes do processo de divisão de clones não podem ser usados porque as cópias Snapshot desses backups são excluídas e os backups permanecem como entradas obsoletas no repositório.

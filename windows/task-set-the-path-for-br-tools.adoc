@@ -1,0 +1,26 @@
+---
+permalink: windows/task-set-the-path-for-br-tools.html 
+sidebar: sidebar 
+keywords: set, path, br, tools, command 
+summary: Você deve definir o caminho para BR*Tools para usar o comando BR*Tools. 
+---
+= Defina o caminho para BR*Tools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve definir o caminho para BR*Tools para usar o comando BR*Tools.
+
+
+
+== Sobre esta tarefa
+
+Se o caminho não estiver definido e você tentar executar a operação de despejo do sistema usando BR*Tools, a seguinte mensagem de erro será registrada `config_summary.txt: 'brtools' is not recognized as an internal or external command, operable program or batch file`
+
+.Passos
+. Clique em *Iniciar* > *meu computador* e clique com o botão direito em *Propriedades* > *Avançado* > *variáveis ambientais*.
+. Na janela *variáveis ambientais*, clique em *New* para adicionar o caminho BR*Tools ou *Edit* para editar o caminho BR*Tools existente para as variáveis do sistema e variáveis do usuário.
+. Clique em *OK* para salvar suas alterações.
+

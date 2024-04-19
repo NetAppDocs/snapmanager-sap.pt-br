@@ -1,0 +1,41 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: administrator, restore, protect, backup, secondary, storage, copy, data, back, primary, snapmanager 
+summary: Os administradores podem restaurar backups protegidos do storage secundário e escolher como querem copiar os dados de volta para o storage primário. 
+---
+= Use o SnapManager para SAP para restaurar backups do storage secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os administradores podem restaurar backups protegidos do storage secundário e escolher como querem copiar os dados de volta para o storage primário.
+
+*O que você vai precisar*
+
+Antes de tentar restaurar o backup, verifique as propriedades do backup e certifique-se de que o backup seja liberado no sistema de storage primário e protegido no storage secundário.
+
+.Passos
+. Na árvore do repositório do SnapManager para SAP, clique com o botão direito do Mouse no backup que deseja restaurar e selecione *Restaurar*.
+. Na página de boas-vindas do Assistente de restauração e recuperação, clique em *Avançar*.
+. Na página Restaurar informações de configuração, clique em *Complete Datafile/Tablespace Restore with Control Files*.
+. Clique em *Allow shutdown of database if necessary* (permitir encerramento da base de dados, se necessário) e, em seguida, clique em *Next
++
+O SnapManager altera o estado da base de dados, se necessário. Por exemplo, se o banco de dados estiver offline e precisar estar on-line, o SnapManager o força on-line.
+
+. Na página informações de configuração de recuperação, clique em *todos os logs*. Em seguida, clique em *seguinte*.
++
+O SnapManager restaura e recupera o banco de dados para a última transação e aplica todos os logs necessários.
+
+. Na página Restore Source Location Configuration (Restaurar configuração de localização de origem de origem), selecione a ID da fonte de cópia de segurança protegida e clique em *Next* (seguinte).
+. Na página informações de configuração da restauração de volume, clique em *tentativa de restauração de volume* para tentar restaurar o volume.
+. Clique em *Fallback to file-based restore*.
++
+Isso permite que o SnapManager use o método de restauração baseado em arquivo se o método de restauração de volume não puder ser concluído.
+
+. Para ver as verificações de elegibilidade para restauração rápida e informações sobre verificações obrigatórias e irreparáveis, clique em *Preview*.
+. Na página Executar operação, verifique as informações fornecidas e clique em *Restaurar*.
+. Para ver detalhes sobre o processo, clique em *Detalhes da operação*.
+

@@ -1,0 +1,58 @@
+---
+permalink: windows/task-configuring-e-mail-notification-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: creating, create, profile, configure, receive, email, notification, completion, database, operation, configuring, profile 
+summary: Ao criar um novo perfil, você pode configurar para receber uma notificação por e-mail após a conclusão da operação do banco de dados. 
+---
+= Configurando a notificação por e-mail para um novo perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao criar um novo perfil, você pode configurar para receber uma notificação por e-mail após a conclusão da operação do banco de dados.
+
+* Você deve configurar o endereço de e-mail a partir do qual os alertas são enviados.
+* Você deve usar uma lista separada por vírgulas para vários endereços de e-mail.
++
+Você deve garantir que não há espaço entre a vírgula e o próximo endereço de e-mail.
+
++
+
+NOTE: Você deve garantir que você insira o conjunto de endereços de e-mail dentro de aspas duplas.
+
+
+
+.Passo
+. Introduza o seguinte comando:
++
+`smsap profile create -profileprofile [-profile-passwordprofile_password] -repository-dbnamerepo_service_name-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | \{-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][-protect [ ]][-notification [-success-emailemail_address1,email_address2-subjectsubject_pattern] [-failure-emailemail_address1,email_address2-subjectsubject_pattern]]`
+
++
+Outras opções para este comando são as seguintes:
+
++
+[-force] (força)
+
++
+
+NOTE: O SnapManager suporta até 1000 carateres para endereços de e-mail.
+
++
+Quando você cria um backup de arquivos de dados e arquivos de log de arquivamento juntos usando o perfil (para criar backups de log de arquivamento separados) e a criação de backup de arquivo de dados falha, a notificação de e-mail é enviada com o backup de dados como o nome da operação em vez de backup de dados e backup de logs de arquivamento. Quando a operação de cópia de segurança do ficheiro de registo de dados e do ficheiro de registo de arquivo for bem-sucedida, verá a saída da seguinte forma:
+
++
+[listing]
+----
+
+Profile Name    : PROF_31
+Operation Name 	: Data Backup and Archive Logs Backup
+Database SID   	: TENDB1
+Database Host 	 : repo1.rtp.org.com
+Start Date 	    : Fri Sep 23 13:37:21 EDT 2011
+End Date 	      : Fri Sep 23 13:45:24 EDT 2011
+Status 	        : SUCCESS
+Error messages 	:
+----
+

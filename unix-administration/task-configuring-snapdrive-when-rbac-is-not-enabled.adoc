@@ -1,0 +1,38 @@
+---
+permalink: unix-administration/task-configure-snapdrive-when-rbac-is-not-enabled.html 
+sidebar: sidebar 
+keywords: register, root, user, administrator, datafabric, manager, server, storage, system, snapdrive, data, protection, configuring, configure, rbac 
+summary: Você deve Registrar o usuário raiz ou o administrador do servidor Gerenciador DataFabric e o usuário raiz do sistema de armazenamento com o SnapDrive para habilitar a proteção de dados. 
+---
+= Configure o SnapDrive quando o RBAC não estiver habilitado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve Registrar o usuário raiz ou o administrador do servidor Gerenciador DataFabric e o usuário raiz do sistema de armazenamento com o SnapDrive para habilitar a proteção de dados.
+
+.Passos
+. Para atualizar o servidor DataFabric Manager para atualizar as alterações feitas diretamente no sistema de armazenamento pelo banco de dados de destino, digite o seguinte comando:
++
+*Exemplo*
+
++
+`*dfm host discover _storage_system_*`
+
+. Para Registrar o usuário raiz ou o administrador do servidor Gerenciador DataFabric com o SnapDrive, digite o seguinte comando:
++
+*Exemplo*
+
++
+`*snapdrive config set -dfm _Administratordfm_host_*`
+
+. Para Registrar o usuário raiz ou o administrador do sistema de armazenamento com o SnapDrive, digite o seguinte comando:
++
+*Exemplo*
+
++
+`*snapdrive config set root _storage_system_*`
+
+

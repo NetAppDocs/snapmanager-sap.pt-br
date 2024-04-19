@@ -1,0 +1,70 @@
+---
+permalink: windows/reference-the-backint-register-sld-command.html 
+sidebar: sidebar 
+keywords: sap, br, tools, backint, register-sld, command, snapmanager, interface, landscape, system, directory, sld, vendor 
+summary: 'Se você quiser usar o SAP BR*Tools, você pode executar o comando backint register-sld com o SnapManager para SAP para Registrar a interface BACKINT em seu diretório de paisagem do sistema (SLD). A interface BACKINT é fornecida pelo fornecedor de storage para que o sistema de storage funcione com os comandos BR*Tools. O SnapManager para SAP instala seu arquivo de interface BACKINT em C: Arquivos de programas/NetApp/SnapManager para SAP/bin.' 
+---
+= O comando backint register-sld
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você quiser usar o SAP BR*Tools, você pode executar o `backint register-sld` comando com o SnapManager para SAP para Registrar a interface BACKINT em seu diretório de paisagem do sistema (SLD). A interface BACKINT é fornecida pelo fornecedor de storage para que o sistema de storage funcione com os comandos BR*Tools. O SnapManager para SAP instala seu arquivo de interface BACKINT em `C:\Program Files\NetApp\SnapManager for SAP\bin\`.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+backint register-sld
+-host  host_name
+-port  port_id
+-username username
+-password password
+-template template_ID
+----
+
+
+== Parâmetros
+
+* *`-host _host_name_`*
++
+Especifica o nome do host no qual o SAP SLD está sendo executado.
+
+* *`-port _port_id_`*
++
+Especifica o ID da porta na qual o SAP SLD aceita solicitações HTTP. O ID deve ser numérico e menor ou igual a nove dígitos.
+
+* *`-username _username_`*
++
+Especifica um nome de usuário SAP SLD válido e autorizado.
+
+* *`-password _password_`*
++
+Especifica uma senha de usuário SAP SLD válida e autorizada. Isso é opcional. Se não definir a palavra-passe utilizando `-password`o , ser-lhe-á pedido que introduza uma palavra-passe no seguinte formato: `+username@http://host:port+`
+
++
+Se não conseguir introduzir a palavra-passe correta, após três tentativas, o comando falha e sai.
+
+* *`-template _template_id_`*
++
+Especifica o nome do arquivo XML do modelo mestre, que pode ser usado como base para o arquivo personalizado.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir mostra uma conclusão bem-sucedida do comando:
+
+[listing]
+----
+backint register-sld -host jack12 -port 50100
+-username j2ee_admin -password user123 -template E:\template.xml
+Operation Id [N96f4142a1442b31ee4636841babbc1d7] succeeded.
+----

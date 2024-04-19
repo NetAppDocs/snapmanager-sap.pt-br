@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/reference-the-smosmsapprotection-policy-command.html 
+sidebar: sidebar 
+keywords: run, protection-policy, command, list, policies, applied, apply, profile, protection, policy, exist, update, manager, smsap 
+summary: Você pode executar o comando protection-policy para listar as políticas de proteção que podem ser aplicadas a um perfil. A política de proteção pode ser aplicada quando um novo perfil é criado ou um perfil existente é atualizado. Você também pode definir a política de proteção para o perfil usando o console do Gerenciador de proteção. 
+---
+= O comando smsap protection-policy
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `protection-policy` comando para listar as políticas de proteção que podem ser aplicadas a um perfil. A política de proteção pode ser aplicada quando um novo perfil é criado ou um perfil existente é atualizado. Você também pode definir a política de proteção para o perfil usando o console do Gerenciador de proteção.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+        smsap protection-policy list
+----
+
+NOTE: O Gerenciador de proteção e o SnapDrive devem ser instalados no servidor para que você use esse comando.
+
+
+
+== Parâmetros
+
+* ``*list*``
++
+Exibe a lista de políticas de proteção que podem ser definidas em um perfil.
+
+
+
+
+
+== Exemplo
+
+O exemplo a seguir lista as políticas de proteção que podem ser definidas como um perfil:
+
+[listing]
+----
+smsap protection-policy list
+----
+[listing]
+----
+
+Back up
+Back up, then mirror
+Chain of two mirrors
+DR Back up
+DR Back up, then mirror
+DR Mirror
+DR Mirror and back up
+DR Mirror and mirror
+DR Mirror, then back up
+DR Mirror, then mirror
+Local backups only
+Mirror
+Mirror and back up
+Mirror to two destinations
+Mirror, then back up
+No protection
+Partial-volume Mirror
+Remote backups only
+----

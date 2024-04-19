@@ -1,0 +1,39 @@
+---
+permalink: unix-administration/task-view-detailed-clone-information.html 
+sidebar: sidebar 
+keywords: view, detail, information, clone, show, command 
+summary: Você pode exibir informações detalhadas sobre um clone específico usando o comando clone show. 
+---
+= Veja informações detalhadas sobre clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode exibir informações detalhadas sobre um clone específico usando o `clone show` comando.
+
+*Sobre esta tarefa*
+
+O `clone show` comando exibe as seguintes informações:
+
+* Identificador do sistema clone e ID do clone
+* Status de operação do clone
+* Clone criar data ou hora de início e fim
+* Etiqueta de clone
+* Clone comentário
+* Etiqueta e ID de cópia de segurança
+* Banco de dados de origem
+* Hora de início e fim da cópia de segurança
+* Nome do banco de dados, tablespaces e arquivos de dados
+* Sistemas de arquivos e nomes de host que contêm arquivos de dados
+* Volumes do sistema de storage e cópias Snapshot fazendo backup do clone
+* Se o clone foi criado usando o backup no storage primário ou secundário
+
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap clone show -profile _profile_name_ [-label _label_ | -id _guid_]*`
+
+

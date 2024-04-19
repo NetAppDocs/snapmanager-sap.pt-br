@@ -1,0 +1,22 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-configure-the-target-database.html 
+sidebar: sidebar 
+keywords: target, database, oracle, configure, standalone, real, application, cluster, rac, automatic, storage, management, asm, support, combination 
+summary: 'O banco de dados de destino é um banco de dados Oracle que pode ser configurado como autônomo, Real Application clusters (RAC), Automatic Storage Management (ASM) ou qualquer outra combinação suportada.' 
+---
+= Configure o banco de dados de destino
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O banco de dados de destino é um banco de dados Oracle que pode ser configurado como autônomo, Real Application clusters (RAC), Automatic Storage Management (ASM) ou qualquer outra combinação suportada.
+
+.Passo
+. Configure o banco de dados de destino consultando _Relatório Técnico NetApp 3633: Melhores práticas para bancos de dados Oracle no NetApp Storage_.
+
+
+*Informações relacionadas*
+
+http://www.netapp.com/us/media/tr-3633.pdf["Relatório técnico da NetApp 3633: Práticas recomendadas para bancos de dados Oracle no armazenamento NetApp"^]

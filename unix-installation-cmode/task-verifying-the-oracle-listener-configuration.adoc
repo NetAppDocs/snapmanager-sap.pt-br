@@ -1,0 +1,27 @@
+---
+permalink: unix-installation-cmode/task-verify-the-oracle-listener-configuration.html 
+sidebar: sidebar 
+keywords: listener, process, listen, client, connection, request, receive, income, connection, request, traffic, database, target, repository, status, command, configuration, verify, oracle 
+summary: O ouvinte é um processo que escuta as solicitações de conexão do cliente. Ele recebe solicitações de conexão de cliente recebidas e gerencia o tráfego dessas solicitações para o banco de dados. Antes de se conetar a um banco de dados de destino ou instância de banco de dados de repositório, você pode usar o comando STATUS para verificar a configuração do ouvinte. 
+---
+= Verifique a configuração do Oracle listener
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O ouvinte é um processo que escuta as solicitações de conexão do cliente. Ele recebe solicitações de conexão de cliente recebidas e gerencia o tráfego dessas solicitações para o banco de dados. Antes de se conetar a um banco de dados de destino ou instância de banco de dados de repositório, você pode usar o `STATUS` comando para verificar a configuração do ouvinte.
+
+
+
+== Sobre esta tarefa
+
+O `STATUS` comando exibe informações básicas de status sobre um ouvinte específico, incluindo um resumo das configurações do ouvinte, endereços de protocolo de escuta e um resumo dos serviços registrados com esse ouvinte.
+
+.Passo
+. Digite o seguinte comando no prompt de comando: `*lsnrctl STATUS*`
++
+O valor padrão atribuído à porta do ouvinte é 1521.
+
+

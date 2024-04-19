@@ -1,0 +1,91 @@
+---
+permalink: unix-administration/reference-the-smosmsaprepository-show-command.html 
+sidebar: sidebar 
+keywords: command, display, information, repository, smsap 
+summary: Este comando exibe informações sobre o repositório. 
+---
+= O comando smsap repositório show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando exibe informações sobre o repositório.
+
+
+
+== Sintaxe
+
+[listing]
+----
+smsap repository show
+-repository
+-dbname repo_service_name
+-host repo_host
+-port repo_port
+-login -username repo_username
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* ``*-repository*``
++
+As opções a seguir `-repository` especificam os detalhes do banco de dados para o repositório.
+
+* ``*-dbname _repo_service_name_*``
++
+Especifica o nome do banco de dados que armazena o repositório. Use o nome global ou o SID.
+
+* ``*-host _repo_host_*``
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados do repositório é executado.
+
+* ``*-login*``
++
+Inicia os detalhes de login do repositório.
+
+* ``*-username _repo_username_*``
++
+Especifica o nome de usuário necessário para acessar o banco de dados que armazena o repositório.
+
+* ``*-port repo_port*``
++
+Especifica o número da porta TCP usado para acessar o banco de dados que armazena o repositório.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir mostra detalhes sobre o repositório no banco de dados SALESDB.
+
+[listing]
+----
+smsap repository show -repository -dbname SALESDB  -host server1
+-port 1521 -login -username admin
+Repository Definition:
+User Name: admin
+Host Name: server1
+Database Name: SALESDB
+Database Port: 1521
+Version: 28
+Hosts that have run operations using this repository: 2
+server2
+server3
+Profiles defined in this repository: 2
+GSF5A
+GSF3A
+Incomplete Operations: 0
+----

@@ -1,0 +1,75 @@
+---
+permalink: unix-administration/reference-the-smosmsap-schedule-update-command.html 
+sidebar: sidebar 
+keywords: command, update, schedule, backup, smsap 
+summary: Este comando atualiza a programação de um backup. 
+---
+= O comando smsap schedule update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando atualiza a programação de um backup.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap schedule update -profile _profile_name_
+-schedule-name _schedule_name_ [-schedule-comment _schedule_comment_\]
+-interval {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-onetimeonly_}
+-cronstring _cron_string_  -start-time {_start_time < yyyy-MM-dd HH:mm>_}
+-runasuser _runasuser_ [-taskspec _taskspec_\] -force
+[-quiet | -verbose\]]
+----
+
+
+== Parâmetros
+
+* `*-profile _profile_name_*`
++
+Especifica o nome do perfil relacionado ao banco de dados que você deseja agendar o backup. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* `*-schedule-name _schedule_name_*`
++
+Especifica o nome que você fornece para a programação.
+
+* `*-schedule-comment _schedule_comment_*`
++
+Especifica um comentário opcional para descrever sobre o agendamento do backup.
+
+* `*-interval { -hourly | -daily | -weekly | -monthly | -onetimeonly}*`
++
+Indica o intervalo de tempo pelo qual os backups são criados. Você pode agendar o backup em uma hora, dia, semanal, mensal ou apenas uma vez.
+
+* `*-cronstring _cron_string_*`
++
+Especifica para agendar o backup usando o cronstring. As expressões cron são usadas para configurar instâncias do CronTrigger. As expressões cron são strings que na verdade são compostas de sete sub-expressões:
+
++
+** 1 refere-se a segundos
+** 2 refere-se a minutos
+** 3 refere-se a horas
+** 4 refere-se a um dia em um mês
+** 5 refere-se ao mês
+** 6 refere-se a um dia em uma semana
+** 7 refere-se ao ano (opcional)
+
+
+* `*-start-time yyyy-MM-dd HH:mm*`
++
+Especifica a hora de início da operação de agendamento. A hora de início da programação deve ser incluída no formato aaaa-MM-dd HH:mm.
+
+* `*-runasuser _runasuser_*`
++
+Especifica para alterar o usuário da operação de backup agendada durante o agendamento do backup.
+
+* `*-taskspec _taskspec_*`
++
+Especifica o arquivo XML de especificação de tarefa que pode ser usado para atividade de pré-processamento ou atividade de pós-processamento da operação de backup. O caminho completo do arquivo XML deve ser fornecido que dão a opção -tasksc.
+
+

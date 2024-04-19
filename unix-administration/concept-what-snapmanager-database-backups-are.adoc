@@ -1,0 +1,38 @@
+---
+permalink: unix-administration/concept-what-snapmanager-database-backups-are.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, backup, task, assign, retention, class, retain, reach, database 
+summary: O SnapManager permite que você execute diferentes tarefas de backup. Você pode atribuir classes de retenção para especificar por quanto tempo o backup pode ser retido; uma vez que esse limite de tempo é atingido, o backup é excluído. 
+---
+= Quais são os backups de bancos de dados do SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite que você execute diferentes tarefas de backup. Você pode atribuir classes de retenção para especificar por quanto tempo o backup pode ser retido; uma vez que esse limite de tempo é atingido, o backup é excluído.
+
+* Crie backups no storage primário
+* Criar backups protegidos nos recursos de storage secundário
+* Verifique se os backups foram concluídos com êxito
+* Exibir uma lista de backups
+* Agende backups usando a interface gráfica do usuário
+* Gerencie o número de backups retidos
+* Recursos de backup gratuitos
+* Montar e desmontar backups
+* Eliminar cópias de segurança
+
+
+O SnapManager cria backups usando uma das seguintes classes de retenção:
+
+* Por hora
+* Diariamente
+* Semanalmente
+* Mensalmente
+* Ilimitado
+
+
+O Protection Manager deve ser instalado para usar políticas de proteção para proteger backups. Um backup pode ter um destes estados de proteção: Não solicitado, não protegido ou protegido.
+
+Se novos arquivos de dados forem adicionados ao banco de dados, você deve criar um novo backup imediatamente. Além disso, se você restaurar um backup feito antes que os novos arquivos de dados fossem adicionados e tentar recuperar para um ponto após os novos arquivos de dados foram adicionados, o processo de recuperação automática pode falhar. Consulte a documentação da Oracle para saber mais sobre o processo de recuperação dos arquivos de dados adicionados após um backup.

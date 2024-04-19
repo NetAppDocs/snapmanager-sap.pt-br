@@ -1,0 +1,70 @@
+---
+permalink: unix-administration/concept-database-backup-management.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, data, local, storage, resource, post-processing, script, protect, secondary, tertiary, additional, layer, disaster, back, up, database 
+summary: O napManager permite o backup de dados em recursos de storage local usando scripts de pós-processamento ou protegendo backups em recursos de storage secundário ou terciário. A opção de fazer backup em storage secundário fornece uma camada adicional que preserva os dados em caso de desastre. 
+---
+= Fazer backup de bancos de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite o backup de dados em recursos de storage local usando o scriptsor de pós-processamento, protegendo backups em recursos de storage secundário ou terciário. A opção de fazer backup em storage secundário fornece uma camada adicional que preserva os dados em caso de desastre.
+
+O SnapManager também permite que os administradores de storage configurem seus backups com base em planos de política. Ao usar o SnapManager, os administradores podem identificar backups que não estão em conformidade com os requisitos de política e corrigi-los imediatamente.
+
+O SnapManager oferece as seguintes opções para fazer backup, restaurar e recuperar os dados em seu banco de dados:
+
+* Faça backup de todo o banco de dados ou de uma parte dele.
++
+Se você fizer o backup de uma parte dele, especifique um grupo de espaços de tabela ou um grupo de arquivos de dados.
+
+* Faça backup dos arquivos de dados e arquive os arquivos de log separadamente.
+* Faça backup de bancos de dados para armazenamento primário (também chamado de armazenamento local) e proteja-os fazendo backup deles para armazenamento secundário ou terciário (também chamado de armazenamento remoto).
+* Agendar backups de rotina.
+
+
+*Como o SnapManager (3,2 ou posterior) difere das versões anteriores do SnapManager*
+
+O SnapManager (3,1 ou anterior) permite criar backups completos de banco de dados que contêm arquivos de dados, arquivos de controle e arquivos de log de arquivamento.
+
+O SnapManager (3,1 ou anterior) gerencia apenas os arquivos de dados. Os arquivos de log de arquivamento são mantidos usando soluções fora do SnapManager.
+
+O SnapManager (3,1 ou anterior) impõe as seguintes restrições no gerenciamento de backups de bancos de dados:
+
+* Impacto no desempenho
++
+Quando você executa um backup completo do banco de dados on-line (quando o banco de dados está no modo de backup), o desempenho do banco de dados é reduzido pelo período de tempo até que o backup seja criado. No SnapManager (3,2 ou posterior), é possível fazer backups limitados de bancos de dados e backups frequentes de log de arquivamento. Fazer backups frequentes de log de arquivamento ajuda a impedir que o banco de dados seja colocado no modo de backup.
+
+* Restauração e recuperação manuais
++
+Quando os arquivos de log de arquivamento necessários não existem no sistema de arquivos ativo, os administradores de banco de dados precisam identificar qual backup contém os arquivos de log de arquivamento, montar os backups de banco de dados e recuperar o banco de dados restaurado. Este processo é demorado.
+
+* Restrições de espaço
++
+Quando um backup de banco de dados é criado, os destinos de log de arquivamento ficam cheios, fazendo com que o banco de dados não responda até que espaço suficiente seja criado no armazenamento. No SnapManager (3,2 ou posterior), os arquivos de log de arquivo podem ser removidos do sistema de arquivos ativo para liberar espaço periodicamente.
+
+
+
+*Por que os backups de log de arquivamento são importantes*
+
+Os ficheiros de registo de arquivo são necessários para avançar a base de dados após a execução de uma operação de restauro. Todas as transações em um banco de dados Oracle são capturadas nos arquivos de log de arquivamento (se o banco de dados estiver no modo de log de arquivamento). Os administradores de banco de dados podem restaurar os backups de banco de dados usando os arquivos de log de arquivamento.
+
+*Vantagens dos backups somente de arquivolog*
+
+* Fornece uma duração de retenção separada para backups somente de arquivamentos
++
+Você pode ter menos duração de retenção para os backups somente de archivelog que são necessários para recuperação.
+
+* Protege os backups somente de arquivamentos com base em políticas de proteção de log de arquivamento
++
+Você pode selecionar diferentes políticas de proteção para backups somente archivelog com base em suas necessidades.
+
+* Melhora o desempenho do banco de dados
+* Consolida backups de log de arquivamento
++
+O SnapManager consolida os backups de log de arquivamento sempre que você faz um backup, liberando os backups de log de arquivamento duplicados.
+
+

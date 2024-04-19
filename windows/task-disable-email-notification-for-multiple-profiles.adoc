@@ -1,0 +1,35 @@
+---
+permalink: windows/task-disable-email-notification-for-multiple-profiles.html 
+sidebar: sidebar 
+keywords: enable, summary, email, notification, multiple, profile, disable, alert 
+summary: Depois de ativar a notificação de resumo por e-mail para vários perfis, você pode desativá-los para não receber mais alertas de e-mail. 
+---
+= Desativar a notificação de e-mail para vários perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de ativar a notificação de resumo por e-mail para vários perfis, você pode desativá-los para não receber mais alertas de e-mail.
+
+
+
+== Sobre esta tarefa
+
+O SnapManager permite desativar a notificação de e-mail de resumo para as operações de banco de dados executadas por perfil. Na CLI do SnapManager, digite o `notification remove-summary-notification` comando para desativar a notificação de e-mail de resumo para vários perfis e o nome do banco de dados do repositório para o qual você não precisa de notificação por e-mail.
+
+.Passo
+. Para desativar a notificação de resumo para vários perfis em um banco de dados de repositório, digite o seguinte comando:
++
+`*smsap notification remove-summary-notification -repository -port _repo_port_ -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_*`
+
+
+
+O exemplo a seguir mostra a notificação de resumo sendo desativada para vários perfis em um banco de dados de repositório:
+
+[listing]
+----
+
+smsap notification remove-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5
+----

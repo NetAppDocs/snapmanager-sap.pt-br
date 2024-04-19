@@ -1,0 +1,52 @@
+---
+permalink: unix-administration/reference-the-smosmsapsystem-verify-command.html 
+sidebar: sidebar 
+keywords: command, confirm, component, environment, require, run, snapmanager, smsap 
+summary: Este comando confirma que todos os componentes do ambiente necessários para executar o SnapManager estão configurados corretamente. 
+---
+= O comando smsap system check
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando confirma que todos os componentes do ambiente necessários para executar o SnapManager estão configurados corretamente.
+
+
+
+== Sintaxe
+
+[listing]
+----
+smsap system verify
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo do comando System Verify (Verificação do sistema)
+
+O exemplo a seguir usa o `smsap system verify` comando.
+
+[listing]
+----
+smsap system verify
+SMSAP-13505 [INFO ]: Snapdrive verify passed.
+SMSAP-13037 [INFO ]: Successfully completed operation: System Verify
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:00.559
+Operation Id [N4f4e910004b36cfecee74c710de02e44] succeeded.
+----

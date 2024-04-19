@@ -1,0 +1,94 @@
+---
+permalink: unix-administration/reference-the-smosmsap-repository-rollingupgrade.html 
+sidebar: sidebar 
+keywords: command, perform, roll, upgrade, single, host, multiple, associate, target, database, version, snapmanager, smsap, repository, rollingupgrade 
+summary: Este comando executa a atualização contínua em um único host ou vários hosts e seus bancos de dados de destino associados de uma versão inferior do SnapManager para uma versão superior. O host atualizado é gerenciado apenas com a versão superior do SnapManager. 
+---
+= O comando rollingupgrade do repositório smsap
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando executa a atualização contínua em um único host ou vários hosts e seus bancos de dados de destino associados de uma versão inferior do SnapManager para uma versão superior. O host atualizado é gerenciado apenas com a versão superior do SnapManager.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap repository rollingupgrade
+-repository
+-dbname _repo_service_name_
+-host _repo_host_
+-login -username _repo_username_
+-port _repo_port_
+-upgradehost _host_with_target_database_
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* `*-repository*`
++
+As opções que seguem -repositório especificam os detalhes do banco de dados para o repositório.
+
+* `*-dbname _repo_service_name_*`
++
+Especifica o nome do banco de dados que armazena o repositório. Use o nome global ou o SID.
+
+* `*-host _repo_host_*`
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados do repositório é executado.
+
+* `*-login*`
++
+Inicia os detalhes de login do repositório.
+
+* `*-username _repo_username_*`
++
+Especifica o nome de usuário necessário para acessar o banco de dados que armazena o repositório.
+
+* `*-upgradehost _host_with_target_database_*`
++
+Especifica o nome do host que será atualizado de uma versão inferior do SnapManager para uma versão superior.
+
+* `*-port _repo_port_*`
++
+Especifica o número da porta TCP usado para acessar o banco de dados que armazena o repositório.
+
+* `*-force*`
++
+Tenta forçar a atualização do repositório. O SnapManager solicita que você faça um backup do repositório atual antes de atualizar.
+
+* `*-noprompt*`
++
+Não exibe o prompt antes de atualizar o banco de dados do repositório. Usar a `-noprompt` opção garante que o prompt não apareça, facilitando a atualização de repositórios usando um script.
+
+* `*-quiet*`
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* `*-verbose*`
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+'''
+
+
+== Exemplo de comando
+
+O exemplo a seguir atualiza o repositório no banco de dados SALESDB.
+
+[listing]
+----
+smsap repository rollingupgrade -repository -dbname SALESDB
+-host server1 -login -username admin -port 1521 -upgradehost hostA
+----
+'''

@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-split-result-command.html 
+sidebar: sidebar 
+keywords: smsap, clone, split-result, command, process 
+summary: Este comando permite visualizar o resultado do processo de divisão de clones. 
+---
+= O comando split-result clone smsap
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+
+
+== Sintaxe
+
+Este comando permite visualizar o resultado do processo de divisão de clones.
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-result
+-profile _profile_
+[-host _hostname_\]
+[-label _split-label_ | -id _split-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parâmetros
+
+* `*-profile _profile_*`
++
+Especifica o nome do perfil do clone.
+
+* `*-host _hostname_*`
++
+Especifica o nome do host no qual o clone existe.
+
+* `*-label _split-label_*`
++
+Especifica o nome de rótulo gerado pelo processo de início de divisão de clone.
+
+* `*-id _split-id_*`
++
+Especifica a ID exclusiva gerada pelo processo de início de divisão de clones.
+
+* `*-quiet*`
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* `*-verbose*`
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+

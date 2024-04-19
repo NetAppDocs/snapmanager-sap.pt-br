@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-a-secondary-backup-protection-policy.html 
+sidebar: sidebar 
+keywords: configure, configuring, backup, schedule, storage, administrator, protect, protection, manager, secondary, policy 
+summary: Depois de configurar o agendamento de backup, o administrador de armazenamento configura uma política de armazenamento de backup protegido na qual esse agendamento deve ser incluído. 
+---
+= Use o Protection Manager para configurar uma política de proteção de backup secundária
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de configurar o agendamento de backup, o administrador de armazenamento configura uma política de armazenamento de backup protegido na qual esse agendamento deve ser incluído.
+
+*O que você vai precisar*
+
+Antes de configurar a política de proteção, o administrador de armazenamento confere ao parceiro DBA as seguintes informações:
+
+* Duração de retenção a especificar para armazenamento secundário
+* Tipo de proteção de armazenamento secundário necessária
+
+
+*Sobre esta tarefa*
+
+A política de proteção criada pode ser listada no SnapManager para SAP pelo parceiro DBA e atribuída a um perfil de banco de dados para que os dados sejam protegidos.
+
+. Vá para o console de gerenciamento do NetApp do Gerenciador de proteção.
+. Na barra de menus, clique em *políticas* > *proteção* > *Visão geral*.
++
+A guia Visão geral na janela políticas de proteção é exibida.
+
+. Clique em *Adicionar política* para iniciar o assistente *Adicionar política de proteção*.
+. Conclua o assistente com as seguintes etapas:
++
+.. Especifique um nome de política descritiva.
++
+Para este exemplo, digite *dados de Folha de pagamento TechCo: Backup* e uma descrição e clique em *Avançar*.
+
+.. Selecione uma política base.
++
+Para este exemplo, selecione *Backup* e clique em *Next*.
+
+.. Na folha de propriedades de política de nó *Primary Data*, aceite as configurações padrão e clique em *Next*.
++
+
+NOTE: Neste exemplo, é aplicada a agenda de backup local configurada no SnapManager. Qualquer agendamento de backup local especificado usando este método é ignorado.
+
+.. Na folha de propriedades *Primary Data to Backup* Connection, selecione uma agenda de backup.
++
+Para este exemplo, selecione *Payroll Saturday at 1 AM plus daily at 7 PM* como sua agenda de backup e clique em *Next*.
+
++
+Neste exemplo, a programação selecionada inclui as programações semanais e diárias que você configurou anteriormente.
+
+.. Na folha de propriedades *Backup policy*, especifique o nome do nó de backup e os tempos de retenção para backups diários, semanais ou mensais.
++
+Para este exemplo, especifique uma retenção diária de backup de 10 dias e uma retenção semanal de backup de 52 semanas. Depois de concluir cada folha de propriedade, clique em *seguinte*.
+
++
+Depois que todas as folhas de propriedades forem concluídas, o assistente Adicionar política de proteção exibe uma folha de resumo para a política de proteção que você deseja criar.
+
+
+
+. Clique em *Finish* para salvar suas alterações.
+
+
+*Resultado*
+
+A política de proteção *TechCo Payroll Data: Backup* está listada entre as outras políticas configuradas para o Protection Manager.
+
+*Depois de terminar*
+
+O parceiro DBA agora pode usar o SnapManager para SAP para listar e atribuir essa política ao criar o perfil do banco de dados para que os dados sejam protegidos.

@@ -1,0 +1,98 @@
+---
+permalink: unix-administration/reference-the-smosmsap-operation-show-command.html 
+sidebar: sidebar 
+keywords: run, operation, show, command, list, summary, information, output, client, user, snapmanager, host, smsap 
+summary: 'Você pode executar o comando operation show para listar as informações resumidas de todas as operações realizadas com o perfil especificado. A saída lista o usuário cliente (o usuário para o PC cliente) e o usuário efetivo (o usuário no SnapManager que é válido no host selecionado).' 
+---
+= O comando smsap operation show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o comando operation show para listar as informações resumidas de todas as operações realizadas com o perfil especificado. A saída lista o usuário cliente (o usuário para o PC cliente) e o usuário efetivo (o usuário no SnapManager que é válido no host selecionado).
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap operation show
+-profile _profile_name_
+[-label _label_ | -id _id_\] [-quiet | -verbose\]]
+----
+
+
+== Parâmetros
+
+* `*-profile _profile_name_*`
++
+Especifica o nome do perfil. Esse nome pode ter até 30 carateres e deve ser único dentro do host.
+
+* `*-label _label_*`
++
+Especifica o rótulo para a operação.
+
+* `*-id _id_*`
++
+Especifica o identificador para a operação.
+
+* `*-quiet*`
++
+Opcional: Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* `*-verbose*`
++
+Opcional: Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+'''
+
+
+== Exemplo
+
+A linha de comando a seguir mostra informações detalhadas sobre uma operação:
+
+[listing]
+----
+smsap operation show -id 8ac861781d0ac992011d0ac999680001  -profile CER
+----
+[listing]
+----
+Operation Attempted
+    Operation ID: 8ac861781d0ac992011d0ac999680001
+    Type:Backup
+    For profile: CER
+    With Force: No
+    Label: 081017180043
+    Comments: BRBACKUP
+Operation Runtime Information
+   Status: SUCCESS
+   Start date: 2008-10-16 18:01:00 IST
+   End date: 2008-10-17 18:01:26 IST
+   Client user: oracle
+   Effective user: oracle
+   By schedule: none
+Host
+   Host Run upon: lnx225-248.lab.eng.org.com
+   Process ID: 29096
+   SnapManager version: 3.3
+Repository
+   Connection: krishna@smsaprep/10.72.225.155:1521
+   Repository version: 62
+Error messages
+   The operation did not generate any error messages.
+Resources in use
+   Snapshots:
+      f270-225-57:/vol/f270_lnx225_248_10gr2_sap_oracle_cer:smsap_cer_cer1_f_c_2_8ac861781d0ac992011d0ac999680001_0
+   Storage components:
+    /sapbackup/backCER1.log (File)
+    /sapbackup/bdzbalta.anf (File)
+    /sapreorg/spaceCER1.log (File)
+    /mnt/oracle/CER (File System)
+    ...
+----
+'''

@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-why-you-should-prune-archive-log-files.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, delete, archive, log, file, system, back, up 
+summary: O SnapManager para SAP permite excluir arquivos de log de arquivamento do sistema de arquivos ativo que já estão em backup. 
+---
+= Por que você deve podar arquivos de log de arquivo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager para SAP permite excluir arquivos de log de arquivamento do sistema de arquivos ativo que já estão em backup.
+
+A eliminação permite que o SnapManager crie backups de arquivos de log de arquivamento distintos. A eliminação, juntamente com a política de retenção de backup, libera espaço de log de arquivamento quando os backups são removidos.
+
+
+NOTE: Você não pode podar os arquivos de log de arquivamento quando a Área de recuperação Flash (FRA) está ativada para arquivos de log de arquivamento. Se você especificar o local do log de arquivamento na Área de recuperação do Flash, você deve garantir que você também especifique o local do log de arquivamento no `archive_log_dest` parâmetro.

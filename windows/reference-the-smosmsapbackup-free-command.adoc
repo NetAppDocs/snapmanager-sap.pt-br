@@ -1,0 +1,82 @@
+---
+permalink: windows/reference-the-smosmsapbackup-free-command.html 
+sidebar: sidebar 
+keywords: run, backup, free, command, snapshot, copies, copy, remove, metadata, repository, smsap 
+summary: Você pode executar o comando backup free para liberar as cópias Snapshot dos backups sem remover os metadados do backup do repositório. 
+---
+= O comando smsap backup free
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `backup free` comando para liberar as cópias Snapshot dos backups sem remover os metadados do backup do repositório.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap backup free
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id guid | -all]
+-force
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o perfil associado ao backup que você deseja liberar. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* *`-id _guid_`*
++
+Especifica os recursos do backup com o GUID especificado. O GUID é gerado pelo SnapManager quando cria uma cópia de segurança. Pode utilizar o `smsap backup list` comando para apresentar o GUID para cada cópia de segurança. Inclua a `-verbose` opção de exibir as IDs de backup.
+
+* *`-label _label_`*
++
+Especifica o backup com o rótulo especificado.
+
+* *`-data`*
++
+Especifica os arquivos de dados.
+
+* *`-archivelogs`*
++
+Especifica os arquivos de log de arquivamento.
+
+* *`-all`*
++
+Especifica todos os backups. Para excluir backups especificados, use a `-id` opção ou `-label` .
+
+* *`-force`*
++
+Força a remoção das cópias Snapshot.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo
+
+O exemplo a seguir libera o backup:
+
+[listing]
+----
+smsap backup free -profile SALES1 -label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

@@ -1,0 +1,92 @@
+---
+permalink: windows/task-create-a-task-specification-file.html 
+sidebar: sidebar 
+keywords: create, task, specification, file, graphical, user, interface, gui, command-line, interface, cli, text, editor, preprocess, post-process, backup, restore, operation 
+summary: 'Você pode criar os arquivos de especificação de tarefa usando a interface gráfica do usuário (GUI), a interface de linha de comando (CLI) ou um editor de texto. Esses arquivos são usados para executar a atividade de pré-processamento ou pós-processamento das operações de backup, restauração ou clone.' 
+---
+= Crie um arquivo de especificação de tarefa
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar os arquivos de especificação de tarefa usando a interface gráfica do usuário (GUI), a interface de linha de comando (CLI) ou um editor de texto. Esses arquivos são usados para executar a atividade de pré-processamento ou pós-processamento das operações de backup, restauração ou clone.
+
+.Passos
+. Crie um arquivo de especificação de tarefa usando GUI, CLI ou um editor de texto.
++
+*Exemplo*
+
++
+Você pode criar o arquivo de especificação com base na estrutura do seguinte arquivo de especificação de tarefa de exemplo:
+
++
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+				<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+. Introduza o nome do script.
+. Introduza o nome do parâmetro e o valor atribuído ao parâmetro.
+. Salve o arquivo XML no diretório de instalação correto.
+
+
+
+
+== Exemplo de especificação da tarefa
+
+[listing]
+----
+
+  <task-specification>
+    <pre-tasks>
+      <task>
+        <name>clone cleanup</name>
+        <description>pre tasks for cleaning up the target system</description>
+        </task>
+    </pre-tasks>
+    <post-tasks>
+      <task>
+        <name>SystemCopy follow-up activities</name>
+        <description>SystemCopy follow-up activities</description>
+        <parameter>
+          <name>SCHEMAOWNER</name>
+          <value>SAMSR3</value>
+        </parameter>
+      </task>
+      <task>
+        <name>Oracle Users for OS based DB authentication</name>
+        <description>Oracle Users for OS based DB authentication</description>
+        <parameter>
+          <name>SCHEMAOWNER</name>
+          <value>SAMSR3</value>
+        </parameter>
+        <parameter>
+          <name>ORADBUSR_FILE</name>
+
+										<value\>E:\\mnt\\sam\\oradbusr.sql</value\>
+        </parameter>
+      </task>
+      </post-tasks>
+  </task-specification>
+----

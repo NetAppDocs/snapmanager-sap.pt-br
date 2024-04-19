@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/concept-restore-files-from-an-alternate-location.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, restore, data, file, control, location, snapshot, copies, copy, volume, alternate 
+summary: O SnapManager permite restaurar arquivos de dados e controlar arquivos de um local diferente do das cópias Snapshot no volume original. 
+---
+= Restaure arquivos de um local alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite restaurar arquivos de dados e controlar arquivos de um local diferente do das cópias Snapshot no volume original.
+
+O local original é o local do arquivo no sistema de arquivos ativo no momento do backup. O local alternativo é o local a partir do qual um arquivo será restaurado.
+
+Você pode restaurar os seguintes dados de um local alternativo:
+
+* Os arquivos de dados de um sistema de arquivos intermediário para um sistema de arquivos ativo
+* Os blocos de dados de um dispositivo bruto intermediário em um dispositivo bruto ativo
+
+
+A recuperação é automatizada pelo SnapManager. Ao recuperar arquivos de locais externos, o SnapManager usa o `recovery automatic from location` comando.
+
+O SnapManager também usa o Gerenciador de recuperação Oracle (RMAN) para recuperar arquivos. Os arquivos a serem recuperados devem ser reconhecíveis pela Oracle. Os nomes dos arquivos devem estar no formato padrão. Ao recuperar da área de recuperação flash, o SnapManager fornece o caminho traduzido para o Oracle. O Oracle, no entanto, não se recupera da área de recuperação flash porque não pode gerar o nome correto do arquivo. Idealmente, a área de recuperação de flash é um destino que se destina a trabalhar com o RMAN.

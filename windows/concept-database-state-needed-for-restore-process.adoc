@@ -1,0 +1,69 @@
+---
+permalink: windows/concept-database-state-needed-for-restore-process.html 
+sidebar: sidebar 
+keywords: state, database, restore, depend, process, perform, type, file 
+summary: O estado do banco de dados a ser restaurado depende do tipo de processo de restauração que você deseja executar e do tipo de arquivos que devem ser incluídos. 
+---
+= Estado do banco de dados necessário para o processo de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O estado do banco de dados a ser restaurado depende do tipo de processo de restauração que você deseja executar e do tipo de arquivos que devem ser incluídos.
+
+A tabela a seguir lista o estado em que o banco de dados deve estar dependendo da opção de restauração selecionada e do tipo de arquivos que você deseja incluir na restauração:
+
+|===
+| Tipo de restauração | Arquivos incluídos | Estado do banco de dados para esta instância 
+
+
+ a| 
+Apenas restauração
+ a| 
+Controlar ficheiros
+ a| 
+Encerramento
+
+
+
+ a| 
+Ficheiros do sistema
+ a| 
+Montar ou Desligar
+
+
+
+ a| 
+Sem ficheiros de sistema
+ a| 
+Qualquer estado
+
+
+
+ a| 
+Restauração e recuperação
+ a| 
+Controlar ficheiros
+ a| 
+Encerramento
+
+
+
+ a| 
+Ficheiros do sistema
+ a| 
+Montagem
+
+
+
+ a| 
+Sem ficheiros de sistema
+ a| 
+Montar ou abrir
+
+|===
+O estado do banco de dados exigido pelo SnapManager para uma operação de restauração depende do tipo de restauração que está sendo executada (arquivos completos, parciais ou de controle). O SnapManager não faz a transição do banco de dados para um estado inferior (por exemplo, de aberto para montagem), a menos que a `force` opção seja especificada.
+
+O SnapManager para SAP não verifica se o SAP está em execução. O SnapManager para SAP espera que um tempo limite decorra e, em seguida, desliga o banco de dados, o que pode adicionar uma hora de tempo de restauração adicional.

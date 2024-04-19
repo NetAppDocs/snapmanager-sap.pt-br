@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-retain-backups-forever.html 
+sidebar: sidebar 
+keywords: specify, backup, ineligible, deletion, retention, policy, indefinitely, retain, forever 
+summary: Você pode especificar que um backup deve ser inelegível para exclusão pela política de retenção para manter o backup indefinidamente. 
+---
+= Guarde os backups para sempre
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode especificar que um backup deve ser inelegível para exclusão pela política de retenção para manter o backup indefinidamente.
+
+.Passo
+. Para especificar que um backup seja mantido em uma base ilimitada, digite este comando:
++
+`*smsap backup update -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_} -retain -unlimited*`
+
+

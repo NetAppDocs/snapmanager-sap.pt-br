@@ -1,0 +1,24 @@
+---
+permalink: windows/task-accessing-and-printing-online-help.html 
+sidebar: sidebar 
+keywords: online, help, instruction, task, snapmanager, graphical, user, interface, windows, wizard, access, print 
+summary: A Ajuda on-line fornece instruções para as tarefas que você pode executar usando a interface gráfica do usuário do SnapManager. A Ajuda on-line também fornece descrições de campos nas janelas e assistentes. 
+---
+= Aceder e imprimir a Ajuda online
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A Ajuda on-line fornece instruções para as tarefas que você pode executar usando a interface gráfica do usuário do SnapManager. A Ajuda on-line também fornece descrições de campos nas janelas e assistentes.
+
+. Execute uma das seguintes ações:
++
+** Na janela principal, clique em *Ajuda* > *conteúdo da Ajuda*.
+** Em qualquer janela ou assistente, clique em *Ajuda* para exibir ajuda específica para essa janela.
+
+
+. Use o *Table of Contents* no painel esquerdo para navegar pelos tópicos.
+. Clique no ícone impressora na parte superior da janela de ajuda para imprimir tópicos individuais.
+

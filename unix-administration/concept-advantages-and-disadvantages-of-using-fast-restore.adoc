@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/concept-advantages-and-disadvantages-of-using-fast-restore.html 
+sidebar: sidebar 
+keywords: dba, aware, advantage, disadvantage, volume-base, fast, restore, disadvantage 
+summary: Os DBAs devem estar cientes das vantagens e desvantagens de usar restaurações rápidas baseadas em volume. 
+---
+= Vantagens e desvantagens do uso de restauração rápida
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os DBAs devem estar cientes das vantagens e desvantagens de usar restaurações rápidas baseadas em volume.
+
+Restaurar backups de bancos de dados usando restaurações rápidas oferece as seguintes vantagens:
+
+* As restaurações baseadas em volume reduzem o tempo necessário para restaurar backups.
+* O SnapManager fornece verificações de qualificação para restauração rápida. O SnapManager analisa o backup do banco de dados e exibe informações sobre se ele pode executar a restauração baseada em volume.
+* Você pode visualizar a operação de restauração e decidir se deve continuar com o caminho recomendado ou substituir a recomendação com o processo selecionado.
+
+
+Restaurar backups de bancos de dados usando restaurações rápidas tem as seguintes desvantagens:
+
+* Todo o sistema de arquivos é revertido, incluindo arquivos que não foram considerados parte do backup. Outros arquivos, sistemas de arquivos ou LUNs no volume também serão revertidos.
+* O SnapManager remove todas as cópias snapshot que foram tiradas após a captura Instantânea para a qual você está revertendo. Com efeito, você perde o histórico após a data da cópia Snapshot. Por exemplo, você não pode restaurar o backup de terça-feira se você já restaurou o backup de segunda-feira.
+
+
+Você pode evitar as desvantagens seguindo estas recomendações:
+
+* Otimize o layout do banco de dados de acordo com as melhores práticas.
+* Proteger backups em um storage secundário. No entanto, se você excluir cópias Snapshot do storage primário, não poderá usar restaurações rápidas para restaurá-las do storage secundário.
+

@@ -1,0 +1,23 @@
+---
+permalink: windows/concept-backup-recovery.html 
+sidebar: sidebar 
+keywords: snapmanager, perform, restore, recover, operation, backup 
+summary: No SnapManager, você deve executar as operações de restauração e recuperação ao mesmo tempo. Não é possível executar uma operação de restauração e, em seguida, executar uma operação de recuperação do SnapManager mais tarde. 
+---
+= Recuperação de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No SnapManager, você deve executar as operações de restauração e recuperação ao mesmo tempo. Não é possível executar uma operação de restauração e, em seguida, executar uma operação de recuperação do SnapManager mais tarde.
+
+No SnapManager 3,2 ou anterior, você pode usar o SnapManager para restaurar e recuperar o backup ou usar o SnapManager para restaurar o backup e usar outra ferramenta, como o Gerenciador de recuperação Oracle (RMAN), para recuperar os dados. Como o SnapManager pode Registrar seus backups com o RMAN, você pode usar o RMAN para restaurar e recuperar o banco de dados com granularidades mais finas, como blocos. Essa integração combina os benefícios da velocidade e eficiência de espaço das cópias Snapshot com o nível fino de controle para restauração usando o RMAN.
+
+
+NOTE: Você deve recuperar um banco de dados antes de usá-lo. Você pode usar qualquer ferramenta ou script para recuperar um banco de dados.
+
+A partir do SnapManager 3,2 para SAP, o SnapManager permite a restauração automática de backups de bancos de dados usando os backups de log de arquivamento. Mesmo quando os backups de log de arquivamento estão disponíveis no local externo, o SnapManager usa os backups de log de arquivamento do local externo para restaurar os backups de banco de dados.
+
+Se novos arquivos de dados forem adicionados ao banco de dados, a Oracle recomenda que você faça um novo backup imediatamente. Além disso, se você restaurar um backup feito antes que os novos arquivos de dados foram adicionados e tentar recuperar para um ponto após os novos arquivos de dados foram adicionados, o processo de recuperação automática Oracle pode falhar, porque não é possível criar arquivos de dados. Consulte a documentação Oracle para o processo de recuperação de arquivos de dados adicionados após um backup.

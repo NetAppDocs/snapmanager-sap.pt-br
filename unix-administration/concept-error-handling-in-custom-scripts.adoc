@@ -1,0 +1,64 @@
+---
+permalink: unix-administration/concept-error-handling-in-custom-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, process, custom, script, specific, return, code, value, execution, error, handling, handle 
+summary: O SnapManager processa o script personalizado com base nos códigos de retorno específicos. Por exemplo, se o script personalizado retornar um valor de 0, 1, 2 ou 3, o SnapManager continuará com o processo de clone. O código de retorno também influencia como o SnapManager processa e retorna a saída padrão de sua execução de script. 
+---
+= Erro ao lidar com scripts personalizados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager processa o script personalizado com base nos códigos de retorno específicos. Por exemplo, se o script personalizado retornar um valor de 0, 1, 2 ou 3, o SnapManager continuará com o processo de clone. O código de retorno também influencia como o SnapManager processa e retorna a saída padrão de sua execução de script.
+
+[cols="1a,3a,2a"]
+|===
+| Código de retorno | Descrição | Continue a processar a operação 
+
+
+ a| 
+0
+ a| 
+O script foi concluído com sucesso.
+ a| 
+Sim
+
+
+
+ a| 
+1
+ a| 
+O script foi concluído com sucesso, com mensagens informativas.
+ a| 
+Sim
+
+
+
+ a| 
+2
+ a| 
+O script foi concluído, mas inclui avisos
+ a| 
+Sim
+
+
+
+ a| 
+3
+ a| 
+O script falha, mas a operação continua.
+ a| 
+Sim
+
+
+
+ a| 
+4 ou >4
+ a| 
+O script falha e a operação pára.
+ a| 
+Não
+
+|===

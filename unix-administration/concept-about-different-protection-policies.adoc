@@ -1,0 +1,111 @@
+---
+permalink: unix-administration/concept-about-different-protection-policies.html 
+sidebar: sidebar 
+keywords: policies, policy, protect, backup, secondary, tertiary, storage, system, protection 
+summary: Você pode selecionar políticas diferentes para proteger os backups em sistemas de storage secundário ou terciário. 
+---
+= Sobre diferentes políticas de proteção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode selecionar políticas diferentes para proteger os backups em sistemas de storage secundário ou terciário.
+
+Se você estiver usando o Data ONTAP operando no modo 7 e o SnapManager estiver integrado ao Gerenciador de proteção, selecione uma das seguintes políticas de proteção ao criar o perfil. O Console de Gerenciamento do Protection Manager fornece modelos para configurar políticas de proteção para os conjuntos de dados. Mesmo que as políticas de proteção de recuperação de desastres estejam listadas na interface de usuário do SnapManager, essas políticas não são compatíveis.
+
+[cols="1a,3a"]
+|===
+| Política | Descrição 
+
+
+ a| 
+Faça backup
+ a| 
+Com o SnapVault ou SnapMirror, é feito backup de um conjunto de dados local e também do storage primário para o secundário.
+
+
+
+ a| 
+Recue, em seguida, espelhe
+ a| 
+Com o uso do SnapVault ou do SnapMirror, é feito o backup de um conjunto de dados do storage primário para o secundário e, em seguida, espelhado em um parceiro da SnapMirror.
+
+
+
+ a| 
+Somente cópias Snapshot locais
+ a| 
+Um conjunto de dados usa apenas cópias Snapshot locais no storage primário.
+
+
+
+ a| 
+Espelho
+ a| 
+Um conjunto de dados é espelhado do storage primário para o secundário usando o SnapMirror.
+
+
+
+ a| 
+Espelho e marcha-atrás
+ a| 
+Um conjunto de dados é espelhado do storage primário para o secundário com o SnapMirror e, em seguida, é feito backup no storage secundário com o uso de SnapVault ou SnapMirror.
+
+
+
+ a| 
+Espelho e espelho
+ a| 
+Um conjunto de dados é espelhado do storage primário para o secundário em dois parceiros SnapMirror diferentes.
+
+
+
+ a| 
+Espelho, em seguida, para cima
+ a| 
+Um conjunto de dados é espelhado do storage primário para o secundário com o SnapMirror e, em seguida, é feito backup para o storage terciário com o uso do SnapVault ou do SnapMirror.
+
+
+
+ a| 
+Espelho, depois espelho
+ a| 
+Um conjunto de dados é espelhado do storage primário para o secundário com o SnapMirror e, em seguida, espelhado para um parceiro SnapMirror adicional.
+
+
+
+ a| 
+Sem proteção
+ a| 
+Um conjunto de dados não tem cópias Snapshot, backups ou proteção contra cópias espelhadas de qualquer tipo.
+
+
+
+ a| 
+Apenas cópia de segurança remota
+ a| 
+Usando o SnapVault ou o SnapMirror, é feito backup remoto dos dados em um sistema de storage. O aplicativo licenciado não realiza backup local no storage primário. Esta política de proteção pode ser aplicada a sistemas de terceiros com o Open Systems SnapVault instalado.
+
+|===
+Se você estiver usando o Clustered Data ONTAP, selecione uma das seguintes políticas de proteção ao criar o perfil.
+
+[cols="1a,1a"]
+|===
+| Política | Descrição 
+
+
+ a| 
+SnapManager_cDOT_espelho
+ a| 
+Espelha o backup.
+
+
+
+ a| 
+SnapManager_cDOT_Vault
+ a| 
+Evita o backup.
+
+|===

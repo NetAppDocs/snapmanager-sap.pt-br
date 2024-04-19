@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/concept-restoring-a-backup-to-a-different-host.html 
+sidebar: sidebar 
+keywords: brrestore, smsap, restore, command, backup, brbackup, different, host, snapmanager, restoring 
+summary: Você pode usar o comando BRRESTORE ou smsap restore para restaurar um backup feito com o BRBACKUP em um host diferente. O novo host também deve estar executando o SnapManager para SAP. 
+---
+= Restaurar um backup para um host diferente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o comando BRRESTORE ou smsap restore para restaurar um backup feito com o BRBACKUP em um host diferente. O novo host também deve estar executando o SnapManager para SAP.
+
+
+
+== Disponibilizar o perfil SnapManager
+
+Antes de executar o BRRESTORE, você deve disponibilizar o perfil SnapManager do host original para o novo host. Execute as seguintes etapas:
+
+* Definir credencial para repositório: Use o `smsap credential set` comando para habilitar o novo host para acessar o repositório SnapManager usado para o backup original.
+* Definir credencial para perfil: Use o `smsap credential set` comando para habilitar o novo host para acessar o perfil SnapManager usado para o backup original.
+* Carregar o perfil no novo host: Use o `smsap profile sync` comando para carregar as informações do perfil do SnapManager no novo host.
+
+
+
+
+== Execute o BRRESTORE
+
+Configure o novo armazenamento no novo host com os mesmos caminhos que o armazenamento original no host original.
+
+Use o `BRRESTORE` comando para restaurar o backup para o novo host. Por padrão, os arquivos são restaurados para os locais do caminho original. Você pode especificar um caminho alternativo para os arquivos restaurados usando a `-m` opção `BRRESTORE` do comando. Consulte a documentação da SAP para obter mais informações `BRRESTORE` sobre .

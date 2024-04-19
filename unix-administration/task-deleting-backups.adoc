@@ -1,0 +1,121 @@
+---
+permalink: unix-administration/task-delete-backups.html 
+sidebar: sidebar 
+keywords: delete, backup, free, space, remove, snapshot, copies, copy, volume, deleting 
+summary: Você precisa excluir backups quando não precisar mais deles, o que libera o espaço que esses backups ocupam. Se você remover backups, reduzirá a chance de atingir o limite de 255 cópias Snapshot por volume. 
+---
+= Eliminar cópias de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa excluir backups quando não precisar mais deles, o que libera o espaço que esses backups ocupam. Se você remover backups, reduzirá a chance de atingir o limite de 255 cópias Snapshot por volume.
+
+*O que você vai precisar*
+
+* Você deve garantir que o backup não foi usado para criar um clone.
+
+
+*Sobre esta tarefa*
+
+Quando você exclui um backup protegido, o SnapManager exclui o backup do armazenamento secundário e do repositório do SnapManager. A tabela a seguir mostra as ações realizadas no armazenamento primário e secundário quando você exclui um backup local:
+
+[cols="2a,1a,3a,3a,4a"]
+|===
+| Estado de proteção | Estado local | Ação no storage primário | Ação no storage secundário | Explicação 
+
+
+ a| 
+Não solicitado (a ser protegido)
+ a| 
+Existe
+ a| 
+Exclui as cópias Snapshot
+ a| 
+Nenhuma ação necessária
+ a| 
+O SnapManager elimina a cópia de segurança local.
+
+
+
+ a| 
+Libertado
+ a| 
+Nenhuma ação necessária
+ a| 
+Nenhuma ação necessária
+ a| 
+O backup local já está liberado. Se você excluir um backup liberado, os metadados de backup serão removidos do repositório.
+
+
+
+ a| 
+Não protegido
+ a| 
+Existe
+ a| 
+Exclui as cópias Snapshot
+ a| 
+Nenhuma ação necessária
+ a| 
+O SnapManager exclui o backup local, independentemente de ele ter sido ou não protegido.
+
+
+
+ a| 
+Libertado
+ a| 
+Nenhuma ação necessária
+ a| 
+Nenhuma ação necessária
+ a| 
+O backup local já está liberado. Se você excluir um backup liberado, os metadados de backup serão removidos do repositório.
+
+
+
+ a| 
+Protegido
+ a| 
+Existe
+ a| 
+Exclui as cópias Snapshot
+ a| 
+O SnapManager exclui o backup no storage secundário
+ a| 
+O SnapManager exclui o backup local e as cópias secundárias.
+
+
+
+ a| 
+Libertado
+ a| 
+Nenhuma ação necessária
+ a| 
+O SnapManager libera o backup no storage secundário
+ a| 
+O SnapManager exclui o backup local e as cópias secundárias.
+
+|===
+Se você tentar excluir um backup protegido por storage secundário, as cópias Snapshot podem ser marcadas para exclusão e posteriormente serão excluídas pelo Protection Manager.
+
+Você pode excluir backups retidos em uma base ilimitada sem alterar a classe de retenção.
+
+Opcionalmente, você pode coletar os arquivos de despejo após a operação de exclusão de backup bem-sucedida ou com falha.
+
+Se você quiser excluir os backups do log de arquivamento, você precisa verificar a duração de retenção definida para o backup do log de arquivamento. Se o backup do log de arquivamento estiver dentro da duração de retenção e os arquivos de log de arquivamento forem necessários para a recuperação de um banco de dados restaurado, você não poderá excluir o backup do log de arquivamento.
+
+.Passos
+. Verifique se as operações estão concluídas digitando o seguinte comando:
++
+`*smsap operation list -profile _profile_name_-dump-quiet-verbose*`
+
+. Para excluir um backup, digite o seguinte comando:
++
+`*smsap backup delete -profile _profile_name_ [-label _label_ [data | -archivelogs] | -id _id_ | -all] [-force] [ -dump] [-quiet | -verbose]*`
+
++
+Use a opção -force para forçar a remoção do backup. Forçar a remoção de um backup que tenha operações incompletas pode deixar o backup em um estado inconsistente.
+
+

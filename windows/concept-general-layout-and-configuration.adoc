@@ -1,0 +1,41 @@
+---
+permalink: windows/concept-general-layout-and-configuration.html 
+sidebar: sidebar 
+keywords: information, recommend, general, database, layout, storage, configuration, issue, disk, group, file, type, tablespace 
+summary: Você pode encontrar informações sobre os layouts gerais de banco de dados recomendados e configurações de armazenamento para evitar problemas relacionados a grupos de discos, tipos de arquivos e espaços de tabela. 
+---
+= Layout e configuração gerais
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode encontrar informações sobre os layouts gerais de banco de dados recomendados e configurações de armazenamento para evitar problemas relacionados a grupos de discos, tipos de arquivos e espaços de tabela.
+
+* Não inclua arquivos de mais de um tipo de sistema de arquivos SAN em seu banco de dados.
++
+Todos os arquivos que compõem um banco de dados devem residir no mesmo tipo de sistema de arquivos.
+
+* O SnapManager requer vários tamanhos de bloco de 4K KB.
+
+
+A seguir estão algumas diretrizes para separação de volumes:
+
+* Os arquivos de dados para apenas um banco de dados devem estar no volume.
+* Você deve usar volumes separados para cada uma das seguintes classificações de arquivos: Binários de banco de dados, arquivos de dados, arquivos de log refazer on-line, arquivos de log refazer arquivados e arquivos de controle.
+* Você não precisa criar um volume separado para arquivos temporários de banco de dados, porque o SnapManager não faz backup de arquivos temporários de banco de dados.
+
+
+O SAP usa um layout padrão para instalações de banco de dados Oracle. Nesse layout, o SAP coloca cópias do arquivo de controle Oracle no `E:\oracle\SID\origlogA, E:\oracle\SID\origlogB, and E:\oracle\SID\sapdata1 file systems`.
+
+
+NOTE: Como os backups BR*Tools incluem os perfis Oracle e SAP localizados no subdiretório de banco de dados da instalação Oracle, a instalação Oracle deve estar localizada no armazenamento.
+
+No caso de uma nova instalação, você pode modificar a localização dos arquivos de controle usando SAPINST e mover o arquivo de controle normalmente colocado no sistema de arquivos sapdata1 para um sistema de arquivos que não reside no mesmo volume que os arquivos de dados. (SAPINST é a ferramenta que a SAP fornece para a instalação de sistemas SAP.)
+
+Para obter mais informações, consulte o _SnapManager for SAP Best Practices_.
+
+*Informações relacionadas*
+
+http://media.netapp.com/documents/tr-3823.pdf["SnapManager para as melhores práticas da SAP: Media.NetApp.com/Documents/tr-3823.pdf"^]

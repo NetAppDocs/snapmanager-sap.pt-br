@@ -1,0 +1,23 @@
+---
+permalink: windows/task-adding-new-profile-to-summary-notification.html 
+sidebar: sidebar 
+keywords: configure, summary, email, notification, repository, database, profile, command, add 
+summary: Depois de configurar uma notificação de e-mail de resumo para o banco de dados do repositório, você pode adicionar um novo perfil à notificação de resumo usando o comando de notificação de resumo. 
+---
+= Adicionar um novo perfil às notificações de resumo por e-mail
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de configurar uma notificação de e-mail de resumo para o banco de dados do repositório, você pode adicionar um novo perfil à notificação de resumo usando o comando de notificação de resumo.
+
+. Introduza o seguinte comando: `smsap profile create -profileprofile_name [-profile-passwordprofile_password] -repository-dbnamerepo_service_name-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | \{-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly-countn] [-durationm]] [-daily-countn] [-durationm]] [-weekly-countn] [-durationm]] [-monthly-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][ [ ]] [-summary-notification]`
++
+Outras opções para este comando são as seguintes:
+
++
+[-force] (força)
+
+

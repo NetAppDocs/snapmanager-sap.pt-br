@@ -1,0 +1,193 @@
+---
+permalink: unix-administration/task-create-pretask-post-task-and-policy-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, script, preprocessing, activity, post-processing, policy, task, backup, restore, clone, operation, pretask, post-task, creating 
+summary: O SnapManager permite criar os scripts para a atividade de pré-processamento, a atividade de pós-processamento e tarefas de política das operações de backup, restauração e clone. Você deve colocar os scripts no diretório de instalação correto para executar a atividade de pré-processamento, atividade de pós-processamento e tarefas de política da operação SnapManager. 
+---
+= Crie scripts de pré-tarefa, pós-tarefa e política
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite criar os scripts para a atividade de pré-processamento, a atividade de pós-processamento e tarefas de política das operações de backup, restauração e clone. Você deve colocar os scripts no diretório de instalação correto para executar a atividade de pré-processamento, atividade de pós-processamento e tarefas de política da operação SnapManager.
+
+*Sobre esta tarefa*
+
+*Conteúdo do script de pré-tarefa e pós-tarefa*
+
+Todos os scripts devem incluir o seguinte:
+
+* Operações específicas (verificar, descrever e executar)
+* (Opcional) variáveis de ambiente predefinidas
+* Código específico de manipulação de erros (código de retorno (rc))
+
+
+
+NOTE: Você deve incluir o código correto de manipulação de erros para validar o script.
+
+Você pode usar os scripts de pré-tarefa para muitos fins, por exemplo, limpar um espaço em disco antes que a operação SnapManager seja iniciada. Você também pode usar os scripts pós-tarefa, por exemplo, para estimar se o SnapManager tem espaço em disco suficiente para concluir a operação.
+
+*Conteúdo do script de tarefa de política*
+
+Você pode executar o script de política sem usar operações específicas, como verificar, descrever e executar. O script inclui as variáveis ambientais predefinidas (opcional) e o código específico de manipulação de erros.
+
+O script de política é executado antes das operações de backup, restauração e clone.
+
+*Formato suportado*
+
+Um arquivo de script shell com uma extensão .sh pode ser usado como prescritor e pós-script.
+
+* Diretório de instalação de scripts*
+
+O diretório no qual você instala o script afeta como ele é usado. Você pode colocar os scripts no diretório e executar o script antes ou depois que a operação de backup, restauração ou clone ocorrer. Você deve colocar o script no diretório especificado na tabela e usá-lo de forma opcional quando especificar a operação de backup, restauração ou clone.
+
+
+NOTE: Você deve garantir que o diretório plugins tenha a permissão executável antes de usar os scripts para a operação SnapManager.
+
+[cols="1a,3a,3a,3a"]
+|===
+| Atividade | Backup | Restaurar | Clone 
+
+
+ a| 
+Pré-processamento
+ a| 
+<default_installation_directory>/plugins/backup/criar/pre
+ a| 
+<default_installation_directory>/plugins/restore/criar/pre
+ a| 
+<default_installation_directory>/plugins/clone/criar/pre
+
+
+
+ a| 
+Pós-processamento
+ a| 
+<default_installation_directory>/ plugins/backup/criar/publicar
+ a| 
+<default_installation_directory>/plugins/restaurar/criar/publicar
+ a| 
+<default_installation_directory>/plugins/clone/create/post
+
+
+
+ a| 
+Baseado em políticas
+ a| 
+<default_installation_directory>/plugins/backup/criar/política
+ a| 
+<default_installation_directory>/plugins/restore/create/policy
+ a| 
+<default_installation_directory>/plugins/clone/create/policy
+
+|===
+*Locais de exemplo de scripts*
+
+A seguir estão algumas amostras dos scripts de pré-tarefa e pós-tarefa para as operações de backup e clone disponíveis no caminho do diretório de instalação:
+
+* <default_installation_directory>/plugins/exemplos/backup/criar/pre
+* <default_installation_directory>/plugins/exemplos/backup/criar/publicar
+* <default_installation_directory>/plugins/examples/clone/create/pre
+* <default_installation_directory>/plugins/examples/clone/create/post
+
+
+*O que você pode alterar no script*
+
+Se você estiver criando um novo script, poderá alterar apenas as operações de descrição e execução. Cada script deve conter as seguintes variáveis: `_context, timeout,_` E `_parameter_`.
+
+As variáveis que você descreveu na função descrever do script devem ser declaradas no início do script. Você pode adicionar novos valores de parâmetro em `parameter=()` e, em seguida, usar os parâmetros na função executar.
+
+'''
+
+
+== Exemplo de script
+
+A seguir está um script de exemplo com um código de retorno especificado pelo usuário para estimar o espaço no host SnapManager:
+
+[listing]
+----
+
+    #!/bin/bash
+    # $Id: //depot/prod/capstan/main/src/plugins/unix/examples/backup/create/pre/disk_space_estimate.sh#5 $
+    name="disk space estimation ($(basename $0))"
+    description="pre tasks for estimating the space on the target system"
+    context=
+    timeout="0"
+    parameter=()
+    EXIT=0
+    PRESERVE_DIR="/tmp/preserve/$(date +%Y%m%d%H%M%S)"
+    function _exit {
+       rc=$1
+       echo "Command complete."
+       exit $rc
+    }
+    function usage {
+       echo "usage: $(basename $0) { -check | -describe | -execute }"
+       _exit 99
+    }
+    function describe {
+       echo "SM_PI_NAME:$name"
+       echo "SM_PI_DESCRIPTION:$description"
+       echo "SM_PI_CONTEXT:$context"
+       echo "SM_PI_TIMEOUT:$timeout"
+       IFS=^
+       for entry in ${parameter[@]}; do
+           echo "SM_PI_PARAMETER:$entry"
+       done
+       _exit 0
+    }
+    function check {
+       _exit 0
+    }
+    function execute {
+       echo "estimating the space on the target system"
+       # Shell script to monitor or watch the disk space
+       # It will display alert message, if the (free available) percentage
+       # of space is >= 90%
+       # ----------------------------------------------------------------------
+       # Linux shell script to watch disk space (should work on other UNIX oses )
+       # set alert level 90% is default
+       ALERT=90
+       df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+       do
+         #echo $output
+         usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+         partition=$(echo $output | awk '{ print $2 }' )
+       if [ $usep -ge $ALERT ]; then
+           echo "Running out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" |
+       fi
+       done
+      _exit 0
+     }
+    function preserve {
+        [ $# -ne 2 ] && return 1
+        file=$1
+        save=$(echo ${2:0:1} | tr [a-z] [A-Z])
+        [ "$save" == "Y" ] || return 0
+        if [ ! -d "$PRESERVE_DIR" ] ; then
+           mkdir -p "$PRESERVE_DIR"
+           if [ $? -ne 0 ] ; then
+               echo "could not create directory [$PRESERVE_DIR]"
+               return 1
+           fi
+        fi
+        if [ -e "$file" ] ; then
+            mv "$file" "$PRESERVE_DIR/."
+        fi
+        return $?
+    }
+    case $(echo $1 | tr [A-Z] [a-z]) in
+        -check)    check
+                  ;;
+        -execute)  execute
+                  ;;
+        -describe) describe
+                  ;;
+     *)         echo "unknown option $1"
+              usage
+              ;;
+     esac
+----
+'''

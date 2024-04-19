@@ -1,0 +1,77 @@
+---
+permalink: windows/reference-the-smosmsapbackup-verify-command.html 
+sidebar: sidebar 
+keywords: run, backup, verify, command, valid, format, oracle, smsap 
+summary: Você pode executar o comando de verificação de backup para ver se o backup está em um formato válido para o Oracle. 
+---
+= O comando smsap backup check
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `backup verify` comando para ver se o backup está em um formato válido para o Oracle.
+
+
+
+== Sintaxe
+
+[listing]
+----
+smsap backup verify
+-profile profile_name
+[-label backup_name | [-id guid]
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited}]
+[-force]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o perfil para o qual você deseja verificar um backup. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* *`-id _guid_`*
++
+Verifica a cópia de segurança com o GUID especificado. O GUID é gerado pelo SnapManager quando cria uma cópia de segurança. Pode utilizar o `smsap backup list` comando para apresentar o GUID para cada cópia de segurança.
+
+* *`-label _label_name_`*
++
+Verifica a cópia de segurança com a etiqueta especificada.
+
+* *`-dump`*
++
+Coleta os arquivos de despejo após a operação de verificação de backup bem-sucedida ou com falha.
+
+* *`-force`*
++
+Força o banco de dados no estado necessário para executar a operação de verificação.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo
+
+O seguinte é um exemplo de verificação do backup:
+
+[listing]
+----
+smsap backup verify -profile SALES1 -label full_backup_sales_May -quiet
+----
+[listing]
+----
+DBVERIFY - Verification starting : FILE = C:\SnapManager_auto_mounts\H-2012071400592312_0\smsap\datafile\data
+----

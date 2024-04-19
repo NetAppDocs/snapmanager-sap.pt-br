@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/task-clone-databases-and-using-custom-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, method, custom, script, clone, operation, occur, database, sid, policy, plug-in, cloning 
+summary: O SnapManager fornece um método para usar scripts personalizados antes e depois que uma operação de clone ocorre. Por exemplo, você pode ter criado um script personalizado que valida um SID de banco de dados clone e garante que o SID seja permitido pela sua política de nomenclatura. Usando o plug-in clone do SnapManager, você pode incluir seus scripts personalizados e fazer com que eles sejam executados automaticamente antes ou depois de uma operação de clone do SnapManager. 
+---
+= Clonar bancos de dados e usar scripts de plug-in personalizados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager fornece um método para usar scripts personalizados antes e depois que uma operação de clone ocorre. Por exemplo, você pode ter criado um script personalizado que valida um SID de banco de dados clone e garante que o SID seja permitido pela sua política de nomenclatura. Usando o plug-in clone do SnapManager, você pode incluir seus scripts personalizados e fazer com que eles sejam executados automaticamente antes ou depois de uma operação de clone do SnapManager.
+
+.Passos
+. Veja exemplos de scripts de plug-in.
+. Crie um script do zero ou modifique um dos scripts de plug-in de amostra.
++
+Crie seu script personalizado de acordo com as diretrizes de script de plug-in do SnapManager.
+
+. Coloque seu script personalizado em um local de diretório especificado.
+. Atualize o arquivo XML de especificação de clone e inclua informações sobre seu script personalizado que devem ser usadas durante o processo de clonagem.
+. Usando um comando SnapManager, verifique se os scripts personalizados estão operacionais.
+. Ao iniciar a operação clone, inclua o nome do script e os parâmetros opcionais.
+

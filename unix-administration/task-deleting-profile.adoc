@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-delete-profile.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, backup, current, operation, free, backup, deleting 
+summary: Você pode excluir um perfil desde que ele não contenha backups bem-sucedidos que são usados atualmente em outras operações. Você pode excluir perfis que contêm backups liberados ou excluídos. 
+---
+= Eliminar um perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode excluir um perfil desde que ele não contenha backups bem-sucedidos que são usados atualmente em outras operações. Você pode excluir perfis que contêm backups liberados ou excluídos.
+
+. Introduza o seguinte comando: `smsap profile delete -profileprofile [-quiet | -verbose]`
++
+Você pode excluir um novo perfil criado para o grupo clone. Ao excluir, a mensagem de aviso se você excluir o perfil, não será possível destruir o perfil mais tarde será exibida na interface da linha de comando do SnapManager.
+
+
+
+[listing]
+----
+smsap profile delete -profile AUTO-REVEN
+----

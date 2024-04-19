@@ -1,0 +1,40 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-suspend-command.html 
+sidebar: sidebar 
+keywords: command, suspend, backup, schedule, resume, smsap 
+summary: Este comando suspende um agendamento de backup até que o agendamento de backup seja retomado. 
+---
+= O comando smsap schedule suspend
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando suspende um agendamento de backup até que o agendamento de backup seja retomado.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap schedule suspend
+-profile profile_name
+-schedule-name schedule_name
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o nome do perfil relacionado ao banco de dados que você deseja suspender um agendamento de backup. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* *`-schedule-name schedule_name`*
++
+Especifica o nome da programação fornecido durante a criação de uma agenda de backup.
+
+

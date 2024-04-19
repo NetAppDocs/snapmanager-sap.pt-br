@@ -1,0 +1,17 @@
+---
+permalink: windows/task-deleting-backup-schedules.html 
+sidebar: sidebar 
+keywords: delete, backup, schedule, deleting 
+summary: Você pode excluir programações de backup quando elas não forem mais necessárias. 
+---
+= Eliminar agendas de cópia de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode excluir programações de backup quando elas não forem mais necessárias.
+
+. Para excluir o agendamento de backup, digite este comando: `smsap schedule delete -profile profile_name-schedule-nameschedulename [-quiet | -verbose]`
+

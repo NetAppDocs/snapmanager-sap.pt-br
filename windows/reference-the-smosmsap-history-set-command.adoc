@@ -1,0 +1,96 @@
+---
+permalink: windows/reference-the-smosmsap-history-set-command.html 
+sidebar: sidebar 
+keywords: run, history, set, command, configure, operation, smsap 
+summary: Você pode executar o comando History SET para configurar as operações para as quais deseja exibir o histórico. 
+---
+= O comando smsap history set
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `history set` comando para configurar as operações para as quais deseja exibir o histórico.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap history set
+-profile {-name profile_name [profile_name1, profile_name2] | -all
+-repository
+-login [password repo_password]
+-username repo_username
+-host repo_host
+-dbname repo_dbname
+-port repo_port}
+-operation {-operations operation_name [operation_name1, operation_name2] | -all}
+-retain
+{-count retain_count | -daily daily_count | -monthly monthly_count | -weekly weekly_count}
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_`*
++
+Especifica o nome do perfil. O nome pode ter até 30 carateres e deve ser único dentro do host.
+
+* *`-repository`*
++
+Especifica os detalhes do banco de dados que armazena o perfil.
+
+* *`-dbname _repo_dbname_`*
++
+Especifica o nome do banco de dados que armazena o perfil. Você pode usar o nome global ou o identificador do sistema.
+
+* *`-host _repo_host_`*
++
+Especifica o nome ou endereço IP do host onde reside o banco de dados do repositório.
+
+* *`-login`*
++
+Especifica os detalhes de login do repositório.
+
+* *`-username _repo_username_`*
++
+Especifica o nome de usuário necessário para acessar o banco de dados do repositório.
+
+* *`-port _repo_port_`*
++
+Especifica o número da porta TCP (Transmission Control Protocol) usada para acessar o banco de dados do repositório.
+
+* *`-operation {-operations _operation_name_ [operation_name1, operation_name2] | -all`*
++
+Especifica as operações SnapManager para as quais você deseja configurar o histórico.
+
+* *`-retain {-countretain_count | -dailydaily_count | -monthly-monthly_count | -weeklyweekly_count}`*
++
+Especifica a classe de retenção das operações de criação de backup, verificação de backup, restauração e recuperação e criação de clones. A classe de retenção é definida com base no número de contagem de operações, número de dias, semanas ou meses.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir exibe informações sobre a operação de backup:
+
+[listing]
+----
+smsap history set -profile -name PROFILE1 -operation -operations backup -retain -daily 6
+-verbose
+----

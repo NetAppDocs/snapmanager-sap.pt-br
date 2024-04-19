@@ -1,0 +1,36 @@
+---
+permalink: windows/concept-full-online-backups.html 
+sidebar: sidebar 
+keywords: full, online, backup, snapmanager, back up, database, create, snapshot, copies, copy, volume, level, tablespace 
+summary: 'Durante um backup on-line completo, o SnapManager faz o backup de todo o banco de dados e cria cópias Snapshot no nível do volume (não no nível do espaço da tabela).' 
+---
+= Backups online completos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Durante um backup on-line completo, o SnapManager faz o backup de todo o banco de dados e cria cópias Snapshot no nível do volume (não no nível do espaço da tabela).
+
+O SnapManager cria duas cópias Snapshot para cada backup. Se todos os arquivos necessários ao banco de dados estiverem em um único volume, as duas cópias snapshot aparecerão nesse volume.
+
+Quando você especifica um backup completo, o SnapManager executa as seguintes ações:
+
+.Passos
+. Coloca todo o banco de dados no modo de backup on-line
+. Cria cópias Snapshot de todos os volumes que contêm arquivos de banco de dados
+. Retira a base de dados do modo de cópia de segurança online
+. Força um switch de log e, em seguida, arquiva os arquivos de log
++
+Isso também limpa as informações de refazer para o disco.
+
+. Gera arquivos de controle de backup
+. Cria uma cópia Snapshot dos arquivos de log e dos arquivos de controle de backup
+
+
+Ao executar um backup completo, o SnapManager coloca todo o banco de dados no modo de backup on-line. Um espaço de tabela individual (por exemplo, `E:\data\system.data1`) está no modo de backup on-line por mais tempo do que certos espaços de tabela ou arquivos de dados que foram especificados.
+
+Quando um banco de dados entra no modo de backup, o Oracle grava blocos inteiros nos logs e não apenas grava o delta entre backups. Como os bancos de dados funcionam mais no modo de backup on-line, escolher um backup completo coloca uma carga maior no host.
+
+Embora a execução de backups completos coloque uma carga maior no host, os backups completos exigem menos cópias Snapshot, o que resulta em menos requisitos de storage.

@@ -1,0 +1,72 @@
+---
+permalink: windows/concept-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, compress, log, contain, information, snapmanager, environment, operation, profile, system 
+summary: Os arquivos de despejo são arquivos de log compatados contendo informações sobre o SnapManager e seu ambiente. Os diferentes tipos de arquivos de log criados são operação, perfil e arquivo de despejo do sistema. 
+---
+= Despejar arquivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os arquivos de despejo são arquivos de log compatados contendo informações sobre o SnapManager e seu ambiente. Os diferentes tipos de arquivos de log criados são operação, perfil e arquivo de despejo do sistema.
+
+Você pode usar o comando dump ou a guia *Create Diagnostics* na interface gráfica do usuário (GUI) para coletar informações sobre uma operação, um perfil ou o ambiente. Um despejo de sistema não requer um perfil; no entanto, os despejos de perfil e operação exigem perfis.
+
+O SnapManager inclui as seguintes informações de diagnóstico no arquivo de despejo:
+
+* Os passos executados
+* O período de tempo para cada etapa ser concluída
+* O resultado de cada etapa
+* Erro, se houver, que ocorreu durante a operação
+
+
+
+NOTE: Os arquivos de log do SnapManager ou arquivos de despejo habilitam permissões de leitura e gravação somente para os usuários raiz e para os outros usuários que pertencem ao grupo de usuários raiz.
+
+O SnapManager também inclui as seguintes informações no arquivo:
+
+* Versão e arquitetura do sistema operacional
+* Variáveis de ambiente
+* Versão Java
+* Versão e arquitetura do SnapManager
+* Preferências do SnapManager
+* Mensagens SnapManager
+* log4j propriedades
+* Versão e arquitetura do SnapDrive
+* Ficheiros de registo do SnapDrive
+* Versão Oracle
+* Detalhes do inventário local do Oracle OPatch
+* Banco de dados do repositório versão Oracle
+* Tipo de banco de dados de destino (autônomo)
+* Função do banco de dados de destino (principal, standby físico ou standby lógico)
+* Configuração do Oracle Recovery Manager (RMAN) (sem integração RMAN, RMAN com arquivos de controle ou RMAN com arquivo de catálogo)
+* Banco de dados de destino versão Oracle
+* Identificador do sistema (SID) da base de dados de destino
+* Nome do serviço de banco de dados do repositório
+* Instâncias de banco de dados instaladas no host
+* Descritor do perfil
+* Memória compartilhada máxima
+* Troque informações de espaço
+* Informações de memória
+* Ambiente multipath
+* Versão dos utilitários do host
+* Versão do iniciador de software da Microsoft Internet Small Computer System Interface (iSCSI) para Windows
+* Versões de interface BACKINT
+* Versão da ferramenta BR
+* Nível de patch
+* Saída do `system verify` comando
+
+
+O arquivo dump também lista as limitações do SnapManager no Windows.
+
+Os arquivos de despejo do SnapManager também contêm o arquivo de coletor de dados do SnapDrive e o arquivo de log de alerta do Oracle. Você pode coletar o arquivo de log de alerta Oracle usando os `smsap operation dump` comandos e. `smsap profile dump`
+
+
+NOTE: O despejo do sistema não contém logs de alerta Oracle; no entanto, os despejos de perfil e operação contêm os logs de alerta.
+
+Mesmo que o servidor host SnapManager não esteja sendo executado, você pode acessar as informações de despejo usando a interface de linha de comando (CLI) ou a GUI.
+
+Se encontrar um problema que não possa resolver, pode enviar estes ficheiros para os Serviços globais da NetApp.

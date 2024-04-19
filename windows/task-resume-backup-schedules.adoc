@@ -1,0 +1,27 @@
+---
+permalink: windows/task-resume-backup-schedules.html 
+sidebar: sidebar 
+keywords: administrator, option, resume, suspend, backup, schedule 
+summary: Os administradores têm a opção de retomar o agendamento de backup suspenso. 
+---
+= Retomar as programações de cópia de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os administradores têm a opção de retomar o agendamento de backup suspenso.
+
+
+
+== Sobre esta tarefa
+
+Se você tentar retomar as programações ativas, poderá encontrar a mensagem de erro: `"Cannot resume: schedule <schedulename> already in resume state"`.
+
+.Passo
+. Para retomar o agendamento de backup suspenso, digite este comando:
++
+`*smsap schedule resume -profile _profile_name_ -schedule-name _schedulename_ [-quiet | -verbose]*`
+
+

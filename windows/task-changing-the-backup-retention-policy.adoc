@@ -1,0 +1,20 @@
+---
+permalink: windows/task-changing-the-backup-retention-policy.html 
+sidebar: sidebar 
+keywords: change, property, properties, eligible, ineligible, deletion, retention, policy, changing, backup 
+summary: Você pode alterar as propriedades de um backup para que ele seja elegível ou não elegível para exclusão de acordo com a política de retenção. 
+---
+= Alterar a política de retenção de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode alterar as propriedades de um backup para que ele seja elegível ou não elegível para exclusão de acordo com a política de retenção.
+
+Ao criar um backup, você pode definir sua política de retenção. Mais tarde, você pode optar por manter esse backup por um período mais longo do que a política de retenção permite ou especificar que você não precisa mais do backup e deseja que a política de retenção o gerencie.
+
+*Informações relacionadas*
+
+xref:reference-the-smosmsapbackup-update-command.adoc[O comando smsap backup update]

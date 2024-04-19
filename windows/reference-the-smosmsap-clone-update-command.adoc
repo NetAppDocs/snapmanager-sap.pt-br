@@ -1,0 +1,69 @@
+---
+permalink: windows/reference-the-smosmsap-clone-update-command.html 
+sidebar: sidebar 
+keywords: command, update, information, clone, comment, smsap 
+summary: Este comando atualiza informações sobre o clone. Você pode atualizar o comentário. 
+---
+= O comando smsap clone update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando atualiza informações sobre o clone. Você pode atualizar o comentário.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap clone update
+-profile profile_name
+[-label label | -id id]
+-comment  commment_text
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o nome do perfil que contém o clone que você deseja atualizar. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* *`-id _id_`*
++
+Especifica o ID do clone. O ID é gerado pelo SnapManager quando você cria um clone. Use o `smsap clone list` comando para exibir o ID de cada clone.
+
+* *`-label _label_`*
++
+Especifica o rótulo para o clone.
+
+* *`-comment`*
++
+Mostra o comentário inserido na criação do clone. Este é um parâmetro opcional.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir atualiza o comentário clone.
+
+[listing]
+----
+smsap clone update -profile anson.pcrac5
+-label clone_pcrac51_20080820141624EDT  -comment See updated clone
+----

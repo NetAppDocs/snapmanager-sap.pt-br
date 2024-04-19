@@ -1,0 +1,54 @@
+---
+permalink: unix-administration/reference-the-smosmsap-storage-list-command.html 
+sidebar: sidebar 
+keywords: run, storage, list, command, display, system, profile, smsap 
+summary: Você pode executar o comando storage list para exibir a lista de sistemas de armazenamento associados a um perfil específico. 
+---
+= O comando smsap storage list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `storage list` comando para exibir a lista de sistemas de armazenamento associados a um perfil específico.
+
+
+
+== Sintaxe
+
+[listing]
+----
+smsap storage list
+-profile profile
+----
+
+
+== Parâmetros
+
+* `*-profile profile*`
++
+Especifica o nome do perfil. O nome pode ter até 30 carateres e deve ser único dentro do host.
+
+
+
+'''
+
+
+== Exemplo
+
+O exemplo a seguir exibe os sistemas de armazenamento associados ao perfil mjullian:
+
+[listing]
+----
+smsap storage list -profile mjullian
+----
+[listing]
+----
+
+Sample Output:
+Storage Controllers
+--------------------
+FAS3020-RTP07OLD
+----
+'''

@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-the-smosmsapbackup-unmount-command.html 
+sidebar: sidebar 
+keywords: run, backup, unmount, command, smsap 
+summary: Você pode executar o comando backup desmontar para desmontar um backup. 
+---
+= O comando smsap backup desmontar
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `backup unmount` comando para desmontar um backup.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap backup unmount
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id id]
+[-force]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o perfil para o qual você deseja desmontar um backup. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* *`-id _id_`*
++
+Desmonta a cópia de segurança com o GUID especificado. O GUID é gerado pelo SnapManager quando cria uma cópia de segurança. Pode utilizar o `smsap backup list` comando para apresentar o GUID para cada cópia de segurança.
+
+* *`-label _label_`*
++
+Desmonta a cópia de segurança com a etiqueta especificada.
+
+* *`-data`*
++
+Especifica os arquivos de dados.
+
+* *`-archivelogs`*
++
+Especifica os arquivos de log de arquivamento.
+
+* *`-dump`*
++
+Coleta os arquivos de despejo após uma operação de desmontagem bem-sucedida ou com falha.
+
+* *`-force`*
++
+Desmonta o backup mesmo que haja problemas em liberar os recursos associados ao backup. O SnapManager tenta desmontar o backup e limpar todos os recursos associados. O log mostra a operação de desmontagem como bem-sucedida, mas você pode ter que limpar manualmente os recursos se houver erros no log.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo
+
+O seguinte é um exemplo de uma operação de desmontagem:
+
+[listing]
+----
+# smsap backup unmount -label test -profile SALES1 -verbose
+----
+[listing]
+----
+[INFO ]: SMSAP-13051: Process PID=9788
+[INFO ]: SMSAP-13036: Starting operation Backup Unmount on host hadley.domain.private
+[INFO ]: SMSAP-13036: Starting operation Backup Unmount on host hadley.domain.private
+[INFO ]: SMSAP-13046: Operation GUID 8abc015738849a3d0138849a43900001 starting on Profile FAS_P1
+[INFO ]: SD-00031: Beginning to disconnect filesystem(s) [C:\SnapManager_auto_mounts\H-2012071400592312_0, C:\SnapManager_auto_mounts\I-2012071400592328_0].
+[INFO ]: SD-00032: Finished disconnecting filesystem(s) [C:\SnapManager_auto_mounts\H-2012071400592312_0, C:\SnapManager_auto_mounts\I-2012071400592328_0].
+[INFO ]: SMSAP-13048: Backup Unmount Operation Status: SUCCESS
+[INFO ]: SMSAP-13049: Elapsed Time: 0:07:26.754
+----

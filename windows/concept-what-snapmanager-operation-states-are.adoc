@@ -1,0 +1,69 @@
+---
+permalink: windows/concept-what-snapmanager-operation-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, operation, backup, restore, clone, state, indicate, progress 
+summary: 'As operações do SnapManager (backup, restauração e clone) podem estar em diferentes estados, com cada estado indicando o andamento da operação.' 
+---
+= Quais são os estados da operação SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As operações do SnapManager (backup, restauração e clone) podem estar em diferentes estados, com cada estado indicando o andamento da operação.
+
+|===
+| Estado de operação | Descrição 
+
+
+ a| 
+Bem-sucedido
+ a| 
+A operação foi concluída com êxito.
+
+
+
+ a| 
+Em execução
+ a| 
+A operação foi iniciada, mas não foi concluída. Por exemplo, um backup, que leva dois minutos, está programado para ocorrer às 11:00 da manhã. Quando você visualiza a guia *Schedule* às 11:01 da manhã, a operação aparece como Running.
+
+
+
+ a| 
+Nenhuma operação encontrada
+ a| 
+O agendamento não foi executado ou o último backup de execução foi excluído.
+
+
+
+ a| 
+Falha
+ a| 
+A operação falhou. O SnapManager executou automaticamente o processo de cancelamento e limpou a operação.
+
+|===
+
+
+== Eventos recuperáveis e irrecuperáveis
+
+Um evento recuperável do SnapManager tem os seguintes problemas:
+
+* O banco de dados não é armazenado em um sistema de storage que executa o Data ONTAP.
+* O SnapDrive para Windows não está instalado ou não pode aceder ao sistema de armazenamento.
+* O SnapManager não consegue criar uma cópia Snapshot ou provisionar o storage se o volume estiver fora do espaço, o número máximo de cópias snapshot será atingido ou uma exceção não antecipada ocorrerá.
+
+
+Quando ocorre um evento recuperável, o SnapManager executa um processo de cancelamento e tenta retornar o host, o banco de dados e o sistema de storage ao estado inicial. Se o processo de cancelamento falhar, o SnapManager trata o incidente como um evento irrecuperável.
+
+Um evento irrecuperável (fora da banda) ocorre quando qualquer uma das seguintes situações acontece:
+
+* Ocorre um problema de sistema, como quando um host falha.
+* O processo SnapManager é interrompido.
+* Uma operação de interrupção na banda falha quando o sistema de armazenamento falha, o número de unidade lógica (LUN) ou o volume de armazenamento está offline ou a rede falha.
+
+
+Quando ocorre um evento irrecuperável, o SnapManager executa um processo de cancelamento imediatamente. O host, o banco de dados e o sistema de storage podem não ter retornado aos estados iniciais. Se for esse o caso, você deverá executar uma limpeza após a falha da operação SnapManager excluindo a cópia Snapshot órfã e removendo o arquivo de bloqueio do SnapManager.
+
+Se pretender eliminar o ficheiro de bloqueio do SnapManager, navegue para `$ORACLE_HOME` na máquina de destino e elimine o `sm_lock_TargetDBName` ficheiro. Depois de eliminar o ficheiro, tem de reiniciar o servidor SnapManager para SAP.

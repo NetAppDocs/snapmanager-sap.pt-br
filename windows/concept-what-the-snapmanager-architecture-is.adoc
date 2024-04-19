@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-what-the-snapmanager-architecture-is.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, architecture, component, host, client, repository, primary, secondary, storage, system, netapp, product, architecture 
+summary: A arquitetura do SnapManager para SAP inclui muitos componentes, como host, cliente e repositório do SnapManager para SAP. Outros componentes incluem os sistemas de storage primário e secundário e outros produtos da NetApp. 
+---
+= O que é a arquitetura SnapManager para SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A arquitetura do SnapManager para SAP inclui muitos componentes, como host, cliente e repositório do SnapManager para SAP. Outros componentes incluem os sistemas de storage primário e secundário e outros produtos da NetApp.
+
+A arquitetura SnapManager para SAP inclui os seguintes componentes arquitetônicos:
+
+* Host SnapManager
+* Interface gráfica do usuário do SnapManager ou interface de linha de comando
+* Repositório SnapManager
+* SnapManager para interface SAP BACKINT
+* Sistema de storage primário
+* Sistemas de storage secundário
+* SnapDrive para Windows
+
+
+A imagem a seguir mostra a arquitetura do SnapManager para SAP e componentes relacionados:
+
+image::../media/scrn_en_drw_smsap_architecture.gif[SnapManager para arquitetura Oracle]

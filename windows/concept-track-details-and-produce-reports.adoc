@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-track-details-and-produce-reports.html 
+sidebar: sidebar 
+keywords: snapmanager, reduce, level, detail, database, administrator, track, status, operation, monitor, interface, produce, report 
+summary: O SnapManager reduz o nível de detalhe que os administradores de banco de dados precisam para acompanhar o status de diferentes operações, oferecendo métodos para monitorar operações a partir de uma única interface. 
+---
+= Acompanhe detalhes e produza relatórios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager reduz o nível de detalhe que os administradores de banco de dados precisam para acompanhar o status de diferentes operações, oferecendo métodos para monitorar operações a partir de uma única interface.
+
+Depois que os administradores especificarem quais bancos de dados devem ser copiados, o SnapManager identifica automaticamente os arquivos do banco de dados para backup. O SnapManager exibe informações sobre repositórios, hosts, perfis, backups e clones. Você pode monitorar as operações em hosts ou bancos de dados específicos.

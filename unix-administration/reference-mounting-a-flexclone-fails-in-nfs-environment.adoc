@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/reference-mounting-a-flexclone-fails-in-nfs-environment.html 
+sidebar: sidebar 
+keywords: snapmanager, create, flexclone, volume, nfs, environment, export, file, clone, backup, fail, mount, error, message 
+summary: Quando o SnapManager cria um FlexClone de um volume em um ambiente NFS, uma entrada é adicionada no arquivo /etc/exports. O clone ou backup não é montado em um host SnapManager com uma mensagem de erro. 
+---
+= A montagem de um volume FlexClone falha no ambiente NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando o SnapManager cria um FlexClone de um volume em um ambiente NFS, uma entrada é adicionada ao `/etc/exports` arquivo. O clone ou backup não é montado em um host SnapManager com uma mensagem de erro.
+
+A mensagem de erro é: `0001-034 Command error: mount failed: mount: filer1:/vol/SnapManager_20090914112850837_vol14 on /opt/NTAPsmsap/mnt/-ora_data02-20090914112850735_1 - WARNING unknown option "zone=vol14" nfs mount: filer1:/vol/SnapManager_20090914112850837_vol14: Permission denied`.
+
+Ao mesmo tempo, a seguinte mensagem é gerada no console do sistema de armazenamento: `Mon Sep 14 23:58:37 PDT [filer1: export.auto.update.disabled: warning]: /etc/exports was not updated for vol14 when the vol clone create command was run. Please either manually update /etc/exports or copy /etc/exports.new to it`.
+
+Esta mensagem pode não ser capturada nas mensagens AutoSupport.
+
+
+NOTE: Você pode encontrar problemas semelhantes ao clonar volumes do FlexVol em NFS. Pode seguir os mesmos passos para ativar a `nfs.export.auto-update` opção.
+
+*O que fazer*
+
+. Defina a `nfs.export.auto-update` opção `_on_` para que o `/etc/exports` arquivo seja atualizado automaticamente.
+
+
+`*options nfs.export.auto-update _on_*`
+
+
+NOTE: Na configuração de par de HA, defina a opção exportações NFS como On para ambos os sistemas de storage.

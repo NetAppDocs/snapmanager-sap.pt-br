@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/task-stop-the-clone-split-process.html 
+sidebar: sidebar 
+keywords: stop, run, clone, split, process 
+summary: Você pode parar o processo de divisão de clones em execução. 
+---
+= Pare o processo de divisão de clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode parar o processo de divisão de clones em execução.
+
+*Sobre esta tarefa*
+
+Depois de parar o processo de divisão, não é possível retomá-lo.
+
+.Passo
+. Para parar a operação de divisão de clones, digite o seguinte comando:
++
+`*smsap clone split-stop -profile _profile_ [-host _hostname_] [-label _split-label_ | -id _split-id_] [-quiet | -verbose]*`
+
+
+
+'''
+[listing]
+----
+smsap clone split-stop -profile p1 -id 8abc01ec0e78f3e2010e78f3fdd00001
+----
+'''

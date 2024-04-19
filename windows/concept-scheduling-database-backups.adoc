@@ -1,0 +1,30 @@
+---
+permalink: windows/concept-scheduling-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, schedule, database, backup, basis, off-peak, performance, profile, information, retention, policy 
+summary: 'O SnapManager (3,2 ou posterior) para SAP permite que você programe backups de bancos de dados regularmente durante horas fora do horário de pico para manter a alta performance. Para agendar um backup, você pode criar um perfil, que inclui as informações do banco de dados e a política de retenção, e então definir agendas para o backup.' 
+---
+= Agendamento de backups de bancos de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager (3,2 ou posterior) para SAP permite que você programe backups de bancos de dados regularmente durante horas fora do horário de pico para manter a alta performance. Para agendar um backup, você pode criar um perfil, que inclui as informações do banco de dados e a política de retenção, e então definir agendas para o backup.
+
+
+NOTE: Você deve agendar os backups como administrador. Se você tentar agendar os backups como um usuário não existente, o SnapManager exibirá uma mensagem de erro: Usuário inválido: Nome de usuário: Não é possível criar o backup de agendamento para um determinado usuário
+
+A seguir estão algumas das tarefas relacionadas ao cronograma:
+
+* Agende um backup de banco de dados para que ocorra por hora, dia, semanal, mensal ou uma única vez.
+* Exibir uma lista de backups programados associados a um perfil.
+* Atualizar uma cópia de segurança agendada.
+* Suspenda temporariamente um agendamento.
+* Retomar o programa suspenso.
+* Eliminar uma agenda.
+
+
+
+NOTE: A caixa de seleção *Executar agora Menu operação* é desativada quando um backup programado está sendo executado para esse agendamento.

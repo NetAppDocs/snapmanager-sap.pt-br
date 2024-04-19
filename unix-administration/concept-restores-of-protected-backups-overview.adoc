@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/concept-restores-of-protected-backups-overview.html 
+sidebar: sidebar 
+keywords: restore, method, backup, data, secondary, primary, storage, protect, overview 
+summary: Você pode escolher o método de restauração que deseja usar para restaurar os dados de backup do storage secundário para o storage primário. 
+---
+= Visão geral das restaurações de backups protegidos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode escolher o método de restauração que deseja usar para restaurar os dados de backup do storage secundário para o storage primário.
+
+A tabela a seguir explica os diferentes cenários e métodos que podem ser usados para restaurar um backup do armazenamento secundário:
+
+[cols="1a,3a"]
+|===
+| Restaure o destino | Explicação 
+
+
+ a| 
+Diretamente para o storage primário
+ a| 
+Retorna os dados do sistema de armazenamento secundário diretamente para o local original no sistema de armazenamento primário pela mesma rede que foi usada para proteger os dados.
+
+O SnapManager usa o método de armazenamento direto sempre que possível. Este método não é possível se os dados estiverem em um sistema de arquivos na rede de área de armazenamento (SAN) e se alguma das seguintes condições se aplicar:
+
+* Outros arquivos que não sejam de banco de dados não estão sendo restaurados no mesmo sistema de arquivos.
+* Cópias snapshot dos arquivos de controle e dados em um sistema de arquivos que está sendo restaurado foram tiradas em momentos diferentes.
+* O número de unidade lógica (LUN) está em um grupo de volumes, mas outros LUNs no mesmo grupo de volumes não estão sendo restaurados.
+
+
+
+
+ a| 
+Diretamente para hospedar
+ a| 
+Clones os dados no sistema de storage secundário e monta os dados clonados no host. Depois que os dados são clonados e montados, o SnapManager os copia em seu local original.
+
+
+
+ a| 
+Indiretamente para storage ou host
+ a| 
+Retorna os dados do sistema de armazenamento secundário para um novo local no sistema primário pela mesma rede que foi usada para proteger os dados e montar o novo armazenamento no host. Depois que os dados forem retornados e montados, o SnapManager os copiará em seu local original. O método de armazenamento indireto pode exigir muito tempo para retornar os dados.
+
+O SnapManager copia primeiro os dados para um volume de risco no host primário antes que o SnapManager os use para restaurar e recuperar o banco de dados. Se os dados de risco são automaticamente excluídos depende do protocolo usado.
+
+* Para SAN, o SnapManager exclui os dados retornados.
+* Para armazenamento conetado à rede (nas), o SnapManager exclui o conteúdo dos qtrees retornados, mas não exclui os qtrees propriamente ditos. Para excluir o qtrees, os administradores devem montar o volume do zero e remover o qtrees usando o comando UNIX rmdir.
+
+
+|===
+Se você não puder retornar dados diretamente ao storage, o SnapManager poderá retornar dados diretamente ao host ou indiretamente ao storage ou ao host. O método depende da política que rege se a organização permite a conexão diretamente com o armazenamento secundário ou exige que os dados sejam copiados pela rede de armazenamento. Você pode gerenciar essa política definindo informações de configuração no arquivo smsap.config.

@@ -1,0 +1,37 @@
+---
+permalink: unix-administration/reference-the-smosmsap-schedule-resume-command.html 
+sidebar: sidebar 
+keywords: command, resume, suspend, backup, schedule, smsap 
+summary: Este comando retoma o agendamento de backup suspenso. 
+---
+= O comando smsap schedule resume
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando retoma o agendamento de backup suspenso.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap schedule resume -profile _profile_name_
+-schedule-name _schedule_name_[-quiet | -verbose]]
+----
+
+
+== Parâmetros
+
+* `*-profile _profile_name_*`
++
+Especifica o nome do perfil relacionado ao banco de dados que você deseja retomar o agendamento de backup suspenso. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* `*-schedule-name _schedule_name_*`
++
+Especifica o nome da programação fornecido durante a criação de uma agenda de backup.
+
+

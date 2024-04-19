@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/task-configure-snapdrive-in-an-active-active-unix-environment.html 
+sidebar: sidebar 
+keywords: host-cluster-sw-restore-warn, parameter, snapdrive, conf, assign, value, support, restore, operation, active, veritas, storage, foundation, oracle, rac, sfrac, environment 
+summary: 'Se você tiver incluído o parâmetro host-cluster-sw-restore-warn no SnapDrive.conf e tiver atribuído o valor em, você deverá alterar o valor para suportar a operação de restauração no ambiente ativo/ativo do Veritas Storage Foundation for Oracle RAC (SFRAC).' 
+---
+= Configure o SnapDrive para UNIX para um ambiente ativo/ativo do Veritas SFRAC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você tiver incluído o `host-cluster-sw-restore-warn` parâmetro `snapdrive.conf` e tiver atribuído o valor, altere o valor para dar suporte à operação de restauração no ambiente ativo/ativo Veritas Storage Foundation for Oracle RAC (SFRAC).
+
+Quando você estiver usando o ambiente ativo/ativo Veritas Storage Foundation for Oracle RAC (SFRAC), se o `host-cluster-sw-restore-warn` parâmetro estiver definido como `*on*`, uma mensagem de aviso será exibida e a operação de restauração será interrompida. Se você quiser executar a operação de restauração em um ambiente ativo/ativo do Veritas SFRAC, `host-cluster-sw-restore-warn` defina como `*off*`.
+
+Para obter informações sobre `snapdrive.conf`o , consulte a documentação do SnapDrive.
+
+.Passos
+. Faça login como usuário raiz.
+. Abra o `snapdrive.conf` arquivo usando um editor de texto.
+. Altere o valor de `host-cluster-sw-restore-warn` para `*off*`.
+
+
+*Depois de terminar*
+
+Após a configuração, reinicie o servidor SnapDrive para UNIX.
+
+*Informações relacionadas*
+
+http://mysupport.netapp.com/["Documentação no site de suporte da NetApp"^]

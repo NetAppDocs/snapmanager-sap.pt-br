@@ -1,0 +1,30 @@
+---
+permalink: windows/task-mount-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, automatic, handle, mount, backup, host, available, scenario, tools, oracle, recovery, manager, rman, file 
+summary: 'O SnapManager manipula automaticamente a montagem de um backup para disponibilizá-lo ao host. Você também pode montar backups em cenários em que você usa uma ferramenta externa, como o Oracle Recovery Manager (RMAN), para acessar os arquivos no backup.' 
+---
+= Monte backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager manipula automaticamente a montagem de um backup para disponibilizá-lo ao host. Você também pode montar backups em cenários em que você usa uma ferramenta externa, como o Oracle Recovery Manager (RMAN), para acessar os arquivos no backup.
+
+
+
+== Sobre esta tarefa
+
+O `smsap backup mount` comando exibe uma lista de caminhos nos quais as cópias Snapshot que consistem no backup foram montadas.
+
+
+NOTE: Opcionalmente, você pode coletar os arquivos de despejo após uma operação de montagem de backup bem-sucedida ou com falha.
+
+.Passo
+. Para montar uma cópia de segurança, introduza o seguinte comando:
++
+`*smsap backup mount -profile _profile_name_ _label_ [data | -archivelogs] | -id _id_} [-host _-host_] [-dump] [-quiet | -verbose]*`
+
+

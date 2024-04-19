@@ -1,0 +1,51 @@
+---
+permalink: windows/task-create-oracle-users-for-the-repository-database.html 
+sidebar: sidebar 
+keywords: create, oracle, user, repository, database, assign, privilege, operation 
+summary: Você pode criar um usuário Oracle para o banco de dados do repositório e atribuir Privileges específicos para executar operações diferentes no banco de dados do repositório. 
+---
+= Crie usuários Oracle para o banco de dados do repositório
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar um usuário Oracle para o banco de dados do repositório e atribuir Privileges específicos para executar operações diferentes no banco de dados do repositório.
+
+
+
+== Sobre esta tarefa
+
+Você deve atribuir o Privileges de conexão e recurso ao usuário Oracle. Você não precisa criar um usuário para o banco de dados do repositório com sysdba Privileges.
+
+
+NOTE: No entanto, você deve criar um usuário Oracle com a função sysdba para o banco de dados de destino.
+
+.Passos
+. Faça login no SQL *Plus.
++
+No prompt de comando, digite o seguinte comando:
+
++
+`*sqlplus '/ as sysdba'*`
+
++
+[listing]
+----
+SQL*Plus: Release 11.2.0.1.0 Production on Wed Jun 1 06:01:26 2011
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+----
+. Para criar um usuário, por `_repo1_user_`exemplo, para o repositório com a senha de administrador, por exemplo, `_adminpw1_`, digite o seguinte comando no prompt SQL:
++
+`*SQL> create user _repo1_user_ identified by _adminpw1_;*`
+
+. Para conceder o connect and resource Privileges ao usuário, digite o seguinte comando:
++
+`*grant connect, resource to _repo1_user_;*`
+
+

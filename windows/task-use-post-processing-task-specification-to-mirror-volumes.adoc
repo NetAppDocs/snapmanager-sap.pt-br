@@ -1,0 +1,56 @@
+---
+permalink: windows/task-use-post-processing-task-specification-to-mirror-volumes.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, script, mirror, volume, backup, operation, windows, environment, post-process, task, specification 
+summary: O SnapManager para SAP permite que você use o script para espelhar os volumes após a operação de backup ocorrer em um ambiente Windows. 
+---
+= Use a especificação da tarefa de pós-processamento para espelhar volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager para SAP permite que você use o script para espelhar os volumes após a operação de backup ocorrer em um ambiente Windows.
+
+.Passos
+. Crie um arquivo XML de especificação de tarefa.
+. No arquivo XML, insira o nome do script como um parâmetro de entrada.
+. Salve o arquivo XML de especificação de tarefa.
+. Crie um backup protegido do banco de dados para o armazenamento secundário usando o seguinte comando.
++
+Ao criar o backup protegido, você deve fornecer o caminho completo do arquivo XML de especificação de tarefa salva após a -`taskspec` opção.
+
++
+Exemplo: `smsapbackup create -profile test_profile -full -online -taskspec "C:\\mirror\\snapmirror.xml"`
+
+
+
+O exemplo a seguir mostra uma estrutura de especificação de tarefa de pós-processamento se você estiver usando o Data ONTAP operando no modo 7:
+
+[listing]
+----
+#     <post-tasks>
+#               <task>
+#                   <name>Mirror the backup</name>
+#                    <description>Mirror the backup</description>
+#               </task>
+#             <post-tasks>
+----
+O exemplo a seguir mostra uma estrutura de especificação de tarefa de pós-processamento se você estiver usando o Clustered Data ONTAP:
+
+[listing]
+----
+# <task-specification>
+#              <post-tasks>
+#                  <task>
+#                   <name>"Vault the backup for cDOT"</name>
+#                    <parameter>
+#                    <name>SNAPSHOT_LABEL</name>
+#                   <value>TST</value>
+#                    </parameter>
+#                  </task>
+#                </post-tasks>
+#              </task-specification>
+#            </preposttask-specification>
+----

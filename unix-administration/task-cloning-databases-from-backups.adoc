@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-clone-databases-from-backups.html 
+sidebar: sidebar 
+keywords: clone, database, backup, create, command, cloning 
+summary: Você pode clonar um banco de dados de um backup usando o comando clone create. 
+---
+= Clonar bancos de dados de backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode clonar um banco de dados de um backup usando o `clone create` comando.
+
+*Sobre esta tarefa*
+
+Primeiro, você deve criar um arquivo de especificação de clone para o banco de dados. O SnapManager cria o clone com base nas informações neste arquivo de especificação.
+
+Depois de clonar um banco de dados, você pode querer atualizar seus `tnsnames.ora` arquivos em suas máquinas cliente com as novas informações de conexão de banco de dados clonadas. Os `tnsnames.ora` arquivos são usados para se conetar a uma instância Oracle sem precisar especificar as informações completas do banco de dados. O SnapManager não atualiza os `tnsnames.ora` ficheiros.
+
+O SnapManager sempre cria um backup, incluindo arquivos de log de arquivamento, se você estiver usando o perfil criado com `-include-with-online-backups`o . O SnapManager permite clonar apenas os backups completos do banco de dados.
+
+O SnapManager (3,2 ou posterior) permite clonar os backups que contêm os arquivos de dados e arquivos de log de arquivamento.
+
+Se o log de arquivamento estiver disponível em um local externo, você poderá especificar o local externo durante a clonagem para recuperar o banco de dados clonado para um estado consistente. Você deve garantir que o local externo seja acessível pela Oracle. A clonagem dos backups somente de log de arquivamento não é suportada.
+
+Embora o backup de log de arquivamento seja criado juntamente com o backup parcial on-line, você não pode criar um clone de banco de dados usando esse backup.
+
+Você pode clonar o backup do banco de dados a partir do local do arquivo de log de arquivamento externo apenas para um banco de dados autônomo.
+
+A clonagem do backup de banco de dados on-line do banco de dados RAC (Real Application clusters) usando o local do arquivo de log de arquivamento externo falha devido a falha na recuperação. Isso ocorre porque o banco de dados Oracle não consegue localizar e aplicar os arquivos de log de arquivamento para recuperação a partir do local de log de arquivamento externo durante a clonagem do backup do banco de dados.
+
+Você pode especificar a `-dump` opção como um parâmetro opcional para coletar os arquivos de despejo após a operação de criação de clone bem-sucedida ou com falha.
+
+* Cópia de segurança de ficheiros de dados de clonagem sem cópia de segurança de registo de arquivo*
+
+Quando o backup de arquivos de dados não inclui o backup de log de arquivamento, o SnapManager para SAP clona o banco de dados com base no número de alteração do sistema (SCN) registrado durante o backup. Se o banco de dados clonado não puder ser recuperado, a `Archived log file for thread <number> and change <SCN> required to complete recovery` mensagem de erro é exibida, mesmo que o SnapManager para SAP continue clonando o banco de dados e, finalmente, consiga criar o clone.
+
+Ao clonar usando o backup de arquivos de dados sem incluir o backup de log de arquivamento, o SnapManager recupera o banco de dados clonado até o último SCN de log de arquivamento, que é gravado durante o backup.
+
+.Passos
+. Crie um arquivo de especificação clone.
+. Para criar um clone, digite o seguinte comando:
++
+`*smsap clone create-backup-label _backup_name_ -newsid _new_sid_ -label _clone_label_ -profile _profile_name_ -clonespec _full_path_to_clonespecfile_ [-taskspec _taskspec_] [-recover-from-location] _path1 [,<path2>...]_] [-dump]*`
+
+

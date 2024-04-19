@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/task-free-or-delete-retention-policy-exempt-backups.html 
+sidebar: sidebar 
+keywords: backup, retention, class, unlimited, delete, free, directly, assign, hourly, daily, weekly, monthly, deletion, eligible, exempt 
+summary: Backups com a classe de retenção ilimitada não podem ser excluídos ou liberados diretamente. Para excluir ou liberar esses backups, primeiro é necessário atribuir outra classe de retenção, como por hora, diária, semanal ou mensal. Para excluir ou liberar um backup que esteja isento da política de retenção, primeiro você deve atualizar o backup para torná-lo elegível para exclusão ou libertá-lo. 
+---
+= Livre ou exclua backups isentos de política de retenção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Backups com a classe de retenção "ilimitada" não podem ser excluídos ou liberados diretamente. Para excluir ou liberar esses backups, primeiro é necessário atribuir outra classe de retenção, como por hora, diária, semanal ou mensal. Para excluir ou liberar um backup que esteja isento da política de retenção, primeiro você deve atualizar o backup para torná-lo elegível para exclusão ou libertá-lo.
+
+.Passos
+. Para atualizar o backup para torná-lo elegível para exclusão pela política de retenção, digite este comando:
++
+`*smsap backup update -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_} -retain [-hourly | -daily | -weekly | -monthly]*`
+
+. Depois de atualizar o backup para que ele seja elegível para exclusão, você pode excluir o backup ou os recursos de backup gratuitos.
++
+** Para excluir o backup, digite este comando:
++
+`*smsap backup delete -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all}*`
+
+** Para liberar os recursos de backup, em vez de excluir o backup, digite este comando:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} [-force] [ -dump] [-quiet | -verbose]*`
+
+
+
+

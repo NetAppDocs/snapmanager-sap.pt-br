@@ -1,0 +1,30 @@
+---
+permalink: windows/concept-create-backups-using-snapshot-copies.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, backup, primary, local, storage, secondary, remote, postprocess, script, copies, copy, snapshot 
+summary: 'O SnapManager permite criar backups no storage primário (local) e também no storage secundário (remoto) usando scripts de pós-processamento.' 
+---
+= Criar backups usando cópias Snapshot
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite criar backups no storage primário (local) e também no storage secundário (remoto) usando scripts de pós-processamento.
+
+Os backups criados como cópias Snapshot são cópias virtuais do banco de dados e são armazenados no mesmo meio físico do banco de dados. Portanto, a operação de backup leva menos tempo e requer muito menos espaço do que os backups completos de disco para disco. O SnapManager permite que você faça backup do seguinte:
+
+* Todos os arquivos de dados, arquivos de log de arquivo e arquivos de controle
+* Arquivos de dados selecionados ou espaços de tabela, todos os arquivos de log de arquivo e arquivos de controle
+
+
+O SnapManager 3,2 ou posterior permite, opcionalmente, fazer backup do seguinte:
+
+* Todos os arquivos de dados e os arquivos de controle
+* Arquivos de dados selecionados ou espaços de tabela juntamente com os arquivos de controle
+* Arquivar ficheiros de registo
+
+
+
+NOTE: Os arquivos de dados, arquivos de log de arquivamento e arquivos de controle podem estar localizados em diferentes sistemas de armazenamento, volumes de sistema de armazenamento ou números de unidade lógica (LUNs). Você também pode usar o SnapManager para fazer backup de um banco de dados quando houver vários bancos de dados no mesmo volume ou LUN.

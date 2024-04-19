@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/concept-when-can-you-use-fast-restore.html 
+sidebar: sidebar 
+keywords: rule, apply, fast, restore, achieve, optimal, performance, guidelines 
+summary: Regras específicas se aplicam ao uso de restauração rápida para obter o melhor desempenho de restauração. Em alguns casos, você não pode usar a restauração rápida. 
+---
+= Diretrizes para quando você pode usar a restauração rápida
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Regras específicas se aplicam ao uso de restauração rápida para obter o melhor desempenho de restauração. Em alguns casos, você não pode usar a restauração rápida.
+
+Para obter o desempenho ideal de restauração (restauração de volume ou restauração completa do grupo de discos), você deve seguir as seguintes regras:
+
+* Apenas as restaurações completas de backups completos são qualificadas para restauração rápida.
+* Somente arquivos de dados são elegíveis para restauração rápida.
+* Os arquivos de dados devem ser os únicos arquivos em um volume a serem elegíveis para restauração rápida.
++
+Embora os arquivos de dados temporários possam residir no volume, os arquivos de controle, logs, pfiles ou outros arquivos devem residir em um volume separado dos arquivos de dados. Você deve configurar um banco de dados Oracle com arquivos de dados em um volume separado de arquivos de controle, Registros arquivados e arquivos de log on-line.
+
+* Arquivos de dados para apenas um banco de dados devem estar presentes no volume.
+* Vários sistemas de arquivos podem ser usados, mas os arquivos nesses sistemas de arquivos devem ser arquivos de dados para apenas um banco de dados.
+* SAP requer um layout de arquivo ligeiramente diferente.
++
+A seção "'disposição geral e configuração'" contém detalhes.
+
+* Se `BRRESTORE` for usado para restaurar o banco de dados, a restauração rápida é usada com o parâmetro FAST no arquivo de parâmetros do utilitário de backup.
+
+
+
+NOTE: Para verificar se um backup criado anteriormente é restaurador usando a restauração rápida, você pode usar a `-preview` opção `smsap backup restore` do comando.
+
+O processo de restauração rápida não pode ser usado nos seguintes casos:
+
+* Em backups parciais
+* Em backups do storage secundário se o backup também existir no storage primário
++
+Não é possível restaurá-los usando a restauração baseada em arquivo ou em volume.
+
+* Em backups protegidos com SnapVault
++
+O processo de restauração rápida não pode ser usado para backups criados antes do último backup protegido. No entanto, você pode usar o processo de restauração rápida para backups criados após o último backup protegido. Por exemplo, considere os backups A, B e C. B é o último backup a ser transferido para o storage secundário usando o SnapVault. É possível restaurar rapidamente B e C, mas não é possível restaurar Rapidamente Um porque ele foi criado mais cedo do que o último backup protegido. O SnapVault precisa de um SnapVault de linha de base para calcular a diferença de tempo e enviar para o storage secundário da próxima vez que um backup for transferido para o storage secundário. O último backup protegido atua como a cópia Snapshot de linha de base. Portanto, o uso do processo de restauração rápida impede que o SnapVault seja capaz de reconhecer a linha de base.
+
+* Clones FlexClones ou LUN que usam cópias Snapshot criadas após a cópia Snapshot para a qual o volume está sendo revertido
++
+Por exemplo, os clones podem ser o resultado de um backup posterior que está sendo montado ou clonado pelo SnapManager.
+
+* LUNs que não fazem parte da cópia Snapshot ativa do SnapDrive
+
+
+Não é possível executar uma restauração rápida junto com outros tipos de restaurações para o mesmo backup. Por exemplo, se um volume de dados puder ser restaurado usando o processo de restauração rápida, mas outro volume de dados não puder, nenhum deles será restaurado usando o processo de restauração rápida. Neste caso, você pode escolher uma restauração baseada em arquivo.
+
+Além disso, você deve considerar os seguintes pontos sobre restaurações de banco de dados:
+
+* O SnapManager nunca restaura logs de arquivo ou refazer logs, mas monta o backup de arquivos de log e os usa para recuperação.
+* O SnapManager nunca restaura arquivos de controle usando a restauração de volume.
+* Se você quiser restaurar arquivos de controle e arquivos de dados, o SnapManager executa a restauração em duas etapas.
++
+O SnapManager restaura os arquivos de controle primeiro e, em seguida, os arquivos de dados.
+
+* Se o SnapManager encontrar arquivos temporários no mesmo volume que os arquivos padrão de espaço de tabela, você não precisará emitir uma substituição para executar uma restauração em nível de volume.
++
+Após uma restauração de volume, o espaço de tabela TEMP é trazido de volta online.
+
+
+
+Tanto o SnapManager para SAP quanto a interface BACKINT usam a mesma lógica ao determinar qual mecanismo de restauração pode ser usado. Todos os métodos de restauração podem ser usados independentemente de o backup ter sido feito com o SnapManager para SAP ou com a interface BACKINT, e se a restauração é realizada via SnapManager para SAP ou com a interface BACKINT.
+
+*Informações relacionadas*
+
+http://mysupport.netapp.com/["Documentação no site de suporte da NetApp: Mysupport.NetApp.com"]

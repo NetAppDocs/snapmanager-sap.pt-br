@@ -1,0 +1,341 @@
+---
+permalink: unix-administration/concept-fast-restore-eligibility-checks.html 
+sidebar: sidebar 
+keywords: perform, restore, backup, snapmanager, eligibility, check, fast 
+summary: Quando você escolhe executar uma restauração rápida de um backup, o SnapManager primeiro realiza uma verificação de qualificação para determinar se o processo de restauração rápida pode ser usado. 
+---
+= Verificações de qualificação para restauração rápida
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando você escolhe executar uma restauração rápida de um backup, o SnapManager primeiro realiza uma verificação de qualificação para determinar se o processo de restauração rápida pode ser usado.
+
+O SnapManager fornece os seguintes tipos de verificações:
+
+* Verificações obrigatórias: O SnapManager pode executar o processo de restauração rápida somente se todas as condições sob esta verificação passarem.
+* Verificações Overridable: Se as condições sob esta verificação falharem, os administradores podem substituir a verificação para forçar um processo de restauração rápida. No entanto, você deve substituir essas verificações com cuidado.
+
+
+A tabela a seguir lista os problemas que você pode encontrar e indica se a verificação de qualificação de restauração rápida pode ser substituída:
+
+|===
+| Problema | Passe necessário | Detalhes 
+
+
+ a| 
+ACFS, voting Disk ou OCR está presente no grupo ASM Disk no 11gR2
+ a| 
+Sim
+ a| 
+A restauração rápida não pode ser executada. Resolução: Nenhuma
+
+Não é possível substituir.
+
+
+
+ a| 
+Somente backups criados com o SnapManager 3,0 ou posterior podem ser restaurados rapidamente
+ a| 
+Sim
+ a| 
+Não é possível substituir.
+
+
+
+ a| 
+Somente cópias Snapshot criadas com o SnapDrive para UNIX 4,0 ou posterior podem ser restauradas rapidamente
+ a| 
+Sim
+ a| 
+Não é possível substituir.
+
+
+
+ a| 
+Volume é um volume raiz
+ a| 
+Sim
+ a| 
+O volume que está sendo restaurado é um volume raiz no sistema de armazenamento. Resolução: Não use o volume raiz no sistema de armazenamento.
+
+Não é possível substituir.
+
+
+
+ a| 
+A restauração de volume não está disponível no Windows
+ a| 
+Sim
+ a| 
+O volume que está sendo restaurado é um volume raiz no sistema de armazenamento. Resolução: Nenhuma
+
+Não é possível substituir.
+
+
+
+ a| 
+A restauração de volume está desativada
+ a| 
+Sim
+ a| 
+A restauração de volume foi desativada. Resolução: Ative a restauração de volume selecionando diferentes opções ao iniciar a restauração. Na interface de linha de comando, não use `-fast -off`.
+
+Não é possível substituir.
+
+
+
+ a| 
+Controle arquivos e arquivos de dados no mesmo volume
+ a| 
+Sim
+ a| 
+Para backups online, arquivos de controle e arquivos de dados não podem estar no mesmo volume porque o SnapManager faz duas cópias Snapshot do volume (uma em que os arquivos de dados são consistentes no modo hot backup e outra em que os arquivos de controle de backup são consistentes após o modo hot backup estar concluído). A restauração de volume reverterá para a primeira cópia Snapshot, que exclui a segunda cópia Snapshot que contém os arquivos de controle de backup. Quando ocorre uma restauração somente de arquivo de dados, os arquivos de controle são revertidos para um estado inconsistente, e o SnapManager restaura o arquivo de controle de backup e, em seguida, abre o banco de dados com a opção resetlogs, que não é o comportamento desejado.
+
+Resolução: Migre arquivos de controle e arquivos de dados para sistemas de arquivos separados que não compartilham o mesmo volume subjacente. Isso não ajuda a restauração na qual a verificação falhou, mas ajudará futuras operações de restauração de backup.
+
+Não é possível substituir.
+
+
+
+ a| 
+Os registos de arquivo e os ficheiros de dados não devem existir no mesmo volume
+ a| 
+Sim
+ a| 
+Os logs de arquivamento de banco de dados e arquivos de dados residem em sistemas de arquivos com o mesmo volume de sistema de storage. Se uma restauração de volume foi executada, o SnapManager não pode abrir o banco de dados após uma restauração de um backup on-line, porque o arquivo de log arquivado que é gravado depois que o banco de dados é retirado do modo hot backup não está disponível. Além disso, você não seria capaz de avançar através de transações posteriores que podem ter sido nos arquivos de log de arquivo.
+
+Resolução: Migre logs de arquivamento e arquivos de dados para sistemas de arquivos separados que não compartilham o mesmo volume do sistema de storage subjacente. Isso não ajuda a restauração na qual a verificação falhou, mas ajudará futuras operações de restauração de backup.
+
+Não é possível substituir.
+
+
+
+ a| 
+Os registos online e os ficheiros de dados não devem existir no mesmo volume
+ a| 
+Sim
+ a| 
+Os logs de refazer on-line e os arquivos de dados residem em sistemas de arquivos suportados pelo mesmo volume do sistema de armazenamento. Se uma restauração de volume foi executada, a recuperação não pode usar os logs de refazer on-line porque eles teriam sido revertidos.
+
+Resolução: Migre os logs de refazer on-line e arquivos de dados para sistemas de arquivos separados que não compartilham o mesmo volume do sistema de armazenamento subjacente. Isso não ajuda a restauração na qual a verificação falhou, mas ajudará futuras operações de restauração de backup.
+
+Não é possível substituir.
+
+
+
+ a| 
+Os arquivos no sistema de arquivos que não fazem parte do escopo de restauração são revertidos
+ a| 
+Sim
+ a| 
+Os arquivos visíveis no host, além dos arquivos que estão sendo restaurados, existem em um sistema de arquivos no volume. Se uma restauração rápida ou uma restauração do sistema de arquivos do lado do armazenamento for executada, os arquivos visíveis no host serão revertidos para o conteúdo original quando a cópia Snapshot for criada. Se o SnapManager descobrir 20 arquivos ou menos, eles serão listados na verificação de qualificação. Caso contrário, o SnapManager exibe uma mensagem que você deve investigar o sistema de arquivos.
+
+Resolução: Migre os arquivos não usados pelo banco de dados para um sistema de arquivos diferente que usa um volume diferente. Em alternativa, elimine os ficheiros.
+
+Se o SnapManager não puder determinar a finalidade do arquivo, você poderá substituir a falha de verificação. Se você substituir a verificação, os arquivos que não estão no escopo de restauração serão revertidos. Substituir esta verificação apenas se tiver a certeza de que reverter os ficheiros não afetará negativamente nada.
+
+
+
+ a| 
+Os sistemas de arquivos no grupo de volumes especificado não fazem parte do escopo de restauração são revertidos
+ a| 
+Não
+ a| 
+Vários sistemas de arquivos estão no mesmo grupo de volume, mas nem todos os sistemas de arquivos são solicitados a serem restaurados. A restauração rápida e a restauração rápida do sistema de arquivos no lado do armazenamento não podem ser usadas para restaurar sistemas de arquivos individuais dentro de um grupo de volumes, pois os LUNs usados pelo grupo de volumes contêm dados de todos os sistemas de arquivos. Todos os sistemas de arquivos em um grupo de volumes devem ser restaurados ao mesmo tempo para usar a restauração rápida ou a restauração do sistema de arquivos no lado do storage. Se o SnapManager descobrir 20 arquivos ou menos, o SnapManager os listará na verificação de qualificação. Caso contrário, o SnapManager fornece uma mensagem que você deve investigar o sistema de arquivos.
+
+Resolução: Migre os arquivos não usados pelo banco de dados para um grupo de volumes diferente. Em alternativa, elimine os sistemas de ficheiros no grupo de volumes.
+
+Pode substituir.
+
+
+
+ a| 
+Os volumes de host no grupo de volumes especificado que não fazem parte do escopo de restauração são revertidos
+ a| 
+Não
+ a| 
+Vários volumes de host (volumes lógicos) estão no mesmo grupo de volumes, mas nem todos os volumes de host são solicitados para serem restaurados. Essa verificação é semelhante aos sistemas de arquivos no grupo de volumes que não fazem parte do escopo de restauração será revertida, exceto que os outros volumes de host no grupo de volumes não são montados como sistemas de arquivos no host. Resolução: Migre os volumes de host usados pelo banco de dados para um grupo de volumes diferente. Ou exclua os outros volumes de host no grupo de volumes.
+
+Se você substituir a verificação, todos os volumes de host no grupo de volumes serão restaurados. Substitua essa verificação somente se você tiver certeza de que reverter os outros volumes de host não afetará negativamente nada.
+
+
+
+ a| 
+Extensões de arquivo foram alteradas desde o último backup
+ a| 
+Sim
+ a| 
+Não é possível substituir.
+
+
+
+ a| 
+LUNs mapeados em volume que não fazem parte do escopo de restauração são revertidos
+ a| 
+Sim
+ a| 
+LUNs diferentes dos solicitados a serem restaurados no volume são mapeados para um host no momento. Uma restauração de volume não pode ser executada porque outros hosts ou aplicativos que usam esses LUNs se tornarão instáveis. Se os nomes de LUN terminarem com um sublinhado e um índice inteiro (por exemplo, _0 ou _1), esses LUNs geralmente são clones de outros LUNs dentro do mesmo volume. É possível que outro backup do banco de dados seja montado, ou um clone de outro backup exista.
+
+Resolução: Migre LUNs não usados pelo banco de dados para um volume diferente. Se os LUNs mapeados forem clones, procure backups montados do mesmo banco de dados ou clones do banco de dados e desmonte o backup ou remova o clone.
+
+Não é possível substituir.
+
+
+
+ a| 
+LUNS não mapeados em volume que não fazem parte do escopo de restauração são revertidos
+ a| 
+Não
+ a| 
+Existem LUNs diferentes dos solicitados a serem restaurados no volume. No momento, esses LUNs não são mapeados para nenhum host, portanto, restaurá-los não interrompe nenhum processo ativo. No entanto, os LUNs podem estar temporariamente desmapeados. Resolução: Migre LUNs não usados pelo banco de dados para um volume diferente ou exclua os LUNs.
+
+Se você substituir essa verificação, a restauração de volume reverterá esses LUNs para o estado em que a cópia Snapshot foi feita. Se o LUN não existir quando a cópia Snapshot foi feita, o LUN não existirá após a restauração do volume. Substitua essa verificação somente se você tiver certeza de que reverter os LUNs não afeta negativamente nada.
+
+
+
+ a| 
+Os LUNs presentes na cópia Snapshot do volume podem não ser consistentes quando revertidos
+ a| 
+Não
+ a| 
+Durante a criação da cópia Snapshot, existiam no volume LUNs diferentes daqueles para os quais a cópia Snapshot foi solicitada. Esses outros LUNs podem não estar em um estado consistente. Resolução: Migre LUNs não usados pelo banco de dados para um volume diferente ou exclua os LUNs. Isso não ajuda no processo de restauração em que a verificação falhou, mas ajudará a restaurar backups futuros feitos depois que os LUNs forem movidos ou excluídos.
+
+Se você substituir essa verificação, os LUNs reverterão para o estado inconsistente no qual a cópia Snapshot foi feita. Substitua essa verificação somente se você tiver certeza de que reverter os LUNs não afeta negativamente nada.
+
+
+
+ a| 
+Novas cópias Snapshot têm clone de volume
+ a| 
+Sim
+ a| 
+Foram criados clones das cópias Snapshot que foram criadas após a restauração da cópia Snapshot. Como uma restauração de volume excluirá cópias Snapshot posteriores e uma cópia Snapshot não poderá ser excluída se tiver um clone, não será possível executar uma restauração de volume. Resolução: Excluir clones de cópias Snapshot posteriores.
+
+Não é possível substituir.
+
+
+
+ a| 
+Backups mais recentes são montados
+ a| 
+Sim
+ a| 
+Os backups feitos após a restauração do backup são montados. Como uma restauração de volume exclui cópias Snapshot posteriores, uma cópia Snapshot não pode ser excluída se tiver um clone, uma operação de montagem de backup cria um storage clonado e uma restauração de volume não pode ser executada. Resolução: Desmonte o backup posterior ou restaure a partir de um backup feito após o backup montado.
+
+Não é possível substituir.
+
+
+
+ a| 
+Existem clones de backups mais recentes
+ a| 
+Sim
+ a| 
+Os backups feitos após a restauração do backup foram clonados. Como uma restauração de volume exclui cópias Snapshot posteriores e uma cópia Snapshot não pode ser excluída se tiver um clone, não será possível executar uma restauração de volume. Resolução: Exclua o clone do backup mais recente ou a restauração de um backup feito após os backups que têm clones.
+
+Não é possível substituir.
+
+
+
+ a| 
+Novas cópias Snapshot de volume são perdidas
+ a| 
+Não
+ a| 
+A restauração de volume exclui todas as cópias Snapshot criadas após a cópia Snapshot para a qual o volume está sendo restaurado. Se o SnapManager puder mapear uma cópia Snapshot posterior de volta para um backup do SnapManager no mesmo perfil, a mensagem "backups mais recentes serão liberados ou excluídos" será exibida. Se o SnapManager não puder mapear uma cópia Snapshot posterior de volta para um backup do SnapManager no mesmo perfil, essa mensagem não será exibida. Resolução: Restaure a partir de um backup posterior ou exclua as cópias Snapshot posteriores.
+
+Pode substituir.
+
+
+
+ a| 
+Backups mais recentes serão liberados ou excluídos
+ a| 
+Não
+ a| 
+A execução de uma restauração de volume exclui todas as cópias Snapshot criadas após a cópia Snapshot para a qual o volume está sendo restaurado. Portanto, todos os backups criados após o backup que está sendo restaurado são excluídos ou liberados. Backups posteriores são excluídos nos seguintes cenários:
+
+* O estado da cópia de segurança não ESTÁ PROTEGIDO
+* `retain.alwaysFreeExpiredBackups` está `*false*` em `smsap.config`
+
+
+Backups posteriores são liberados nos seguintes cenários:
+
+* O estado da cópia de segurança está PROTEGIDO
+* `retain.alwaysFreeExpiredBackups` é verdade `*false*` em `smsap.config`
+
+
+Resolução: Restaure a partir de uma cópia de segurança posterior ou liberte ou elimine cópias de segurança posteriores.
+
+Se você substituir essa verificação, os backups criados após o backup que está sendo restaurado são excluídos ou liberados.
+
+
+
+ a| 
+A relação de SnapMirror para o volume é perdida
+ a| 
+Sim (se o RBAC estiver desativado ou você não tiver permissão RBAC)
+ a| 
+Restaurar um volume para uma cópia Snapshot anterior à cópia Snapshot da linha de base em um relacionamento SnapMirror destrói o relacionamento. Resolução: Restauração a partir de um backup criado após a cópia Snapshot de linha de base do relacionamento. Alternativamente, quebre a relação de armazenamento manualmente (e, em seguida, re-crie e re-faça a linha de base da relação após a restauração ser concluída).
+
+Pode substituir, se o RBAC estiver ativado e você tiver permissão RBAC.
+
+
+
+ a| 
+A relação do SnapVault para o volume é perdida se o processo de restauração rápida ocorreu
+ a| 
+Sim (se o RBAC estiver desativado ou você não tiver permissão RBAC)
+ a| 
+Restaurar um volume para uma cópia Snapshot anterior à cópia Snapshot da linha de base em um relacionamento SnapVault destrói o relacionamento. Resolução: Restauração a partir de um backup criado após a cópia Snapshot de linha de base do relacionamento. Alternativamente, quebre a relação de armazenamento manualmente (e, em seguida, re-crie e re-faça a linha de base da relação após a restauração ser concluída).
+
+Não é possível substituir, se o RBAC estiver ativado e você tiver permissão RBAC.
+
+
+
+ a| 
+Os arquivos NFS em volume que não fazem parte do escopo de restauração são revertidos
+ a| 
+Não
+ a| 
+Os arquivos presentes no volume do sistema de armazenamento, que não são visíveis no host, são revertidos se uma restauração de volume for executada. Resolução: Migre arquivos não usados pelo banco de dados para um volume diferente ou exclua os arquivos.
+
+Pode substituir. Se você substituir essa falha de verificação, os LUNs serão excluídos.
+
+
+
+ a| 
+Existem compartilhamentos CIFS para volume
+ a| 
+Não
+ a| 
+O volume que está sendo restaurado tem compartilhamentos CIFS. Outros hosts podem estar acessando arquivos no volume durante a restauração de volume. Resolução: Remova compartilhamentos CIFS desnecessários.
+
+Pode substituir.
+
+
+
+ a| 
+Restauração a partir de local alternativo
+ a| 
+Sim
+ a| 
+Uma especificação de restauração foi fornecida para a operação de restauração que especifica que os arquivos sejam restaurados de um local alternativo. Somente os utilitários de cópia do lado do host podem ser usados para restaurar a partir de um local alternativo.
+
+Resolução: Nenhuma.
+
+Não é possível substituir.
+
+
+
+ a| 
+A restauração do sistema de arquivos do lado do armazenamento não é suportada em um banco de dados RAC
+ a| 
+Sim
+ a| 
+Não é possível substituir.
+
+|===

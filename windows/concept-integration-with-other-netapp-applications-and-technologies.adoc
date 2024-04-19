@@ -1,0 +1,62 @@
+---
+permalink: windows/concept-integration-with-other-netapp-applications-and-technologies.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, stand-alone, product, integrate, feature, netapp, enable, backup, amount, space, integration, application, technology, technologies 
+summary: O SnapManager para SAP é um produto independente que integra os recursos de outros produtos NetApp para permitir backups rápidos que exigem apenas uma pequena quantidade de espaço. 
+---
+= Integração com outros aplicativos e tecnologias NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager para SAP é um produto independente que integra os recursos de outros produtos NetApp para permitir backups rápidos que exigem apenas uma pequena quantidade de espaço.
+
+O SnapManager é integrado aos seguintes aplicativos e tecnologias da NetApp:
+
+|===
+| Aplicações e tecnologias | Descrição 
+
+
+ a| 
+SnapDrive
+ a| 
+O SnapManager usa o SnapDrive para criar cópias Snapshot do storage. As cópias snapshot garantem que os backups sejam eficientes em espaço e mais rápidos de criar do que os backups de disco para disco.
+
+
+
+ a| 
+FlexClone (um recurso licenciado do Data ONTAP)
+ a| 
+O SnapManager usa o recurso FlexClone para criar clones de backups rápidos e com uso eficiente de espaço.
+
+
+
+ a| 
+Instantâneo (um recurso do Data ONTAP)
+ a| 
+A tecnologia Snapshot cria cópias pontuais do banco de dados.
+
+
+
+ a| 
+SnapRestore (um recurso licenciado do Data ONTAP)
+ a| 
+O SnapManager reduz o tempo médio para recuperar um banco de dados usando o SnapRestore. O SnapRestore pode recuperar arquivos individuais para um volume de vários terabytes para que as operações possam ser retomadas rapidamente.
+
+
+
+ a| 
+SnapVault (um recurso licenciado do Data ONTAP)
+ a| 
+O SnapVault utiliza backups baseados em disco para backup e recuperação confiáveis e de baixa sobrecarga de bancos de dados.
+
+
+
+ a| 
+SnapMirror (um recurso licenciado do Data ONTAP)
+ a| 
+O SnapMirror replica dados de banco de dados em uma rede global em alta velocidade de maneira simples, confiável e econômica.
+
+|===

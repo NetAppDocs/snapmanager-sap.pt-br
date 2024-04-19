@@ -1,0 +1,157 @@
+---
+permalink: unix-administration/task-update-profiles.html 
+sidebar: sidebar 
+keywords: update, profile, modify, password, database, operating, system, os, authentication, updating, information, host, database, oracle, updating 
+summary: 'Você pode atualizar os perfis para modificar a senha do perfil, o número de backups a serem mantidos, o acesso ao banco de dados, a autenticação do sistema operacional (SO) para autenticação do banco de dados e vice-versa, e informações sobre o host. Se as informações de senha do banco de dados Oracle forem alteradas, você também deverá alterar essas informações no perfil.' 
+---
+= Atualizar perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode atualizar os perfis para modificar a senha do perfil, o número de backups a serem mantidos, o acesso ao banco de dados, a autenticação do sistema operacional (SO) para autenticação do banco de dados e vice-versa, e informações sobre o host. Se as informações de senha do banco de dados Oracle forem alteradas, você também deverá alterar essas informações no perfil.
+
+*Sobre esta tarefa*
+
+Se a política de proteção estiver ativada no perfil, você não poderá alterar a política usando o SnapManager. O administrador de storage deve alterar a política usando o console do Protection Manager.
+
+O SnapManager (3,2 ou posterior) permite atualizar o perfil para separar os backups de log de arquivamento dos backups de arquivos de dados usando a `-separate-archivelog-backups` opção. Você pode especificar a duração de retenção separada e a política de proteção para o backup de log de arquivamento. O SnapManager permite que você inclua o backup de log de arquivamento juntamente com o backup de banco de dados on-line. Você também pode criar um backup de arquivo de dados on-line e um backup de log de arquivamento juntos para clonagem. Quando você cria um backup de arquivos de dados on-line, os backups de Registros de arquivamento são imediatamente criados juntamente com os arquivos de dados.
+
+.Passos
+. Introduza o seguinte comando:
++
+`*smsap profile update -profile _profile_ [-new-profile _new_profile_name_] [-profile-password _profile_password_][-database-dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_][-asminstance -asmusername _asminstance_username_ -asmpassword _asminstance_password_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_}}} | -remove-rman]-osaccount _osaccount_ -osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname -pattern _pattern_][[-protect [-protection-policy _policy_name_]]| [[-noprotect]] [-summary-notification] [-notification [-success-email _email_address1, email_address2_ -subject _subject_pattern_] [-failure-email _email_address1, email_address2_ -subject _subject_pattern_]] [-separate-archivelog-backups-retain-archivelog-backups-hours _hours_ | -days _days_ | -weeks _weeks_| -months _months_ [-protect [-protection-policy _policy_name_] | -noprotect] [-include-with-online-backups | -no-include-with-online-backups]] [-dump]*`
+
++
+Outras opções para este comando são as seguintes:
+
++
+``[-force] [-noprompt]``
+
++
+``[-quiet | verbose]``
+
++
+[cols="2a,4a"]
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+*Altere o perfil para usar a autenticação do sistema operacional*
+ a| 
+Em vez de adicionar o nome de usuário, senha e porta, especifique o seguinte:
+
+** `-osaccount _account_name_` como o nome da conta do sistema operacional
+** `-osgroup _osgroup_` Como o grupo associado à conta do sistema operacional, normalmente a conta usada para instalar o Oracle
+
+
+
+
+ a| 
+*Use a autenticação de instância do Gerenciamento Automático de armazenamento (ASM) para criar o perfil*
+ a| 
+Especifique as credenciais para autenticação de instância ASM.
+
+** `-asmusername _asminstance_username_` É o nome de utilizador utilizado para iniciar sessão na instância ASM.
+** `-asmpassword _asminstance_password_` É a palavra-passe utilizada para iniciar sessão na instância ASM.
+
+
+
+
+ a| 
+*Use um catálogo como o repositório do Oracle Recovery Manager (RMAN) ou você deseja remover o RMAN*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** `-tnsname _tnsname_` como o tnsname definido no `tnsnames.ora` arquivo.
+** `-login -username _username_` Como o nome de usuário necessário para se conetar ao catálogo RMAN.
++
+Se não for especificado, o SnapManager usa as informações de autenticação do sistema operacional. Não é possível usar a autenticação do sistema operacional com bancos de dados RAC (Real Application clusters).
+
+** `-password _password_` Como a senha RMAN necessária para se conetar ao catálogo RMAN.
+** `-controlfile` Se você estiver usando o arquivo de controle como o repositório RMAN.
+** `-remove-rman` Para remover RMAN.
+
+
+
+
+ a| 
+*Altere a política de retenção de backup para backups do banco de dados no perfil*
+ a| 
+Especifique a contagem de retenção ou a duração de retenção para uma classe de retenção ou ambos para alterar a política de retenção. A duração é em unidades da classe (por exemplo, horas por hora, dias por dia).
+
+** `-hourly` é a classe de retenção por hora, para a qual `[-count _n_] [-duration _m_]]` são a contagem de retenção e a duração de retenção, respetivamente.
+** `-daily` é a classe de retenção diária, para a qual `[-count _n_] [-duration _m_]]` são a contagem de retenção e duração de retenção, respetivamente.
+** `-weekly` é a classe de retenção semanal, para a qual `[-count _n_] [-duration _m_]]` são a contagem de retenção e duração de retenção, respetivamente.
+** `-monthly` é a classe de retenção mensal, para a qual `[-count _n_] [-duration _m_]]` são a contagem de retenção e duração de retenção, respetivamente.
+
+
+
+
+ a| 
+* Desativar a proteção de backup para o perfil*
+ a| 
+ `-noprotect`Especifique para não proteger os backups de banco de dados criados usando o perfil. Para um perfil `-protect` ativado, se você quiser desativar o Protect, uma mensagem de aviso será exibida informando que essa ação excluirá o conjunto de dados e você não poderá restaurar ou clonar backups para esse perfil.
+
+
+
+ a| 
+*Ativar notificações por e-mail para o status de conclusão das operações do banco de dados*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** `-summary-notification` permite configurar uma notificação de e-mail de resumo para vários perfis em um banco de dados de repositório.
+** `-notification` permite receber uma notificação por e-mail sobre o status de conclusão da operação do banco de dados para um perfil.
+** `-success -email _email_address2_` permite receber uma notificação por e-mail após a conclusão de uma operação de banco de dados bem-sucedida realizada usando um perfil novo ou existente.
+** `-failure -email _email_address2_` permite receber uma notificação por e-mail em uma operação de banco de dados com falha realizada usando um perfil novo ou existente.
+** `-subject _subject_text_` especifica o texto do assunto para a notificação por e-mail ao criar um novo perfil ou um perfil existente. Se as configurações de notificação não estiverem configuradas para o repositório e você estiver tentando configurar notificações de perfil ou resumo usando a interface de linha de comando (CLI), a seguinte mensagem será registrada no log do console: `SMSAP-14577: Notification Settings not configured`.
++
+Se você tiver configurado as configurações de notificação e estiver tentando configurar a notificação de resumo usando a CLI sem ativar a notificação de resumo para o repositório, a seguinte mensagem será registrada no log do console: `SMSAP-14575: Summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+*Atualize o perfil para criar backup dos arquivos de log de arquivo separadamente*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** `-separate-archivelog-backups` permite criar uma cópia de segurança dos ficheiros de registo de arquivo separadamente dos ficheiros de base de dados.
++
+Depois de especificar essa opção, você pode criar um backup somente de arquivos de dados ou um backup somente de arquivogs. Não é possível criar uma cópia de segurança completa. Além disso, você não pode reverter as configurações de perfil separando o backup. O SnapManager retém os backups com base na política de retenção dos backups criados antes de fazer backup somente de arquivogs.
+
+** `-retain-archivelog-backups` define a duração de retenção para backups de log de arquivamento.
++
+
+NOTE: Se você estiver atualizando o perfil pela primeira vez, poderá separar os backups de log de arquivamento do backup de arquivos de dados usando a `-separate-archivelog-backups` opção; você deve fornecer a duração de retenção para os backups de log de arquivamento usando a `-retain-archivelog-backups` opção. Definir a duração de retenção é opcional quando você atualizar o perfil posteriormente.
+
+** `-protect` Cria um conjunto de dados de aplicativos no servidor do Data Fabric Manager (DFM) e adiciona membros relacionados ao banco de dados, arquivo de dados, arquivos de controle e logs de arquivamento.
++
+Se o conjunto de dados existir, ele será reutilizado quando um perfil for criado.
+
+** `-protection-policy` define a política de proteção para os backups de log de arquivamento.
+** `-include-with-online-backups` especifica que o backup do log de arquivamento está incluído junto com o backup do banco de dados.
+** `-no-include-with-online-backups` especifica que a cópia de segurança do ficheiro de registo de arquivo não está incluída juntamente com a cópia de segurança da base de dados.
+
+
+
+
+ a| 
+*Altere o nome do host do banco de dados de destino*
+ a| 
+ `-host _new_db_host_`Especifique para alterar o nome do host do perfil.
+
+
+
+ a| 
+*Colete os arquivos de despejo após a operação de atualização de perfil*
+ a| 
+Especifique a `-dump` opção.
+
+|===
+. Para exibir o perfil atualizado, digite o seguinte comando: `smsap profile show`
+

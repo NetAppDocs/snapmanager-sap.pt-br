@@ -1,0 +1,15 @@
+---
+permalink: unix-installation-7mode/reference-trademark.html 
+sidebar: sidebar 
+keywords: trademark, information 
+summary: Informações sobre marcas comerciais 
+---
+= Informações sobre marcas comerciais
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Active IQ SnapCopy SnapLock SnapMover SnapValidator SolidFire Helix Tech OnTap, ONTAP SnapDrive SnapManager SnapProtect SnapVault StorageGRID WAFL, SnapCenter SnapIntegrator SnapMirror SnapRestore SolidFire SyncMirror NetApp, SANscreen, SANshare, SANtricity, ONTAP, RAID DP, RAID-TEC, NetApp, FlexScale, FlexShare, NetApp Insight, FPolicy, alimentado por SolidFire, GetSuccessful, Helix Design, LockONTVault, Gerenciar ONTAP, MetroCluster, MultiStore, FlexPod, FlexVol, OnCommand, FlexArray, FlexCache, FlexClone, Data ONTAP, Data ONTAP, Flash Accel, SecureShare, AltaVault, AutoSupport, Todas as outras marcas ou produtos são marcas comerciais ou marcas registradas de seus respetivos proprietários e devem ser tratadas como tal. Uma lista atual de marcas comerciais da NetApp está disponível na Web.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]

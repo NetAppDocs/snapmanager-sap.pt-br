@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/reference-the-smosmsaprepository-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, repository, store, database, profile, associate, credentials, delete, smsap 
+summary: Este comando exclui um repositório usado para armazenar perfis de banco de dados e credenciais associadas. Você pode excluir um repositório somente se não houver perfis no repositório. 
+---
+= O comando smsap repository delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando exclui um repositório usado para armazenar perfis de banco de dados e credenciais associadas. Você pode excluir um repositório somente se não houver perfis no repositório.
+
+
+
+== Sintaxe
+
+[listing]
+----
+smsap repository delete
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* ``*-repository*``
++
+As opções a seguir `-repository` especificam os detalhes do banco de dados para o repositório.
+
+* ``*-port _repo_port_*``
++
+Especifica o número da porta TCP usado para acessar o banco de dados que armazena o repositório.
+
+* ``*-dbname _repo_service_name_*``
++
+Especifica o nome do banco de dados que armazena o repositório. Use o nome global ou o SID.
+
+* ``*-host _repo_host_*``
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados do repositório é executado.
+
+* ``*-login*``
++
+Inicia os detalhes de login do repositório.
+
+* ``*-username _repo_username_*``
++
+Especifica o nome de usuário necessário para acessar o banco de dados que armazena o repositório.
+
+* ``*-force*``
++
+Tenta forçar a exclusão do repositório, mesmo que haja operações incompletas. O SnapManager emite um prompt se houver operações incompletas, perguntando se você tem certeza de que deseja excluir o repositório.
+
+* ``*-noprompt*``
++
+Não solicita antes de excluir o repositório. Usar a `-noprompt` opção garante que o prompt não apareça, facilitando a exclusão de repositórios usando um script.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir exclui o repositório no banco de dados SALESDB.
+
+[listing]
+----
+smsap repository delete -repository -dbname SALESDB
+-host server1 -login -username admin -port 1527 -force -verbose
+----

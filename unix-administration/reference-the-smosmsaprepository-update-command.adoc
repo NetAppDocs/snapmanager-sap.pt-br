@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/reference-the-smosmsaprepository-update-command.html 
+sidebar: sidebar 
+keywords: command, update, repository, store, database, profile, credentials, upgrade, snapmanager, install, version, incomplete, smsap 
+summary: Este comando atualiza o repositório que armazena perfis de banco de dados e credenciais associadas ao atualizar o SnapManager. Sempre que você instalar uma nova versão do SnapManager, você deve executar o comando de atualização do repositório antes de usar a nova versão. Você só pode usar este comando se não houver comandos incompletos no repositório. 
+---
+= O comando smsap repository update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando atualiza o repositório que armazena perfis de banco de dados e credenciais associadas ao atualizar o SnapManager. Sempre que você instalar uma nova versão do SnapManager, você deve executar o comando de atualização do repositório antes de usar a nova versão. Você só pode usar este comando se não houver comandos incompletos no repositório.
+
+
+
+== Sintaxe
+
+[listing]
+----
+smsap repository update
+-repository
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+-port repo_port
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* ``*-repository*``
++
+As opções a seguir `-repository` especificam os detalhes do banco de dados para o repositório.
+
+* ``*-dbname _repo_service_name_*``
++
+Especifica o nome do banco de dados que armazena o repositório. Use o nome global ou o SID.
+
+* ``*-host _repo_host_*``
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados do repositório é executado.
+
+* ``*-login*``
++
+Inicia os detalhes de login do repositório.
+
+* ``*-username _repo_username_*``
++
+Especifica o nome de usuário necessário para acessar o banco de dados que armazena o repositório.
+
+* ``*-port _repo_port_*``
++
+Especifica o número da porta TCP usado para acessar o banco de dados que armazena o repositório.
+
+* ``*-force*``
++
+Tenta forçar a atualização do repositório. O SnapManager solicita que você faça um backup do repositório atual antes de atualizar.
+
+* ``*-noprompt*``
++
+Não exibe o prompt antes de atualizar o banco de dados do repositório. Usar a `-noprompt` opção garante que o prompt não apareça, facilitando a atualização de repositórios usando um script.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir atualiza o repositório no banco de dados SALESDB.
+
+[listing]
+----
+smsap repository update -repository -dbname SALESDB
+-host server1 -login -username admin -port 1521
+----

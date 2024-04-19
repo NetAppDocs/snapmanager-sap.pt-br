@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/reference-the-smosmsap-plugin-check-command.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, install, custom, script, operation, backup, restore, clone, plug-in, automate, custom, restore, smsap, plugin, check 
+summary: 'O SnapManager permite que você instale e use scripts personalizados para várias operações. O SnapManager oferece plug-ins de backup, restauração e clone para automatizar seus scripts personalizados antes e depois das operações de backup, restauração e clone. Antes de usar o plug-in de backup, restauração e clone, você pode executar o comando de verificação do plugin para verificar a instalação de scripts de plug-in. Os scripts personalizados são armazenados em três diretórios: Política (para scripts que sempre devem ser executados antes que a operação de backup, restauração ou clone ocorra), pré (para scripts de pré-processamento) e POST (para scripts de pós-processamento).' 
+---
+= O comando smsap plugin check
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite que você instale e use scripts personalizados para várias operações. O SnapManager oferece plug-ins de backup, restauração e clone para automatizar seus scripts personalizados antes e depois das operações de backup, restauração e clone. Antes de usar o plug-in de backup, restauração e clone, você pode executar o comando de verificação do plugin para verificar a instalação de scripts de plug-in. Os scripts personalizados são armazenados em três diretórios: Política (para scripts que sempre devem ser executados antes que a operação de backup, restauração ou clone ocorra), pré (para scripts de pré-processamento) e POST (para scripts de pós-processamento).
+
+
+
+== Sintaxe
+
+[listing]
+----
+ smsap plugin check
+-osaccount os_db_user_name
+----
+
+
+== Parâmetro
+
+* `*-osaccount*`
++
+Especifica o nome de usuário do banco de dados do sistema operacional (os). Se você não inserir a opção -osaccount, o SnapManager verificará os scripts de plug-in como usuário raiz em vez de um usuário específico.
+
+
+
+'''
+
+
+== Exemplo
+
+O exemplo a seguir mostra que o comando plugin check encontrou o script personalizado policy1 armazenado no diretório de políticas como um executável. O exemplo também mostra que os outros dois scripts personalizados armazenados no diretório pré não retornam mensagens de erro (mostradas com um status de 0); no entanto, o quarto script personalizado (post-plug-in1), que foi encontrado no diretório POST, contém erros (mostrado com um status de 3).
+
+[listing]
+----
+smsap plugin check
+Checking plugin directory structure ...
+<installdir>/plugins/clone/policy
+OK: 'policy1' is executable
+<installdir>/plugins/clone/pre
+OK: 'pre-plugin1' is executable and returned status 0
+OK: 'pre-plugin2' is executable and returned status 0
+<installdir>/plugins/clone/post
+ERROR: 'post-plugin1' is executable and returned status 3
+<installdir>/plugins/backup/policy
+OK: 'policy1' is executable
+<installdir>/plugins/backup/pre
+OK: 'pre-plugin1' is executable and returned status 0
+OK: 'pre-plugin2' is executable and returned status 0
+<installdir>/plugins/backup/post
+ERROR: 'post-plugin1' is executable and returned status 3
+<installdir>/plugins/restore/policy
+OK: 'policy1' is executable
+<installdir>/plugins/restore/pre
+OK: 'pre-plugin1' is executable and returned status 0
+OK: 'pre-plugin2' is executable and returned status 0
+<installdir>/plugins/restore/post
+ERROR: 'post-plugin1' is executable and returned status 3
+Command complete.
+----
+'''

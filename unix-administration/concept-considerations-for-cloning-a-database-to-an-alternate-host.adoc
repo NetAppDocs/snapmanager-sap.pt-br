@@ -1,0 +1,79 @@
+---
+permalink: unix-administration/concept-considerations-for-cloning-a-database-to-an-alternate-host.html 
+sidebar: sidebar 
+keywords: clone, host, database, reside, requirement, cloning, alternate, consideration 
+summary: Antes de poder clonar para um host diferente daquele em que o banco de dados reside, há alguns requisitos que precisam ser atendidos. 
+---
+= Considerações para clonar um banco de dados para um host alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de poder clonar para um host diferente daquele em que o banco de dados reside, há alguns requisitos que precisam ser atendidos.
+
+A tabela a seguir mostra os requisitos de configuração do host de origem e destino:
+
+[cols="1a,2a"]
+|===
+| Pré-requisito configurado | Requisito 
+
+
+ a| 
+Arquitetura
+ a| 
+Deve ser o mesmo nos hosts de origem e destino
+
+
+
+ a| 
+Sistema operativo e versão
+ a| 
+Deve ser o mesmo nos hosts de origem e destino
+
+
+
+ a| 
+SnapManager para SAP
+ a| 
+Deve ser instalado e executado nos hosts de origem e destino
+
+
+
+ a| 
+Credenciais
+ a| 
+Deve ser definido para que o usuário acesse o host de destino
+
+
+
+ a| 
+Oracle
+ a| 
+A mesma versão de software deve ser instalada nos hosts de origem e destino.
+
+O Oracle Listener deve estar em execução no host de destino.
+
+
+
+ a| 
+Pilha de storage compatível
+ a| 
+Deve ser o mesmo nos hosts de origem e destino
+
+
+
+ a| 
+Protocolo usado para acessar arquivos de dados
+ a| 
+Deve ser o mesmo nos hosts de origem e destino
+
+
+
+ a| 
+Gerentes de volume
+ a| 
+Deve ser configurado tanto nos hosts de origem quanto de destino e deve ser de versões compatíveis
+
+|===

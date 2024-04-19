@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/task-view-the-result-of-the-clone-split-process.html 
+sidebar: sidebar 
+keywords: view, result, clone, split, process 
+summary: Você pode ver o resultado do processo de divisão de clones iniciado. 
+---
+= Veja o resultado do processo de divisão de clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode ver o resultado do processo de divisão de clones iniciado.
+
+.Passo
+. Para visualizar o resultado do processo de divisão de clones, digite o seguinte comando:
++
+`*smsap clone split-result -profile _profile_ [-host _hostname_] [-label _split-label_ | -id _split-id_] [-quiet | -verbose]*`
+
+
+
+'''
+[listing]
+----
+smsap clone split-result -profile p1 -id 8abc01ec0e78f3e2010e78f3fdd00001
+----
+'''

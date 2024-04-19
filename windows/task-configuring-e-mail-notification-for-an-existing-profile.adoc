@@ -1,0 +1,35 @@
+---
+permalink: windows/task-configuring-e-mail-notification-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: updating, update, profile, configure, receive, email, notification, completion, database, operation, configuring, exist 
+summary: Ao atualizar um perfil, você pode configurar para receber uma notificação por e-mail após a conclusão da operação do banco de dados. 
+---
+= Configurando a notificação por e-mail para um perfil existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao atualizar um perfil, você pode configurar para receber uma notificação por e-mail após a conclusão da operação do banco de dados.
+
+* Você deve configurar o endereço de e-mail a partir do qual os alertas são enviados.
+* Você deve inserir um único endereço de e-mail ou vários endereços de e-mail para os quais os alertas serão enviados.
++
+Você pode usar uma lista separada por vírgulas para vários endereços. Você deve garantir que não há espaço entre a vírgula e o próximo endereço de e-mail. Opcionalmente, você também pode adicionar um assunto ao e-mail.
+
++
+
+NOTE: Você deve garantir que você insira o conjunto de vários endereços de e-mail dentro de aspas duplas.
+
+
+
+.Passo
+. Introduza o seguinte comando:
++
+`smsap profile update -profileprofile [-profile-passwordprofile_password][-database-dbnamedb_dbname-host db_host [-siddb_sid] [-login -usernamedb_username-password db_password-port db_port]] [{-rman{-controlfile | {-login  -usernamerman_username-password  rman_password-tnsname  rman_tnsname}}} | -remove-rman] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][[ [ ]]| [[]] [-notification [-success-emailemail_address1,email_address2-subjectsubject_pattern] [-failure-emailemail_address1,email_address2-subjectsubject_pattern]]`
+
++
+Você pode usar a opção sucesso para receber uma notificação somente para operações bem-sucedidas do banco de dados e a opção falha para receber uma notificação somente para operações falhadas do banco de dados.
+
+

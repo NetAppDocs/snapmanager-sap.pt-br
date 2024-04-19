@@ -1,0 +1,25 @@
+---
+permalink: unix-installation-7mode/reference-copyright.html 
+sidebar: sidebar 
+keywords: copyright, information 
+summary: Informações sobre direitos autorais 
+---
+= Informações sobre direitos autorais
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Copyright 1994--2017 NetApp, Inc. Todos os direitos reservados. Impresso nos EUA
+
+Nenhuma parte deste documento protegida por direitos autorais pode ser reproduzida de qualquer forma ou por qualquer meio - gráfico, eletrônico ou mecânico, incluindo fotocópia, gravação, gravação em fita ou armazenamento em um sistema de recuperação eletrônica - sem permissão prévia por escrito do proprietário dos direitos autorais.
+
+O software derivado do material da NetApp protegido por direitos autorais está sujeito à seguinte licença e isenção de responsabilidade:
+
+ESTE SOFTWARE É FORNECIDO PELA NetApp "TAL COMO ESTÁ" E SEM QUAISQUER GARANTIAS EXPRESSAS OU IMPLÍCITAS, INCLUINDO, MAS NÃO LIMITADO A, AS GARANTIAS IMPLÍCITAS DE COMERCIALIZAÇÃO E ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA, QUE SÃO POR ESTE MEIO RENUNCIADAS. EM HIPÓTESE ALGUMA A NETAPP SERÁ RESPONSÁVEL POR QUALQUER DANO DIRETO, INDIRETO, INCIDENTAL, ESPECIAL, EXEMPLAR OU CONSEQUENCIAL (INCLUINDO, SEM LIMITAÇÕES, AQUISIÇÃO DE PRODUTOS OU SERVIÇOS SOBRESSALENTES; PERDA DE USO, DADOS OU LUCROS; OU INTERRUPÇÃO DOS NEGÓCIOS), INDEPENDENTEMENTE DA CAUSA E DO PRINCÍPIO DE RESPONSABILIDADE, SEJA EM CONTRATO, POR RESPONSABILIDADE OBJETIVA OU PREJUÍZO (INCLUINDO NEGLIGÊNCIA OU DE OUTRO MODO), RESULTANTE DO USO DESTE SOFTWARE, MESMO SE ADVERTIDA DA RESPONSABILIDADE DE TAL DANO.
+
+A NetApp reserva-se o direito de alterar quaisquer produtos descritos neste documento, a qualquer momento e sem aviso. A NetApp não assume nenhuma responsabilidade nem obrigação decorrentes do uso dos produtos descritos neste documento, exceto conforme expressamente acordado por escrito pela NetApp. O uso ou a compra deste produto não representam uma licença sob quaisquer direitos de patente, direitos de marca comercial ou quaisquer outros direitos de propriedade intelectual da NetApp.
+
+O produto descrito neste manual pode estar protegido por uma ou mais patentes dos EUA, patentes estrangeiras ou pedidos pendentes.
+
+LEGENDA DE DIREITOS RESTRITOS: O uso, duplicação ou divulgação pelo governo está sujeito a restrições conforme estabelecido no parágrafo (c)(1)(ii) da cláusula Rights in Technical Data and Computer Software no DFARS 252.277-7103 (outubro de 1988) e FAR 52-227-19 (junho de 1987).

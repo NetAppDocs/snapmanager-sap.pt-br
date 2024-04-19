@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-split-delete-command.html 
+sidebar: sidebar 
+keywords: delete, clone, command, split, operation, cycle, entry, repository, database, smsap, split-delete 
+summary: Este comando permite excluir uma entrada de ciclo de operação dividida clone de um banco de dados de repositório. 
+---
+= O comando split-delete clone smsap
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando permite excluir uma entrada de ciclo de operação dividida clone de um banco de dados de repositório.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-delete
+-profile _profile_ [-host _hostname_\]
+[-label _split-label_ | -id _split-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parâmetros
+
+* `*-profile _profile_*`
++
+Especifica o nome do perfil do clone.
+
+* `*-host _hostname_*`
++
+Especifica o nome do host no qual o clone existe.
+
+* `*-label _split-label_*`
++
+Especifica o nome do rótulo gerado pelo processo de início de divisão de clone.
+
+* `*-id _split-id_*`
++
+Especifica o ID exclusivo gerado pelo processo de início de divisão de clones.
+
+* `*-quiet*`
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* `*-verbose*`
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+

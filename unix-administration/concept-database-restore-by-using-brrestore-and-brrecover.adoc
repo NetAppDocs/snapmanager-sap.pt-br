@@ -1,0 +1,27 @@
+---
+permalink: unix-administration/concept-database-restore-by-using-brrestore-and-brrecover.html 
+sidebar: sidebar 
+keywords: brrestore, brrecover, backup, brbackup, database, restore 
+summary: Os comandos BRRESTORE e BRRECOVER funcionam apenas com backups criados usando BRBACKUP. 
+---
+= Restauração de banco de dados usando BRRESTORE e BRRECOVER
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Os comandos BRRESTORE e BRRECOVER funcionam apenas com backups criados usando BRBACKUP.
+
+Consulte a documentação do SAP para obter instruções e sintaxe específicas para os comandos BRRESTORE e BRRECOVER.
+
+Se o nome do perfil SnapManager for diferente do identificador do sistema de banco de dados SAP, você deverá especificar o nome do arquivo de parâmetro que contém o nome do perfil SnapManager. Você pode fazer isso de uma das seguintes maneiras:
+
+* Especifique o arquivo de parâmetro do utilitário de backup (`initSID.utl`) usando a opção-r no `BRBACKUP` comando.
+* Especifique o arquivo de parâmetros no arquivo de inicialização BR*Tools (`initSID.sap`).
+
+
+
+NOTE: Os backups (arquivos de dados, arquivos de controle ou arquivos de log refazer on-line) que são criados usando `BRBACKUP` podem ser restaurados de sistemas de armazenamento secundário ou terciário usando o `smsap restore` comando. No entanto, é recomendável fazer backup dos outros arquivos de configuração SAP, por exemplo, arquivos de log SAP, arquivos de kernel e solicitações de transporte usando `BRBACKUP` com `SAP_DIR`, e restaurar usando `BRRESTORE`.
+
+Você pode substituir as verificações em uma restauração rápida baseada em volume usando `BRRESTORE` especificando `_fast=override_` no `.utl` arquivo (o mesmo arquivo no qual você especifica o nome do perfil se ele for diferente do identificador do sistema de banco de dados).

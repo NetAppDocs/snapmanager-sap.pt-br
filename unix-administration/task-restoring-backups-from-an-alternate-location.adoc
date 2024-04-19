@@ -1,0 +1,29 @@
+---
+permalink: unix-administration/task-restore-backups-from-an-alternate-location.html 
+sidebar: sidebar 
+keywords: restore, backup, alternate, location, data, file, intermediate, system, block, raw, device, restoring 
+summary: Você pode restaurar backups de um local alternativo para restaurar os arquivos de dados de um sistema de arquivos intermediário para um sistema de arquivos ativo ou restaurar os blocos de dados de um dispositivo bruto intermediário para um dispositivo bruto ativo. 
+---
+= Restaure backups de um local alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode restaurar backups de um local alternativo para restaurar os arquivos de dados de um sistema de arquivos intermediário para um sistema de arquivos ativo ou restaurar os blocos de dados de um dispositivo bruto intermediário para um dispositivo bruto ativo.
+
+*O que você vai precisar*
+
+* Crie um arquivo XML de especificação de restauração e especifique o tipo de método de restauração que deseja usar.
+
+
+*Sobre esta tarefa*
+
+Você pode usar o comando smsap `backup restore` e especificar o arquivo XML de especificação de restauração criado para restaurar o backup de um local alternativo.
+
+. Introduza o seguinte comando:
++
+`*smsap backup restore -profile _profile_ -label _label_ -complete -alllogs -restorespec _restorespec_*`
+
+

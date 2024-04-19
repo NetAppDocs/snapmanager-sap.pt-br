@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/task-change-the-retention-policy-default-behavior.html 
+sidebar: sidebar 
+keywords: backup, expire, base, retention, policy, snapmanager, determine, delete, back, up, setting, behavior, unprotect, protect, changing, change 
+summary: Quando um backup expira com base na política de retenção, o SnapManager determina se deseja excluir o backup com base nas configurações de retenção. A exclusão de backups é o comportamento padrão. Você pode alterar esse comportamento padrão e optar por liberar os backups desprotegidos. 
+---
+= Altere o comportamento padrão da política de retenção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando um backup expira com base na política de retenção, o SnapManager determina se deseja excluir o backup com base nas configurações de retenção. A exclusão de backups é o comportamento padrão. Você pode alterar esse comportamento padrão e optar por liberar os backups desprotegidos.
+
+*Sobre esta tarefa*
+
+Por padrão, o SnapManager exclui ou libera backups, dependendo se eles estão protegidos ou não da seguinte forma:
+
+* Para backups protegidos, o SnapManager libera os backups locais quando expiram.
+* Para backups não protegidos, o SnapManager exclui os backups locais quando expiram.
++
+Você pode alterar esse comportamento padrão.
+
+
+
+Para backups protegidos, o SnapManager não considera o seguinte para determinar se deseja excluir a cópia local:
+
+* O backup para o storage secundário falhou ou está em processo de proteção.
++
+Isso permite a transferência de backups para o storage secundário antes que a política de retenção seja aplicada.
+
+* A cópia foi posteriormente eliminada do armazenamento secundário.
+
+
+.Passos
+. Acesse o seguinte local padrão:
++
+`_default smsap installation location_/properties/smsap.config`
+
+. Edite o `smsap.config` ficheiro.
+. Defina a `retain.alwaysFreeExpiredBackups` propriedade no `smsap.config` arquivo como true.
++
+Por exemplo,
+
++
+`*retain.alwaysFreeExpiredBackups = true*`
+
+

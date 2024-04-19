@@ -1,0 +1,14 @@
+---
+permalink: unix-administration/concept-archive-log-consolidation.html 
+sidebar: sidebar 
+keywords: sap, consalidate, consolidation, archive, log, backup, minimum, number, snapmanager, file 
+summary: 'O SnapManager (3,2 ou posterior) para SAP consolida os backups de log de arquivamento para manter um número mínimo de backups para arquivos de log de arquivamento. O SnapManager para SAP identifica e libera os backups que contêm arquivos de logs de arquivamento que são subconjuntos de outros backups.' 
+---
+= Consolidação do registo de arquivo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager (3,2 ou posterior) para SAP consolida os backups de log de arquivamento para manter um número mínimo de backups para arquivos de log de arquivamento. O SnapManager para SAP identifica e libera os backups que contêm arquivos de logs de arquivamento que são subconjuntos de outros backups.

@@ -1,0 +1,176 @@
+---
+permalink: unix-administration/concept-how-snapmanager-retains-backups-on-the-local-storage.html 
+sidebar: sidebar 
+keywords: 'snapmanager, enable, create, backup, retention, policies, policy, successful, storage, retain, local, database summary: SnapManager enables you to create backups that meet retention policies, which specify how many successful backups on local storage should be retained. You can specify the number of successful backups that should be retained in the profile for a given database.' 
+---
+= Como o SnapManager retém os backups no storage local
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite criar backups que atendam às políticas de retenção, que especificam quantos backups bem-sucedidos no storage local devem ser mantidos. Você pode especificar o número de backups bem-sucedidos que devem ser mantidos no perfil de um determinado banco de dados.
+
+Você pode criar backups para o seguinte:
+
+* 10 dias de backups diários no storage primário
+* 2 meses de backups mensais no storage primário
+* 7 dias de backups diários em storage secundário
+* 4 semanas de backups semanais em storage secundário
+* 6 meses de backups mensais em storage secundário
+
+
+Para cada perfil no SnapManager, é possível alterar os valores das seguintes classes de retenção não limitadas:
+
+* Por hora
+* Diariamente
+* Semanalmente
+* Mensalmente
+
+
+O SnapManager determina se um backup deve ser retido considerando tanto a contagem de retenção (por exemplo, backups 15) quanto a duração de retenção (por exemplo, 10 dias de backups diários). Um backup expira quando sua idade excede a duração de retenção definida para sua classe de retenção ou o número de backups excede a contagem de retenção. Por exemplo, se a contagem de backup for 15 (a SnapManager fez 15 backups bem-sucedidos) e o requisito de duração for definido para 10 dias de backups diários, os cinco backups elegíveis mais antigos expirarão.
+
+Depois que um backup expira, o SnapManager libera ou exclui o backup expirado. O SnapManager sempre mantém o último backup realizado.
+
+O SnapManager conta apenas o número de backups bem-sucedidos para a contagem de retenção e não considera o seguinte:
+
+[cols="1a,1a"]
+|===
+| Backups não incluídos na contagem de retenção | Detalhes adicionais 
+
+
+ a| 
+Backups com falha
+ a| 
+O SnapManager retém as informações sobre backups bem-sucedidos e mal-sucedidos. Embora backups mal sucedidos exijam apenas espaço mínimo no repositório, talvez você queira excluí-los. Backups sem êxito permanecem no repositório até que você os exclua.
+
+
+
+ a| 
+Backups designados para serem mantidos em uma base ilimitada ou backups para uma classe de retenção diferente
+ a| 
+O SnapManager não exclui backups designados para serem mantidos em uma base ilimitada. Além disso, o SnapManager considera apenas esses backups na mesma classe de retenção (por exemplo, o SnapManager considera apenas os backups por hora para a contagem de retenção por hora).
+
+
+
+ a| 
+Backups montados a partir de armazenamento local
+ a| 
+Quando as cópias Snapshot são montadas, elas também são clonadas e, portanto, não são consideradas qualificadas para retenção. O SnapManager não pode excluir as cópias Snapshot se elas forem clonadas.
+
+
+
+ a| 
+Backups usados para criar um clone no storage local
+ a| 
+O SnapManager retém todos os backups usados para criar clones, mas não os considera para a contagem de retenção de backup.
+
+
+
+ a| 
+Backups clonados ou montados em storage secundário e que usam a política de proteção contra espelhos
+ a| 
+Se o SnapManager excluir as cópias Snapshot do backup no recurso de storage primário e as cópias Snapshot forem espelhadas, o próximo backup no storage secundário falhará.
+
+|===
+Quando você libera um backup de seus recursos de storage primário, os recursos principais (cópias Snapshot) usados pelo backup são destruídos, mas os metadados do backup ainda estão disponíveis. O SnapManager não considera backups liberados na contagem de retenção de backup.
+
+O SnapManager fornece uma contagem e duração de retenção padrão para cada classe de retenção. Por exemplo, para a contagem de classe de retenção por hora, o SnapManager, por padrão, retém quatro backups por hora. Você pode substituir esses padrões e definir os valores ao criar ou atualizar o perfil ou alterar os valores padrão para contagem de retenção e duração no `smsap.config` arquivo.
+
+Backups no storage primário podem ser protegidos por backup em storage secundário. Embora o SnapManager gerencie a retenção e o agendamento de backups no storage primário, o Gerenciador de proteção gerencia a retenção e o agendamento de backups no storage secundário.
+
+Quando os backups locais expiram com base em sua política de retenção, eles são excluídos ou liberados, dependendo se estão protegidos.
+
+* Se estiverem protegidos, os backups locais serão liberados. Seus recursos de storage ou cópias Snapshot são excluídos, mas os backups permanecem no repositório SnapManager e estão disponíveis para restauração a partir do storage secundário. Você não precisa liberar backups (por exemplo, com o comando backup free). Os backups são liberados até que o backup não exista mais no storage secundário e, nesse momento, o backup é excluído.
+* Se eles não estiverem protegidos, os backups locais serão excluídos.
+
+
+Em uma operação de backup somente de archivelog, o SnapManager não arquiva os arquivos de log refazer, ao contrário do processo de backup de banco de dados on-line. Você deve adicionar um script de pré-tarefa para arquivar os arquivos de log de refazer antes de executar a operação de backup somente de archivelog. O script de pré-tarefa deve executar o `alter system switch logfile` comando.
+
+O exemplo a seguir mostra as ações que o SnapManager executa em vários tipos de backups, com base em uma política de retenção de três backups diários (com a contagem definida para reter 3):
+
+[cols="1a,1a,1a,1a"]
+|===
+| Data da cópia de segurança | Estado | Medidas de política de retenção tomadas | Explicação 
+
+
+ a| 
+5/10
+ a| 
+Bem-sucedido
+ a| 
+Manter
+ a| 
+Este é o backup bem-sucedido mais recente, por isso será mantido.
+
+
+
+ a| 
+5/9
+ a| 
+Bem-sucedido, clonado
+ a| 
+Ignorar
+ a| 
+O SnapManager não considera backups usados para clonagem na contagem de políticas de retenção. Este backup é omitido da contagem de backups bem-sucedidos.
+
+
+
+ a| 
+5/8
+ a| 
+Bem-sucedido, montado
+ a| 
+Ignorar
+ a| 
+O SnapManager não considera backups montados na contagem de políticas de retenção. Este backup é omitido da contagem de backups bem-sucedidos.
+
+
+
+ a| 
+5/7
+ a| 
+Falha
+ a| 
+Ignorar
+ a| 
+Backups com falha não são contados.
+
+
+
+ a| 
+5/5
+ a| 
+Bem-sucedido
+ a| 
+Manter
+ a| 
+O SnapManager mantém esse segundo backup diário bem-sucedido.
+
+
+
+ a| 
+5/3
+ a| 
+Bem-sucedido
+ a| 
+Manter
+ a| 
+O SnapManager mantém esse terceiro backup diário bem-sucedido.
+
+
+
+ a| 
+5/2
+ a| 
+Bem-sucedido
+ a| 
+Eliminar
+ a| 
+O SnapManager conta esse backup bem-sucedido, mas depois que o SnapManager atinge três backups diários bem-sucedidos, esse backup é excluído.
+
+|===
+*Informações relacionadas*
+
+http://mysupport.netapp.com/["Documentação no site de suporte da NetApp"^]

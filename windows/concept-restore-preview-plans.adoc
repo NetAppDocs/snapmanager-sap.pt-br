@@ -1,0 +1,87 @@
+---
+permalink: windows/concept-restore-preview-plans.html 
+sidebar: sidebar 
+keywords: snapmanager, restore, plan, operation, preview, review, analyze, regard, method 
+summary: O SnapManager fornece planos de restauração antes e depois que uma operação de restauração for concluída. Os planos de restauração são usados para visualizar, revisar e analisar a respeito de diferentes métodos de restauração. 
+---
+= Quais são os planos de visualização de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager fornece planos de restauração antes e depois que uma operação de restauração for concluída. Os planos de restauração são usados para visualizar, revisar e analisar a respeito de diferentes métodos de restauração.
+
+
+
+== Estrutura do plano de restauração
+
+O plano de restauração consiste nas duas seções a seguir:
+
+* Pré-visualização/Revisão: Esta seção descreve como o SnapManager restaurará (ou restaurou) cada arquivo.
+* Análise: Esta seção descreve por que alguns mecanismos de restauração não foram usados durante a operação de restauração.
+
+
+
+
+== A secção Pré-visualização/Revisão
+
+Esta seção mostra como cada arquivo será ou foi restaurado. Quando você visualiza o plano de restauração antes de uma operação de restauração, ele é chamado de visualização. Quando você a visualiza depois que uma operação de restauração é concluída, ela é chamada de revisão.
+
+O exemplo de visualização a seguir mostra que os arquivos são restaurados usando métodos de restauração do sistema de arquivos do lado do armazenamento e de restauração do sistema do lado do armazenamento. Para determinar por que todos os arquivos não seriam restaurados usando o mesmo método de restauração, consulte a seção análise.
+
+[listing]
+----
+Preview:
+The following files will be restored completely via: storage side full file system restore
+E:\rac6\sysaux.dbf
+E:\rac6\system.dbf
+----
+Cada método de restauração tem uma subseção que contém informações sobre os arquivos que podem ser restaurados usando esse método de restauração. As subseções são ordenadas de acordo com níveis decrescentes de eficiência do método de armazenamento.
+
+É possível que um arquivo seja restaurado por vários métodos de restauração. Vários métodos de restauração são usados quando os LUNs (números de unidade lógica) subjacentes usados para um sistema de arquivos são distribuídos entre diferentes volumes do sistema de storage e alguns volumes são elegíveis para restauração de volume, enquanto outros não. Se forem utilizados vários métodos de restauro para restaurar o mesmo ficheiro, a secção de pré-visualização será semelhante à seguinte:
+
+[listing]
+----
+The following files will be restored via a combination of:
+[storage side file system restore and storage side system restore]
+----
+
+
+== A secção análise
+
+A seção análise apresenta as razões pelas quais alguns mecanismos de restauração não serão ou não foram usados. Você pode usar essas informações para determinar o que é necessário para habilitar mecanismos de restauração mais eficientes.
+
+O exemplo a seguir mostra uma seção de análise:
+
+[listing]
+----
+Analysis:
+
+The following reasons prevent certain files from being
+restored completely via: storage side full file system restore
+   * LUNs present in snapshot of volume fas960:
+        \vol\disks may not be consistent when reverted:
+        [fas960:\vol\disks\DG4D1.lun]
+     Mapped LUNs in volume fas960:\vol\disks
+        not part of the restore scope will be reverted: [DG4D1.lun]
+
+Files to restore:
+     E:\disks\sysaux.dbf
+     E:\disks\system.dbf
+     E:\disks\undotbs1.dbf
+     E:\disks\undotbs2.dbf
+
+* Reasons denoted with an asterisk (*) are overridable.
+----
+No exemplo, você pode substituir a primeira falha a partir da interface de linha de comando (CLI) ou selecionando *Substituir* na interface gráfica do usuário (GUI). A segunda falha sobre LUNs mapeados no volume é obrigatória e não pode ser substituída.
+
+Você pode resolver verificações fazendo o seguinte:
+
+* Para resolver uma falha de verificação obrigatória, altere o ambiente para que a verificação passe.
+* Para resolver uma falha de verificação sobrecarregável, você pode alterar o ambiente ou substituir a verificação.
++
+No entanto, você deve ter cuidado, porque a substituição da verificação pode resultar em consequências indesejadas.
+
+

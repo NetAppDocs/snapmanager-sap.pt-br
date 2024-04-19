@@ -1,0 +1,29 @@
+---
+permalink: unix-administration/task-disable-autosupport-in-snapmanager.html 
+sidebar: sidebar 
+keywords: disable, autosupport, storage, system, receive, message, snapmanager, successful, backup, operation, disabling 
+summary: Você deve desativar o AutoSupport se não quiser que o sistema de armazenamento receba mensagens do servidor SnapManager para cada operação de backup bem-sucedida. 
+---
+= Desative o AutoSupport no SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve desativar o AutoSupport se não quiser que o sistema de armazenamento receba mensagens do servidor SnapManager para cada operação de backup bem-sucedida.
+
+*Sobre esta tarefa*
+
+Por padrão, o AutoSupport é ativado se o arquivo de configuração não contiver o `auto_support.on` parâmetro. Nesse cenário, você deve adicionar o `auto_support.on` parâmetro no arquivo de configuração e definir o valor como `*FALSE*`.
+
+. Pare o servidor SnapManager.
+. No `smsap.config` ficheiro de configuração, defina o valor do `auto_support.on` parâmetro como `*FALSE*`.
++
+*Exemplo*
+
++
+auto_support
+
+. Reinicie o servidor SnapManager.
+

@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/concept-restoration-of-the-data-from-file-systems.html 
+sidebar: sidebar 
+keywords: restore, data, alternate, location, necessary, file, system, local, host, restoration 
+summary: Antes de restaurar dados de um local alternativo, você deve restaurar o sistema de arquivos necessário e montá-lo no host local. 
+---
+= Restauração de dados do sistema de arquivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de restaurar dados de um local alternativo, você deve restaurar o sistema de arquivos necessário e montá-lo no host local.
+
+Você pode invocar a operação de restauração de um local alternativo para copiar os arquivos de sistemas de arquivos alternativos para sistemas de arquivos ativos.
+
+Para executar esta operação, você deve especificar os pontos de montagem alternativos a partir dos quais restaurar os pontos de montagem originais e os nomes de cópia Snapshot originais criando um arquivo de especificação de restauração.
+
+
+NOTE: O nome da cópia Snapshot é um componente necessário porque o mesmo sistema de arquivos pode ser ajustado várias vezes em uma única operação de backup (por exemplo, uma vez para os arquivos de dados e uma vez para o arquivo de log).

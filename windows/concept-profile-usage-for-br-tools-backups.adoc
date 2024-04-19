@@ -1,0 +1,119 @@
+---
+permalink: windows/concept-profile-usage-for-br-tools-backups.html 
+sidebar: sidebar 
+keywords: br, tools, command, backint, interface, interface, snapmanager, profile, repository, credential, user, run, backup 
+summary: Quando você executa um comando BR*Tools que usa a interface BACKINT, o SnapManager usa um perfil do repositório. O repositório é determinado pelas credenciais SnapManager do usuário que executa o comando BR*Tools. 
+---
+= Uso do perfil para backups BR*Tools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando você executa um comando BR*Tools que usa a interface BACKINT, o SnapManager usa um perfil do repositório. O repositório é determinado pelas credenciais SnapManager do usuário que executa o comando BR*Tools.
+
+Por padrão, o SnapManager usa o perfil com o mesmo nome do identificador do sistema de banco de dados SAP.
+
+
+
+== Sobre a criação de credenciais para acessar o repositório
+
+Você pode usar o `smsap credential set` comando para definir as credenciais do repositório para o usuário BR*Tools.
+
+
+
+== Sobre a especificação de um nome de perfil SnapManager diferente
+
+Desde que o identificador do sistema seja exclusivo para todos os hosts cujos perfis SnapManager estejam em um determinado repositório, o nome do perfil padrão é suficiente. Você pode criar o perfil do SnapManager e nomeá-lo usando o valor do identificador do sistema do banco de dados.
+
+No entanto, se o mesmo identificador de sistema for usado em hosts diferentes, ou se você quiser especificar mais de um perfil SnapManager para uso com BR*Tools em uma determinada instância SAP, você precisará definir o nome do perfil para os comandos BR*Tools.
+
+Operações de banco de dados agendadas no aplicativo SAP são executadas como usuário. As operações DO BR*Tools agendadas nos aplicativos SAP são executadas como `SAPServiceSID`. Esses usuários devem ter acesso ao repositório e ao perfil.
+
+O usuário do serviço SAP SAPServiceSID não permite que o usuário faça login localmente. Para alterar isso, você deve modificar a Política de Segurança local executando as seguintes etapas:
+
+.Passos
+. Clique em *Iniciar* > *programas* > *Ferramentas administrativas* > *Política de Segurança local*.
+. Expanda *políticas locais* e selecione**atribuição de direitos de usuário**
+. Procure a política *Negar logon localmente*.
+. Clique com o botão direito do rato e selecione *Propriedades*.
+. Excluir *usuário do serviço SAP* desta lista.
+
+
+
+
+== Sobre a criação do arquivo de parâmetro do utilitário de backup
+
+O comando BR*Tools pode opcionalmente passar um parâmetro de parâmetro do utilitário de backup(`.utl`) para a interface BACKINT. Por padrão, o nome deste arquivo é `initSID.utl`, onde SID é o identificador do sistema do banco de dados.
+
+Por padrão, BR*Tools usa o arquivo de parâmetro especificado pelo `util_par_file` parâmetro no `initSID.sap` arquivo. O arquivo de parâmetro do utilitário de backup é normalmente armazenado no mesmo diretório que o `initSID.sap` arquivo.
+
+Adicione `profile_name = <profile>` ao `.utl` arquivo e salve. O perfil é o nome do SnapManager _profile_ que você deseja usar para os comandos BR*Tools.
+
+A tabela a seguir lista parâmetros adicionais do utilitário de backup incluídos no `.utl` arquivo para operações como retenção de backup, restauração rápida e proteção de dados:
+
+|===
+| Operações | Parâmetros do utilitário de backup 
+
+
+ a| 
+Retenção de backup
+ a| 
+* Chave: Reter
+* Valor: Ilimitado
+
+
+
+
+| por hora | diariamente 
+
+
+| semanalmente | mensalmente 
+|===
+A tabela a seguir descreve os diferentes parâmetros do utilitário de backup para essas operações:
+
+|===
+| Operação | Chave | Valor 
+
+
+ a| 
+Retenção de backup
+ a| 
+rápido
+ a| 
+fallback
+
+|===
+
+
+== Adicionando o parâmetro do utilitário de backup ao arquivo de inicialização BR*Tools
+
+O SAP cria um arquivo de perfil de backup nomeado `initSID.sap` para cada instância de banco de dados SAP no `$ORACLE_HOME\database\`. você pode usar esse arquivo para especificar o parâmetro padrão do utilitário de backup (`.utl`) arquivo usado para os comandos BR*Tools.
+
+.Passos
+. Edite o arquivo initSID.sap e localize a linha começando com `util_par_file =`.
+. Descomente essa linha e adicione o caminho ao arquivo de parâmetro do utilitário de backup que contém o nome do perfil, por exemplo, `util_par_file = initSA1.utl`.
+. Se especificar um valor para o `util_par_file`, certifique-se de que o ficheiro existe.
++
+Se o arquivo não for encontrado, os comandos BRBACKUP falham porque eles tentam incluir esse arquivo em um backup.
+
+
+
+Se alguma das seguintes condições de erro for encontrada, você precisará usar a `-u` opção como nome do perfil:
+
+* `Parameter files does not exist`
+* `No profile_name entry`
+
+
+Ambos `orasid` `sidadm` precisam de acesso ao perfil que seria usado para criar ou gerenciar backups criados com o BR*Tools.
+
+
+
+== Especificando o nome do arquivo de parâmetro do utilitário de backup no comando BR*Tools
+
+Opcionalmente, você pode especificar o arquivo de parâmetro do utilitário de backup (.utl Parameter) nos comandos BR*Tools usando a `-r` opção. O valor na linha de comando substitui o valor especificado no arquivo de inicialização SAP.
+
+BR*Tools procura o arquivo de parâmetro no `$ORACLE_HOME\database\` diretório. Se você armazenar o arquivo em outro local, precisará fornecer o caminho completo com a `-r` opção. Por exemplo:
+
+`*brbackup -r C:\Oracle\NetApp_fcp_price_10g_enterprise_inst_vol1\database\initCER.utl ...*`

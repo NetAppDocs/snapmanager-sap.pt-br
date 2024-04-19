@@ -1,0 +1,52 @@
+---
+permalink: unix-installation-7mode/reference-smsap-isg-where-to-go-next.html 
+sidebar: sidebar 
+keywords: install, snapmanager, successful, creating, create, backup, restore, recovery, cloning, clone, operation, addition, information, scheduling, schedule, where, to, go, next 
+summary: Depois de instalar o SnapManager e criar um backup com êxito, você poderá usar o SnapManager para executar operações de restauração, recuperação e clonagem. Além disso, talvez você queira encontrar informações sobre outros recursos do SnapManager, como agendamento, gerenciamento de operações do SnapManager e manutenção de um histórico de operações. 
+---
+= Onde ir a seguir
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de instalar o SnapManager e criar um backup com êxito, você poderá usar o SnapManager para executar operações de restauração, recuperação e clonagem. Além disso, talvez você queira encontrar informações sobre outros recursos do SnapManager, como agendamento, gerenciamento de operações do SnapManager e manutenção de um histórico de operações.
+
+Você pode encontrar mais informações sobre esses recursos, bem como informações específicas de versões para o SnapManager na documentação a seguir, todas disponíveis no http://mysupport.netapp.com["Suporte à NetApp"^].
+
+* https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guia de administração do SnapManager 3.4.1 para UNIX"^]
++
+Descreve como configurar o Administer SnapManager para SAP. Os tópicos incluem como configurar, fazer backup, restaurar e clonar bancos de dados, executar proteção secundária, além de uma explicação dos comandos CLI.
+
+* https://library.netapp.com/ecm/ecm_download_file/ECMP12481455["Notas de lançamento do SnapManager 3,4 para SAP"^]
++
+Descreve novos recursos, problemas corrigidos, precauções importantes, problemas conhecidos e limitações do SnapManager para SAP.
+
+* _Ajuda on-line do SnapManager para SAP_
++
+Descreve os procedimentos passo a passo para executar diferentes operações do SnapManager usando a IU do SnapManager.
+
++
+
+NOTE: A _Ajuda on-line_ está integrada à IU do SnapManager e não está disponível no site de suporte.
+
+* http://www.netapp.com/us/media/tr-3761.pdf["Relatório técnico da NetApp 3761: SnapManager para Oracle: Melhores práticas"^]
++
+Descreve as práticas recomendadas do SnapManager para Oracle.
+
+* http://www.netapp.com/us/media/tr-3633.pdf["Relatório técnico da NetApp 3633: Práticas recomendadas para bancos de dados Oracle no armazenamento NetApp"^]
++
+Descreve as práticas recomendadas para configurar bancos de dados Oracle no sistema de storage NetApp.
+
+* http://www.netapp.com/us/media/tr-3442.pdf["Relatório técnico da NetApp 3442: SAP com Oracle em UNIX e NFS e armazenamento NetApp"^]
++
+Descreve as práticas recomendadas para implantar o storage NetApp para dar suporte a soluções SAP.
+
+
+
+*Informações relacionadas*
+
+http://mysupport.netapp.com["Suporte à NetApp"^]
+
+http://mysupport.netapp.com/documentation/productsatoz/index.html["Documentação do NetApp: Biblioteca de produtos A-Z"^]

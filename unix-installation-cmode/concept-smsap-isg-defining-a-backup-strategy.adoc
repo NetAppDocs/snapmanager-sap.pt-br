@@ -1,0 +1,151 @@
+---
+permalink: unix-installation-cmode/concept-smsap-isg-defining-a-backup-strategy.html 
+sidebar: sidebar 
+keywords: define, backup, strategy, create, successful, restore, database, snapmanager, service, level, agreement, sla 
+summary: 'Definir uma estratégia de backup antes de criar seus backups garante que você tenha backups para restaurar seus bancos de dados com sucesso. O SnapManager fornece uma programação flexível de backup granular para atender ao seu Contrato de nível de Serviço (SLA).' 
+---
+= Definir uma estratégia de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Definir uma estratégia de backup antes de criar seus backups garante que você tenha backups para restaurar seus bancos de dados com sucesso. O SnapManager fornece uma programação flexível de backup granular para atender ao seu Contrato de nível de Serviço (SLA).
+
+
+NOTE: Para obter as melhores práticas do SnapManager, consulte _TR 3761_.
+
+
+
+== Que modo de backup do SnapManager você precisa?
+
+O SnapManager suporta dois modos de backups:
+
+|===
+| Modo de cópia de segurança | Descrição 
+
+
+ a| 
+Backup on-line
+ a| 
+Cria um backup do banco de dados quando o banco de dados está no estado online. Este modo de backup também é chamado de hot backup.
+
+
+
+ a| 
+Cópia de segurança offline
+ a| 
+Cria um backup do banco de dados quando o banco de dados está em um estado montado ou desligado. Este modo de backup também é chamado de backup frio.
+
+|===
+
+
+== Que tipo de backup do SnapManager você precisa?
+
+O SnapManager é compatível com três tipos de backups:
+
+|===
+| Tipo de cópia de segurança | Descrição 
+
+
+ a| 
+Backup completo
+ a| 
+Cria um backup de todo o banco de dados, que inclui todos os arquivos de dados, arquivos de controle e arquivos de log de arquivamento.
+
+
+
+ a| 
+Backup parcial
+ a| 
+Cria um backup de arquivos de dados selecionados, arquivos de controle, tablespaces e arquivos de log de arquivamento
+
+
+
+ a| 
+Arquivar cópia de segurança apenas de registo
+ a| 
+Cria uma cópia de segurança apenas dos ficheiros de registo de arquivo.tem de selecionar *Backup Archivelogs separadamente* ao criar o perfil.
+
+|===
+
+
+== Que tipo de perfil de banco de dados você precisa?
+
+O SnapManager cria backups com base se o perfil do banco de dados separa os backups de log de arquivamento dos backups de arquivos de dados.
+
+|===
+| Tipo de perfil | Descrição 
+
+
+ a| 
+Um único perfil de banco de dados para backup combinado de arquivos de dados e Registros de arquivamento
+ a| 
+Permite-lhe criar:
+
+* Backup completo contendo todos os arquivos de dados, arquivos de log de arquivo e arquivos de controle
+* Backup parcial contendo arquivos de dados selecionados, espaços de tabela, arquivos de log de arquivo e arquivos de controle
+
+
+
+
+ a| 
+Perfis de banco de dados separados para backups de log de arquivamento e backups de arquivos de dados
+ a| 
+Permite-lhe criar:
+
+* Backup combinado com rótulos diferentes para backup de arquivos de dados e backup de log de arquivamento
+* Backup de dados-arquivos-somente de todos os arquivos de dados junto com os arquivos de controle
+* Backup parcial de dados-arquivos-somente de arquivos de dados selecionados ou tablespaces junto com os arquivos de controle
+* Backup somente de Registros de arquivamento
+
+
+|===
+
+
+== Quais convenções de nomenclatura devem ser usadas para cópias Snapshot?
+
+As cópias snapshot criadas pelos backups podem seguir uma convenção de nomenclatura personalizada. Texto personalizado ou variáveis incorporadas, como o nome do perfil, o nome do banco de dados e o SID do banco de dados fornecido pelo SnapManager, podem ser usados para criar a convenção de nomenclatura. Você pode criar a convenção de nomenclatura ao criar a política.
+
+
+NOTE: Você deve incluir a variável smid no formato de nomenclatura. A variável smid cria um identificador único de Snapshot.
+
+A convenção de nomenclatura de cópia Snapshot pode ser alterada durante ou após a criação de um perfil. O padrão atualizado se aplica apenas a cópias Snapshot que ainda não foram criadas. As cópias Snapshot existentes mantêm o padrão anterior.
+
+
+
+== Por quanto tempo você deseja reter cópias de backup no sistema de storage primário e no sistema de storage secundário?
+
+Uma política de retenção de backup especifica o número de backups bem-sucedidos a serem mantidos. Você pode especificar a política de retenção ao criar a política.
+
+Você pode selecionar por hora, dia, semanal, mensal ou ilimitado como a classe de retenção. Para cada classe de retenção, você pode especificar a contagem de retenção e a duração de retenção, em conjunto ou individualmente.
+
+* A contagem de retenção determina o número mínimo de backups de uma classe de retenção específica que deve ser mantida.
++
+Por exemplo, se o agendamento de backup for _daily_ e a contagem de retenção for _10_, então 10 backups diários serão retidos.
+
++
+
+NOTE: O número máximo de cópias snapshot que o Data ONTAP permite reter é de 255. Depois que ele atingir o limite máximo, por padrão, a criação de novas cópias Snapshot falhará. No entanto, você pode configurar a política de rotação no Data ONTAP para excluir cópias Snapshot mais antigas.
+
+* A duração de retenção determina o número mínimo de dias para os quais o backup deve ser mantido.
++
+Por exemplo, se o agendamento de backup for _daily_ e a duração de retenção for _10_, então 10 dias de backups diários serão retidos.
+
+
+
+Se você configurar a replicação do SnapMirror, a política de retenção será espelhada no volume de destino.
+
+
+NOTE: Para retenção de longo prazo de cópias de backup, você deve usar o SnapVault.
+
+
+
+== Deseja verificar cópias de backup usando o volume de origem ou um volume de destino?
+
+Se você usar o SnapMirror ou o SnapVault, poderá verificar cópias de backup usando a cópia Snapshot no volume de destino do SnapMirror ou do SnapVault, em vez da cópia Snapshot no sistema de storage primário. O uso de um volume de destino para verificação reduz a carga no sistema de storage primário.
+
+*Informações relacionadas*
+
+http://www.netapp.com/us/media/tr-3761.pdf["Relatório técnico da NetApp 3761: SnapManager para Oracle: Melhores práticas"^]

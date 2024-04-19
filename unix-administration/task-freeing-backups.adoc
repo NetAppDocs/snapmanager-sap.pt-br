@@ -1,0 +1,116 @@
+---
+permalink: unix-administration/task-free-backups.html 
+sidebar: sidebar 
+keywords: free, backup, delete, snapshot, copies, copy, deleting, metadata, function, smsap, command 
+summary: Você pode liberar backups, o que exclui as cópias Snapshot sem excluir os metadados do backup. Esta função liberta o espaço ocupado pelo backup. Você pode usar o comando smsap backup free para liberar os backups. 
+---
+= Backups gratuitos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode liberar backups, o que exclui as cópias Snapshot sem excluir os metadados do backup. Esta função liberta o espaço ocupado pelo backup. Você pode usar o comando smsap backup free para liberar os backups.
+
+*O que você vai precisar*
+
+Para que um backup seja qualificado para liberar, você deve garantir o seguinte:
+
+* A cópia de segurança foi bem-sucedida
+* A cópia de segurança não deve ser montada
+* O backup não tem clones
+* O backup não deve ser retido usando uma política de retenção ilimitada
+* A cópia de segurança ainda não foi libertada
+
+
+*Sobre esta tarefa*
+
+Se a proteção estiver ativada no perfil e a política de proteção contiver conexões do nó principal que usam uma relação espelhada, as cópias Snapshot serão excluídas no nó primário quando um backup for liberado. Essas cópias Snapshot também são excluídas dos nós espelhados quando a próxima transferência para o storage secundário ocorre.
+
+Quando você libera um backup protegido, o SnapManager solicita que o Gerenciador de proteção remova as cópias Snapshot locais do backup. Se a operação livre de backup for bem-sucedida para os backups protegidos, as cópias Snapshot serão excluídas pelo Protection Manager de maneira assíncrona.
+
+[cols="2a,1a,3a,3a,4a"]
+|===
+| Estado de proteção | Estado local | Ação no storage primário | Ação no storage secundário | Explicação 
+
+
+ a| 
+Não solicitado (a ser protegido)
+ a| 
+Existe
+ a| 
+Liberta a cópia de segurança
+ a| 
+Nenhuma ação necessária
+ a| 
+O SnapManager libera o backup local.
+
+
+
+ a| 
+Libertado
+ a| 
+Nenhuma ação necessária
+ a| 
+Nenhuma ação necessária
+ a| 
+O backup local já está liberado.
+
+
+
+ a| 
+Não protegido
+ a| 
+Existe
+ a| 
+Liberta a cópia de segurança
+ a| 
+Nenhuma ação necessária
+ a| 
+O SnapManager libera o backup local, mesmo que não haja cópias no storage secundário.
+
+
+
+ a| 
+Libertado
+ a| 
+Nenhuma ação necessária
+ a| 
+Nenhuma ação necessária
+ a| 
+O backup local já está liberado.
+
+
+
+ a| 
+Protegido
+ a| 
+Existe
+ a| 
+Liberta a cópia de segurança
+ a| 
+Nenhuma ação necessária; o backup no secundário permanece
+ a| 
+O SnapManager libera o backup local. As cópias permanecem no storage secundário.
+
+
+
+ a| 
+Libertado
+ a| 
+Nenhuma ação necessária
+ a| 
+Nenhuma ação necessária
+ a| 
+O backup local já está liberado.
+
+|===
+Você pode especificar a opção -dump como um parâmetro opcional para coletar os arquivos de despejo após a operação livre de backup bem-sucedida ou com falha.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} -force[-dump] [-quiet] [-force]*`
+
+

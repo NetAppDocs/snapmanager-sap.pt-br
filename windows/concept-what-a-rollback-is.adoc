@@ -1,0 +1,26 @@
+---
+permalink: windows/concept-what-a-rollback-is.html 
+sidebar: sidebar 
+keywords: rollback, operation, enable, revert, version, snapmanager, perform, roll, upgrade 
+summary: A operação de reversão permite que você reverta para uma versão anterior do SnapManager depois de executar uma atualização contínua. 
+---
+= O que é uma reversão
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A operação de reversão permite que você reverta para uma versão anterior do SnapManager depois de executar uma atualização contínua.
+
+
+NOTE: Antes de executar uma reversão, você deve garantir que todos os hosts sob o banco de dados do repositório possam ser resolvidos.
+
+Quando você executa uma reversão, os seguintes são revertidos:
+
+* Backups que foram criados, liberados e excluídos usando a versão do SnapManager da qual você está revertendo
+* Clones criados a partir de um backup criado usando a versão do SnapManager a partir da qual você está revertendo
+* Credenciais de perfil modificadas usando a versão do SnapManager a partir da qual você está revertendo
+
+
+Os recursos que estavam disponíveis na versão do SnapManager que você estava usando, mas não estão disponíveis na versão para a qual você está revertendo, não são suportados. Por exemplo, quando você executa uma reversão do SnapManager 3,3 ou posterior para o SnapManager 3,1, a configuração do histórico definida para perfis no SnapManager 3,3 ou posterior não é revertida para os perfis no SnapManager 3,1. Isso ocorre porque o recurso de configuração do histórico não estava disponível no SnapManager 3,1.

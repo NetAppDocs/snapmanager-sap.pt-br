@@ -1,0 +1,43 @@
+---
+permalink: unix-administration/concept-collecting-additional-log-information-for-easier-debugging.html 
+sidebar: sidebar 
+keywords: log, debug, snapmanager, fail, operation, external, environment, variable, server 
+summary: Se você precisar de logs adicionais para depurar uma operação SnapManager com falha, você deve definir uma variável de ambiente externo Server.log.level. Esta variável substitui o nível de log padrão e despeja todas as mensagens de log no arquivo de log. Por exemplo, você pode alterar o nível de log para DEBUG, que Registra mensagens adicionais e pode ajudar em problemas de depuração. 
+---
+= Coletar informações de log adicionais para facilitar a depuração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se você precisar de logs adicionais para depurar uma operação SnapManager com falha, você deve definir uma variável de ambiente externo Server.log.level. Esta variável substitui o nível de log padrão e despeja todas as mensagens de log no arquivo de log. Por exemplo, você pode alterar o nível de log para DEBUG, que Registra mensagens adicionais e pode ajudar em problemas de depuração.
+
+Os logs do SnapManager podem ser encontrados nos seguintes locais:
+
+* `/var/log/smsap`
+
+
+Para substituir o nível de log padrão, você deve executar as seguintes etapas:
+
+. Crie um `platform.override` arquivo de texto no diretório de instalação do SnapManager.
+. Adicione o `server.log.level` parâmetro no `platform.override` arquivo de texto.
+. Atribua um valor (_TRACE, DEBUG, INFO, WARN, ERROR, FATAL ou PROGRESS_) ao `server.log.level` parâmetro.
++
+Por exemplo, para alterar o nível de log para _ERROR_, defina o valor de `server.log.level` como _ERROR_.
+
++
+`*server.log.level=ERROR*`
+
+. Reinicie o servidor SnapManager.
+
+
+
+NOTE: Se as informações de registo adicionais não forem necessárias, pode eliminar o `server.log.level` parâmetro do `platform.override` ficheiro de texto.
+
+O SnapManager gerencia o volume de arquivos de log do servidor com base nos valores definidos pelo usuário dos seguintes parâmetros `smsap.config` no arquivo:
+
+* `log.max_log_files`
+* `log.max_log_file_size`
+* `log.max_rolling_operation_factory_logs`
+

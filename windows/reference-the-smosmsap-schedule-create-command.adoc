@@ -1,0 +1,192 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-create-command.html 
+sidebar: sidebar 
+keywords: schedule, create, command, backup, smsap 
+summary: Você pode usar o comando schedule create para agendar um backup a ser criado em um momento específico. 
+---
+= O comando smsap schedule create
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o `schedule create` comando para agendar um backup a ser criado em um momento específico.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap schedule create
+-profile profile_name
+[-full{-auto | -online | -offline}
+[-retain -hourly | -daily | -weekly | -monthly | -unlimited]
+[-verify]] |
+[-data [[-files files [files]] |
+[-tablespaces tablespaces [tablespaces]] {-auto | -online | -offline}
+[-retain -hourly | -daily | -weekly | -monthly | -unlimited]
+[-verify]] |
+[-archivelogs]}
+[-label label]
+[-comment comment]
+
+[-backup-dest path1 [ , path2]]
+[-exclude-dest path1 [ , path2]]
+[-prunelogs {-all | -until-scn until-scn | -until -date  yyyy-MM-dd:HH:mm:ss] | -before {-months | -days | -weeks | -hours}}
+-prune-dest prune_dest1,[prune_dest2]]
+-schedule-name schedule_name
+[-schedule-comment schedule_comment]
+-interval {-hourly | -daily | -weekly | -monthly | -onetimeonly}
+-cronstring cron_string
+-start-time {start_time <yyyy-MM-dd HH:mm>}
+-runasuser runasuser
+[-taskspec taskspec]
+-force
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o nome do perfil relacionado ao banco de dados para o qual você deseja agendar o backup. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* *`-auto option`*
++
+Se o banco de dados estiver no estado montado ou off-line, o SnapManager executará um backup off-line. Se o banco de dados estiver no estado aberto ou on-line, o SnapManager executará um backup on-line. Se você usar a `-force` opção com a `-offline` opção, o SnapManager força um backup off-line, mesmo que o banco de dados esteja on-line atualmente.
+
+* *`-online option`*
++
+Especifica um backup de banco de dados on-line.
+
+* *`-offline option`*
++
+Especifica um backup off-line enquanto o banco de dados está no estado de desligamento. Se o banco de dados estiver no estado aberto ou montado, o backup falhará. Se a `-force` opção for usada, o SnapManager tentará alterar o estado do banco de dados para encerrar o banco de dados para um backup off-line.
+
+* *`-full option`*
++
+Faz backup de todo o banco de dados. Isso inclui todos os dados, log arquivado e arquivos de controle. Os logs de refazer arquivados e os arquivos de controle são copiados independentemente do tipo de backup que você executar. Se você quiser fazer backup de apenas uma parte do banco de dados, use a `-files` opção ou `-tablespaces` a opção.
+
+* *`-files _list_`*
++
+Faz backup apenas dos arquivos de dados especificados, além dos arquivos de log e controle arquivados. Separe a lista de nomes de arquivos com espaços. Se o banco de dados estiver em estado aberto, o SnapManager verifica se os espaços de tabela apropriados estão no modo de backup on-line.
+
+* *`-tablespaces _tablespaces_`*
++
+Faz o backup apenas das tabelas de banco de dados especificadas, além dos arquivos de log e controle arquivados. Separe os nomes das tablespace com espaços. Se o banco de dados estiver em estado aberto, o SnapManager verifica se os espaços de tabela apropriados estão no modo de backup on-line.
+
+* *`-label _name_`*
++
+Especifica um nome opcional para esse backup. Este nome deve ser único dentro do perfil. O nome pode conter letras, números, sublinhado (_) e hífen (-). Não pode começar com um hífen.
+
++
+Se você não especificar um rótulo, o SnapManager criará um rótulo padrão no formato scope_type_date:
+
++
+** O escopo é F para indicar um backup completo ou P para indicar um backup parcial.
+** Tipo é C para indicar um backup offline (frio), H para indicar um backup on-line (quente) ou A para indicar o backup automático, por exemplo, P_A_20081010060037IST.
+** A data é o ano, o mês, o dia e a hora do backup.
++
+O SnapManager usa um relógio de 24 horas.
+
+
+
++
+Por exemplo, se você realizou um backup completo com o banco de dados offline em 16th de janeiro de 2007, às 5:45:16 p.m. horário padrão oriental, o SnapManager criaria o rótulo F_C_20070116174516EST.
+
+* *`-comment _string_`*
++
+Especifica um comentário opcional para descrever esse backup. Insira a string dentro de aspas simples (').
+
++
+
+NOTE: Alguns projéteis removem as aspas. Se isso for verdade para o seu shell, você deve incluir a marca de cotação com uma barra invertida ( Por exemplo, talvez seja necessário inserir: `\' this is a comment\'`.
+
+* *`-verify option`*
++
+Verifica se os arquivos no backup não estão corrompidos executando o utilitário Oracle dbv.
+
++
+
+NOTE: Se você especificar a `-verify` opção, a operação de backup não será concluída até que a operação de verificação esteja concluída.
+
+* *`-force option`*
++
+Força uma mudança de estado se o banco de dados não estiver no estado correto. Por exemplo, o SnapManager pode alterar o estado do banco de dados de on-line para off-line, com base no tipo de backup especificado e no estado em que o banco de dados está.
+
++
+** Se a instância local estiver no estado de desligamento e pelo menos uma instância estiver aberta, você poderá alterar a instância local para montada usando `-force` a opção.
+** Se nenhuma instância estiver aberta, você poderá alterar a instância local para abrir usando `-force` a opção.
+
+
+* *`-retain { -hourly | -daily | -weekly | -monthly | -unlimited}`*
++
+Especifica se o backup deve ser retido por hora, dia, semanal, mensal ou ilimitado. Se `-retain` a opção não for especificada, a classe de retenção padrão será `-hourly`. Para manter backups para sempre, use a `-unlimited` opção. A `-unlimited` opção torna o backup inelegível para exclusão pela política de retenção.
+
+* *`-archivelogs`*
++
+Especifica a criação de um backup de log de arquivamento.
+
+* *`-backup-dest _path1_, [, [_path2_]]`*
++
+Especifica os destinos de log de arquivamento para backup de log de arquivamento.
+
+* *`-exclude-dest _path1_, [, [_path2_]]`*
++
+Especifica os destinos do log de arquivamento a serem excluídos do backup.
+
+* *`-prunelogs {-all | -until-scnuntil-scn | -until-date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}`*
++
+Especifica se os arquivos de log de arquivamento devem ser excluídos dos destinos de log de arquivamento com base nas opções fornecidas durante a criação de um backup. A `-all` opção elimina todos os ficheiros de registo de arquivo dos destinos de registo de arquivo. A `-until-scn` opção exclui os arquivos de log de arquivamento até que um número de mudança de sistema (SCN) especificado. A `-until-date` opção elimina os ficheiros de registo de arquivo até ao período de tempo especificado. A `-before` opção exclui os arquivos de log de arquivamento antes do período de tempo especificado (dias, meses, semanas, horas).
+
+* *`-schedule-name _schedule_name_`*
++
+Especifica o nome que você fornece para a programação.
+
+* *`-schedule-comment _schedule_comment_`*
++
+Especifica um comentário opcional para descrever sobre o agendamento do backup.
+
+* *`-interval { -hourly | -daily | -weekly | -monthly | -onetimeonly}`*
++
+Especifica o intervalo de tempo pelo qual os backups são criados. Você pode agendar o backup por hora, diariamente, semanalmente, mensalmente ou apenas uma vez.
+
+* *`-cronstring _cron_string_`*
++
+Especifica o agendamento do backup usando cronstring. As expressões cron são usadas para configurar instâncias do CronTrigger. Expressões cron são strings que são compostas das seguintes subexpressões:
+
++
+** 1 refere-se a segundos.
+** 2 refere-se a minutos.
+** 3 refere-se a horas.
+** 4 refere-se a um dia em um mês.
+** 5 refere-se ao mês.
+** 6 refere-se a um dia em uma semana.
+** 7 refere-se ao ano (opcional).
+
+
+* *`-start-time _yyyy-MM-dd HH:mm_`*
++
+Especifica a hora de início da operação agendada. A hora de início da programação deve ser incluída no formato aaaa-MM-dd HH:mm.
+
+* *`-runasuser _runasuser_`*
++
+Especifica a alteração do usuário (usuário raiz ou usuário Oracle) da operação de backup agendada durante o agendamento do backup.
+
+* *`-taskspec _taskspec_`*
++
+Especifica o arquivo XML de especificação de tarefa que pode ser usado para atividade de pré-processamento ou atividade de pós-processamento da operação de backup. O caminho completo do arquivo XML deve ser fornecido com a `-taskspec` opção.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+

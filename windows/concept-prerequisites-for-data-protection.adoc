@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-prerequisites-for-data-protection.html 
+sidebar: sidebar 
+keywords: aware, consideration, perform, data, protection 
+summary: Você precisa estar ciente de algumas considerações para executar a proteção de dados. 
+---
+= Considerações para executar a proteção de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa estar ciente de algumas considerações para executar a proteção de dados.
+
+* Para executar operações de clone ou restauração de sistemas secundários, é necessário montar o volume de destino no namespace e exportá-lo corretamente.
+* Você deve desativar o parâmetro de configuração do SnapDrive `check-export-permission-nfs-clone` definindo o valor como *Off*.
++
+A documentação do SnapDrive para UNIX no site de suporte da NetApp contém informações adicionais sobre o `check-export-permission-nfs-clone parameter`.
+
+* É necessário configurar a relação do SnapMirror para os volumes de storage secundário solicitados no sistema de storage secundário.
+* Você deve configurar a relação SnapVault para os qtrees de armazenamento secundário solicitados no sistema de armazenamento secundário para Data ONTAP operando no modo 7.
+* Você deve definir uma política e regras para o rótulo SnapMirror definido pelo usuário se estiver usando o pós-script do SnapVault para o Clustered Data ONTAP.
++
+O pós-script do SnapVault é compatível com volumes Data ONTAP em cluster e com os tipos de relação SnapMirror DP e XDP. A documentação do ONTAP no site de suporte da NetApp contém informações sobre a configuração do SnapMirror e do SnapVault.
+
+
+
+http://mysupport.netapp.com/["Documentação no site de suporte da NetApp"^]

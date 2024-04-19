@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/concept-creating-task-specification-file-and-scripts-for-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, specification, extensible, markup, language, xml, pretask, backup, restore, clone, operation, creating, create, file, script, operation 
+summary: 'O SnapManager para SAP usa um arquivo XML (Extensible Markup Language) de especificação de tarefa que indica as pré-teasagens e pós-tarefas para as operações de backup, restauração e clone. Você pode adicionar os nomes de script de pré-tarefa e pós-tarefa no arquivo XML para as tarefas a serem executadas antes ou depois das operações de backup, restauração e clone.' 
+---
+= Criando arquivo de especificação de tarefa e scripts para operações SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager para SAP usa um arquivo XML (Extensible Markup Language) de especificação de tarefa que indica as pré-teasagens e pós-tarefas para as operações de backup, restauração e clone. Você pode adicionar os nomes de script de pré-tarefa e pós-tarefa no arquivo XML para as tarefas a serem executadas antes ou depois das operações de backup, restauração e clone.
+
+No SnapManager (3,1 ou anterior), você pode executar os scripts de pré-tarefa e pós-tarefa apenas para a operação clone. No SnapManager (3,2 ou posterior) para SAP, é possível executar os scripts de pré-tarefa e pós-tarefa para as operações de backup, restauração e clone.
+
+No SnapManager (3,1 ou anterior), a seção de especificação de tarefa faz parte do arquivo XML de especificação de clone. Do SnapManager 3,2 para SAP, a seção de especificação de tarefa é um arquivo XML separado.
+
+
+NOTE: O SnapManager 3,3 ou posterior não suporta o uso do arquivo XML de especificação de clone criado nas versões anteriores ao SnapManager 3,2.
+
+No SnapManager (3,2 ou posterior) para SAP, você deve garantir que as seguintes condições sejam atendidas para operações SnapManager bem-sucedidas:
+
+* Para operações de backup e restauração, use o arquivo XML de especificação de tarefa.
+* Para a operação clone, forneça dois arquivos de especificação: Um arquivo XML de especificação clone e um arquivo XML de especificação de tarefa.
++
+Se você quiser ativar a atividade de pré-tarefa ou pós-tarefa, você pode adicionar opcionalmente o arquivo XML de especificação de tarefa.
+
+
+
+Você pode criar o arquivo de especificação de tarefa usando a interface gráfica do usuário (GUI) do SnapManager, a interface de linha de comando (CLI) ou um editor de texto. Você deve usar uma extensão .xml para o arquivo para habilitar recursos de edição apropriados. Talvez você queira salvar esse arquivo para usá-lo para futuras operações de backup, restauração e clone.
+
+O arquivo XML de especificação de tarefa inclui duas seções:
+
+* A seção Pretarefas inclui scripts que podem ser executados antes das operações de backup, restauração e clone.
+* A seção pós-tarefas inclui scripts que podem ser executados após as operações de backup, restauração e clone.
+
+
+Os valores incluídos nas seções pré-tarefas e pós-tarefas devem seguir as seguintes diretrizes:
+
+* Nome da tarefa: O nome da tarefa deve corresponder ao nome do script, que é exibido quando você executa o `plugin.sh -describe` comando.
++
+
+NOTE: Se houver uma incompatibilidade, você poderá receber a seguinte mensagem de erro: `the file not found`.
+
+* Nome do parâmetro: O nome do parâmetro deve ser uma cadeia de carateres que pode ser usada como uma configuração de variável de ambiente.
++
+A cadeia de carateres deve corresponder ao nome do parâmetro no script personalizado, que é exibido quando você executa o `plugin.sh -describe` comando.
+
+
+
+Você pode criar o arquivo de especificação com base na estrutura do seguinte arquivo de especificação de tarefa de exemplo:
+
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+
+NOTE: O arquivo XML de especificação de tarefa não deve conter nenhuma política.
+
+Na GUI do SnapManager, você pode definir o valor do parâmetro e salvar o arquivo XML. Você pode usar a página ativação de tarefas do assistente criar backup, do assistente Restaurar ou recuperação e do assistente criar clone, para carregar o arquivo XML de especificação de tarefa existente e usar o arquivo selecionado para a atividade pré-tarefa ou pós-tarefa.
+
+Uma tarefa pode ser executada várias vezes, com as mesmas ou diferentes combinações de parâmetros e valores. Por exemplo, você pode usar uma tarefa Salvar para salvar vários arquivos.
+
+
+NOTE: O SnapManager usa as tags XML fornecidas no arquivo de especificação de tarefa para a atividade de pré-processamento ou pós-processamento para as operações de backup, restauração e clone, independentemente da extensão de arquivo do arquivo de especificação de tarefa.

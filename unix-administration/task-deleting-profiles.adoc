@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-delete-profiles.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, incomplete, deleting, backup 
+summary: Você pode excluir um perfil a qualquer momento, desde que ele não contenha backups bem-sucedidos ou incompletos. Você pode excluir perfis que contêm backups liberados ou excluídos. 
+---
+= Eliminar perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode excluir um perfil a qualquer momento, desde que ele não contenha backups bem-sucedidos ou incompletos. Você pode excluir perfis que contêm backups liberados ou excluídos.
+
+.Passo
+. Para excluir um perfil, digite este comando:
++
+`*smsap profile delete -profile _profile_name_*`
+
+

@@ -1,0 +1,111 @@
+---
+section: unix-installation-cmode
+title: Instalação e Configuração para UNIX para Clustered Data ONTAP
+entries:
+- title: Visão geral do produto
+  url: "/unix-installation-cmode/reference-smsap-isg-product-overview.html"
+  entries:
+  - title: Arquitetura da SnapManager
+    url: "/unix-installation-cmode/reference-smsap-isg-snapmanager-architecture.html"
+- title: Fluxo de trabalho de implantação
+  url: "/unix-installation-cmode/reference-smsap-isg-deployment-workflow.html"
+- title: Prepare-se para a implantação
+  url: "/unix-installation-cmode/task-smsap-isg-prepare-for-deployment.html"
+  entries:
+  - title: Licenciamento do SnapManager
+    url: "/unix-installation-cmode/reference-smsap-isg-snapmanager-licensing.html"
+  - title: Configurações compatíveis
+    url: "/unix-installation-cmode/reference-supported-configurations.html"
+  - title: Tipos de armazenamento suportados
+    url: "/unix-installation-cmode/reference-supported-storage-types.html"
+  - title: Requisitos de host UNIX
+    url: "/unix-installation-cmode/reference-smsap-isg-host-requirements.html"
+- title: Configurar bancos de dados
+  url: "/unix-installation-cmode/task-smsap-isg-configure-databases.html"
+  entries:
+  - title: Configure o banco de dados de destino
+    url: "/unix-installation-cmode/task-smsap-isg-configure-the-target-database.html"
+  - title: Crie um usuário de banco de dados Oracle para o banco de dados de destino
+    url: "/unix-installation-cmode/task-create-an-oracle-user-for-the-target-database.html"
+  - title: Crie a instância do banco de dados do repositório
+    url: "/unix-installation-cmode/task-create-the-repository-database-instance.html"
+  - title: Crie um usuário Oracle para a instância de banco de dados do repositório
+    url: "/unix-installation-cmode/task-create-an-oracle-user-for-the-repository-database-instance.html"
+  - title: Verifique a configuração do Oracle listener
+    url: "/unix-installation-cmode/task-verify-the-oracle-listener-configuration.html"
+- title: Instale o SnapManager
+  url: "/unix-installation-cmode/task-smsap-isg-install-snapmanager.html"
+  entries:
+  - title: Integre com as ferramentas SAP BR*
+    url: "/unix-installation-cmode/task-smsap-isg-integrate-with-sap-br-tools.html"
+- title: Configure o SnapManager
+  url: "/unix-installation-cmode/task-set-up-snapmanager.html"
+  entries:
+  - title: Inicie o servidor SnapManager
+    url: "/unix-installation-cmode/task-smsap-isg-start-the-snapmanager-server.html"
+  - title: Acesse a interface do usuário do SnapManager
+    url: "/unix-installation-cmode/task-smsap-isg-access-the-snapmanager-user-interface.html"
+  - title: Configure o repositório SnapManager
+    url: "/unix-installation-cmode/task-smsap-isg-configure-the-snapmanager-repository.html"
+- title: Preparação de sistemas de storage para replicação SnapMirror e SnapVault
+  url: "/unix-installation-cmode/reference-prepare-storage-systems-for-snapmirror-and-snapvault-replication.html"
+  entries:
+  - title: Compreender as diferenças entre SnapMirror e SnapVault
+    url: "/unix-installation-cmode/concept-understanding-the-differences-between-snapmirror-and-snapvault.html"
+  - title: Preparar sistemas de storage para replicação do SnapMirror
+    url: "/unix-installation-cmode/task-prepare-storage-systems-for-snapmirror-replication.html"
+  - title: Preparar sistemas de storage para replicação do SnapVault
+    url: "/unix-installation-cmode/task-prepare-storage-systems-for-snapvault-replication.html"
+- title: Fazer backup e verificar seus bancos de dados
+  url: "/unix-installation-cmode/concept-backing-up-and-verifying-your-databases.html"
+  entries:
+  - title: Visão geral do backup do SnapManager
+    url: "/unix-installation-cmode/concept-smsap-isg-snapmanager-backup-overview.html"
+  - title: Definir uma estratégia de backup
+    url: "/unix-installation-cmode/concept-smsap-isg-defining-a-backup-strategy.html"
+  - title: Crie um perfil para o seu banco de dados
+    url: "/unix-installation-cmode/task-smsap-isg-create-a-profile-for-your-database.html"
+  - title: Faça backup de seu banco de dados
+    url: "/unix-installation-cmode/task-smsap-isg-back-up-your-database.html"
+  - title: Verifique os backups do banco de dados
+    url: "/unix-installation-cmode/task-smsap-isg-verify-database-backups.html"
+  - title: Agendar backups recorrentes
+    url: "/unix-installation-cmode/task-smsap-isg-schedule-recurring-backups.html"
+- title: Desinstale o software de um host UNIX
+  url: "/unix-installation-cmode/task-smsap-isg-uninstall-the-software-from-a-unix-host.html"
+- title: Atualizando o SnapManager
+  url: "/unix-installation-cmode/concept-upgrading-snapmanager-for-oracle-snapmanager-for-sap.html"
+  entries:
+  - title: Preparando-se para atualizar o SnapManager
+    url: "/unix-installation-cmode/concept-preparing-to-upgrade-snapmanager-for-oracle-snapmanager-for-sap.html"
+  - title: Atualize os hosts do SnapManager
+    url: "/unix-installation-cmode/task-upgrade-snapmanager-for-oracle-snapmanager-for-sap-hosts.html"
+  - title: Tarefas pós-atualização
+    url: "/unix-installation-cmode/concept-post-upgrade-tasks.html"
+    entries:
+    - title: Atualize o repositório existente
+      url: "/unix-installation-cmode/task-update-the-existing-repository.html"
+    - title: Modifique a classe de retenção do backup
+      url: "/unix-installation-cmode/task-modify-the-backup-retention-class.html"
+    - title: Restaurar tipos de processo
+      url: "/unix-installation-cmode/concept-restore-process-identification.html"
+  - title: Atualizando hosts do SnapManager usando a atualização progressiva
+    url: "/unix-installation-cmode/concept-upgrading-snapmanager-hosts-by-using-rolling-upgrade.html"
+    entries:
+    - title: Pré-requisitos para a realização de atualizações contínuas
+      url: "/unix-installation-cmode/concept-prerequisites-for-performing-rolling-upgrade.html"
+    - title: Realizar atualização contínua em um único host ou em vários hosts
+      url: "/unix-installation-cmode/task-perform-rolling-upgrade-on-a-single-host-or-multiple-hosts.html"
+    - title: O que é uma reversão
+      url: "/unix-installation-cmode/concept-what-a-rollback-is.html"
+      entries:
+      - title: Limitações para executar uma reversão
+        url: "/unix-installation-cmode/concept-limitations-for-performing-a-rollback.html"
+      - title: Pré-requisitos para executar uma reversão
+        url: "/unix-installation-cmode/concept-prerequisites-for-performing-a-rollback.html"
+      - title: Executar uma reversão em um único host ou vários hosts
+        url: "/unix-installation-cmode/task-perform-a-rollback-on-a-single-host-or-multiple-hosts.html"
+      - title: Tarefas pós-reversão
+        url: "/unix-installation-cmode/task-post-rollback-tasks.html"
+- title: Onde ir a seguir
+  url: "/unix-installation-cmode/reference-smsap-isg-where-to-go-next.html"

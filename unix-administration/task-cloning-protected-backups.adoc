@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-clone-protected-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, clone, copy, backup, protect, cloning 
+summary: Você pode usar o SnapManager para clonar uma cópia de um backup que foi protegida. 
+---
+= Backups protegidos contra clones
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapManager para clonar uma cópia de um backup que foi protegida.
+
+*O que você vai precisar*
+
+O host (selecionado para o clone) deve ter acesso ao storage secundário usando o mesmo protocolo de storage (por exemplo, SAN ou nas).
+
+Você pode usar a `-from-secondary` opção para especificar que deseja clonar do storage secundário.
+
+*Sobre esta tarefa*
+
+Você deve especificar a `-copy-id` opção sempre que especificar a `-from-secondary` opção. Se houver mais de um backup no sistema de armazenamento secundário, a opção -copy-id é usada para especificar qual cópia de backup no armazenamento secundário deve ser usada para clonagem.
+
+
+NOTE: Se você estiver usando o Data ONTAP operando no modo 7, você deve especificar um valor válido para a `-copy-id` opção. No entanto, se você estiver usando o Clustered Data ONTAP, a `-copy-id` opção não será necessária.
+
+A exclusão de clones de backups protegidos em sistemas de storage secundário pode falhar. Esse problema ocorre quando o tempo do sistema dos sistemas de storage primário e secundário não é sincronizado.
+
+.Passo
+. Crie um clone de uma cópia de segurança protegida:
++
+`*smsap clone create -backup-label _backup_name_ -newsid _new_sid_ -label _clone_label_ -profile _profile_name_ -clonespec _full_path_to_clonespecfile_ -from-secondary -copy-id _id_*`
+
+
+
+'''
+
+
+== Exemplo
+
+[listing]
+----
+smsap clone create -label testdb_clone_clstest
+-profile sys_db_finance -from-secondary -copy-id 3042 sys_db_finance_sept_08
+----
+'''

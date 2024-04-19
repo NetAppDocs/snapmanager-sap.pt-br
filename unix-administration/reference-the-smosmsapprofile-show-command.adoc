@@ -1,0 +1,85 @@
+---
+permalink: unix-administration/reference-the-smosmsapprofile-show-command.html 
+sidebar: sidebar 
+keywords: run, profile, show, command, display, information, smsap 
+summary: Você pode executar o comando profile show para exibir as informações sobre um perfil. 
+---
+= O comando smsap profile show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode executar o `profile show` comando para exibir as informações sobre um perfil.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile show
+-profile _profile_name_
+[-quiet | -verbose]]
+----
+
+
+== Parâmetros
+
+* ``*-profile _profile_name_*``
++
+Especifica o nome do perfil. Esse nome pode ter até 30 carateres e deve ser único dentro do host.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo
+
+O exemplo a seguir mostra os detalhes do perfil:
+
+[listing]
+----
+smsap profile show -profile TEST_RBAC_DP_PROTECT
+Profile name: TEST_RBAC_DP_PROTECT
+Comment:
+Target database:
+  Database name: racb
+  SID: racb1
+  Host: saal
+  Port: 1521
+  Username: sys
+  Password: ********
+Repository:
+  Database name: smsaprep
+  SID: smsaprep
+  Host: elbe.rtp.org.com
+  Port: 1521
+  Username: smsapsaal
+  Password: ********
+RMAN:
+  Use RMAN via control file
+Oracle user account: oracle
+Oracle user group: dba
+Snapshot Naming:
+  Pattern: smsap_{profile}_{db-sid}_{scope}_{mode}_{smid}
+  Example: smsap_test_rbac_dp_protect_racb1_f_h_1_8abc01e915a55ac50115a55acc8d0001_0
+Protection:
+  Dataset: smsap_saal_racb
+  Protection policy: Back up
+  Conformance status: CONFORMANT
+Local backups to retain:
+  Hourly: 4 copies
+  Daily: 7 day(s)
+  Weekly: 4 week(s)
+  Monthly: 12 month(s)
+----

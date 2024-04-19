@@ -1,0 +1,100 @@
+---
+permalink: windows/task-pruning-archive-log-files.html 
+sidebar: sidebar 
+keywords: prune, archive, log, file, location, creating, create, pruning 
+summary: Você pode podar os arquivos de log de arquivamento a partir dos locais de log de arquivamento enquanto cria um backup. 
+---
+= Eliminação de ficheiros de registo de arquivo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode podar os arquivos de log de arquivamento a partir dos locais de log de arquivamento enquanto cria um backup.
+
+* Os ficheiros de registo de arquivo têm de ser salvaguardados pela operação de cópia de segurança atual.
++
+Se a eliminação for especificada juntamente com outros backups que não contêm arquivos de log de arquivo, os arquivos de log de arquivamento não serão podados.
+
+* O banco de dados deve estar no estado montado.
++
+Se o banco de dados não estiver no estado montado, digite a opção -force junto com o comando backup.
+
+
+
+Ao executar uma operação de backup, você pode especificar o seguinte:
+
+* Âmbito de poda:
++
+** Eliminar todos os ficheiros de registo de arquivo.
+** Elimine os ficheiros de registo de arquivo até ao número de alteração do sistema (SCN) especificado.
+** Elimine os ficheiros de registo de arquivo até à hora especificada.
+** Elimine os ficheiros de registo de arquivo antes do período de tempo especificado.
+
+
+* Destino de onde os ficheiros de registo de arquivo têm de ser podados.
++
+
+NOTE: Mesmo quando a eliminação do arquivo de log falha em um destino, o SnapManager continua a cortar os arquivos de log de arquivamento dos outros destinos.
+
+
+
+Antes de excluir os arquivos de log de arquivamento, o SnapManager verifica o seguinte:
+
+* Os ficheiros de registo de arquivo são salvaguardados pelo menos uma vez.
+* Os arquivos de log de arquivamento são enviados para o banco de dados do Oracle Dataguard Standby, se houver.
+* Os arquivos de log de arquivamento são capturados pelo processo de captura do Oracle Streams, se houver.
+
+
+Se os arquivos de log de arquivamento forem copiados, enviados para o modo de espera e capturados pelo processo de captura, o SnapManager excluirá todos os arquivos de log de arquivamento em uma única execução. No entanto, se existirem quaisquer ficheiros de registo de arquivo que não tenham sido copiados, não sejam enviados para o modo de espera ou não capturados pelo processo de captura, o SnapManager elimina os ficheiros de registo de arquivo um por um. A exclusão de arquivos de logs de arquivo em uma única execução é mais rápida do que excluir Registros de arquivamento um a um.
+
+O SnapManager também pode agrupar os arquivos de log de arquivamento e excluí-los em lote por lote. Cada lote terá um máximo de 998 arquivos. Esse valor pode ser configurado abaixo de 998 usando o parâmetro de configuração maximum.archivelog.files.toprune.atatime no arquivo smsap.config.
+
+O SnapManager usa os comandos do Oracle Recovery Manager (RMAN) para excluir os arquivos de log de arquivo. No entanto, o SnapManager não se integra às políticas de retenção e exclusão do RMAN.
+
+
+NOTE: Se eliminar os ficheiros de registo de arquivo dos destinos de registo de arquivo, a eliminação dos ficheiros de registo de arquivo falha.
+
+O SnapManager não suporta a eliminação de ficheiros de registo de arquivo nos seguintes cenários:
+
+* Os arquivos de log de arquivamento estão localizados na área de recuperação flash.
+* Os ficheiros de registo de arquivo estão localizados na base de dados Standby (em espera).
+* Os arquivos de log de arquivamento são gerenciados pelo SnapManager e RMAN.
++
+.. Introduza o seguinte comando:
++
+`smsap backup create -profile profile_name {[-full {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-filesfiles [files]] | [-tablespaces-tablespaces [-tablespaces]] [-datalabellabel] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-labellabel] [-commentcomment][-backup-destpath1 [,[path2]]] [-exclude-destpath1 [,path2]]] [-prunelogs {-all | -untilSCNuntilSCN | -until-dateyyyy-MM-dd:HH:mm:ss | -before {-months | -days | -weeks | -hours}} -prune-destprune_dest1,[prune_dest2]] [-taskspectaskspec]} -dump [-force] [-quiet | -verbose]`
+
++
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+*Prune arquivos de log de arquivo*
+ a| 
+Especifique as seguintes opções:
+
+*** -prunelogs especifica a exclusão dos arquivos de log de arquivo ao criar um backup.
++
+**** -all especifica a exclusão de todos os arquivos de log de arquivo.
+**** -UntilSCN especifica a exclusão dos arquivos de log de arquivo até o SCN especificado.
+**** -until-date especifica a exclusão dos logs de arquivo, incluindo a data e hora especificadas.
+**** -antes de meses
+
+
+
+
+
+
+| -dias | -semanas 
+
+
+| especifica a exclusão dos arquivos de log de arquivo antes do período de tempo especificado.  a| 
+*Inclua o destino de onde os arquivos de log do arquivo devem ser podados*
+
+|===
+
+
+

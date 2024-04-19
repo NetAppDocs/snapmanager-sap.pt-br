@@ -1,0 +1,18 @@
+---
+permalink: windows/concept-restoration-of-the-data-from-files.html 
+sidebar: sidebar 
+keywords: restore, alternate, location, file, storage, media, application, snapvault, snapmirror, system, local, host 
+summary: Antes de restaurar a partir de um local alternativo, você precisa restaurar os arquivos necessários de qualquer Mídia de armazenamento e restaurar os arquivos de aplicativos como SnapVault ou SnapMirror para um sistema de arquivos montado no host local. 
+---
+= Restauração dos dados dos arquivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de restaurar a partir de um local alternativo, você precisa restaurar os arquivos necessários de qualquer Mídia de armazenamento e restaurar os arquivos de aplicativos como SnapVault ou SnapMirror para um sistema de arquivos montado no host local.
+
+Você pode usar a restauração de uma operação de local alternativo para copiar os arquivos de um sistema de arquivos alternativo para um sistema de arquivos ativo.
+
+Você precisa especificar os locais alternativos a partir dos quais restaurar os arquivos originais criando uma especificação de restauração.

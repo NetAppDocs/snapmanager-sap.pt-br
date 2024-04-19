@@ -1,0 +1,170 @@
+---
+permalink: windows/task-restoring-backups-on-primary-storage.html 
+sidebar: sidebar 
+keywords: backup, restore, command, database, primary, storage, restoring 
+summary: Você pode usar o comando backup restore para restaurar um backup de banco de dados no storage primário. 
+---
+= Restaurar backups no armazenamento primário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o comando backup restore para restaurar um backup de banco de dados no storage primário.
+
+Você pode usar as opções de comando de restauração de backup para especificar se o SnapManager deve restaurar a totalidade ou parte do backup. O SnapManager também permite restaurar arquivos de controle juntamente com os arquivos de dados ou tablespaces dos backups em uma única operação de usuário. Você pode incluir -controlfiles com -complete para restaurar arquivos de controle junto com tablespaces e arquivos de dados.
+
+Pode selecionar uma das seguintes opções para restaurar a cópia de segurança:
+
+[cols="1a,1a"]
+|===
+| Se você quiser restaurar... | Utilizar... 
+
+
+ a| 
+Todo o backup com todos os tablespaces e arquivos de dados
+ a| 
+-completo
+
+
+
+ a| 
+A lista de espaços de tablespaces específicos
+ a| 
+-tablespaces
+
+
+
+ a| 
+Ficheiros de dados específicos
+ a| 
+-ficheiros
+
+
+
+ a| 
+Apenas os ficheiros de controlo
+ a| 
+-controlfiles
+
+
+
+ a| 
+Espaços de tabela, arquivos de dados e arquivos de controle
+ a| 
+-complete -controlfiles
+
+|===
+Você também pode restaurar o backup de um local alternativo especificando -restorespec.
+
+Se você incluir -Recover, você pode recuperar o banco de dados para:
+
+* A última transação que ocorreu no banco de dados (todos os logs)
+* Uma data e hora específicas
+* Um número específico de alteração do sistema Oracle (SCN)
+* A hora do backup (sem Registros)
+* Apenas restauração
+
+
+
+NOTE: Tanto a recuperação de data e hora quanto a recuperação do SCN são recuperações pontuais.
+
+O SnapManager (3,2 ou posterior) permite recuperar automaticamente os backups restaurados do banco de dados usando os arquivos de log de arquivamento. Mesmo que os arquivos de log de arquivamento estejam disponíveis no local externo, se você especificar a opção -Recover-from-localização, o SnapManager usará os arquivos de log de arquivamento do local externo para recuperar os backups de banco de dados restaurados.
+
+Ao especificar os locais de log de arquivamento externo para a recuperação dos backups restaurados, você deve garantir que inclua os nomes de locais externos em maiúsculas. No sistema de arquivos, todos os nomes de pastas e subpastas devem estar em maiúsculas, porque o Oracle traduz o caminho de destino para maiúsculas e espera que os caminhos de destino externos, nomes de pastas e nomes de subpastas estejam em maiúsculas. Se você especificar os caminhos de destino do log de arquivamento externo em minúsculas, o Oracle talvez não consiga identificar o caminho especificado e não consiga restaurar o banco de dados.
+
+O SnapManager fornece o local externo para o Oracle. Mas, a Oracle não identifica os arquivos do destino externo. Esse comportamento é notado no destino da área de recuperação flash. Estes são problemas com o Oracle e a solução alternativa é sempre ter backup de arquivos de log de arquivo em tais layouts de banco de dados.
+
+Se qualquer SCN ou data inconsistente for fornecida, a recuperação será interrompida no último ponto consistente recuperado com a mensagem de erro recuperação bem-sucedida, mas insuficiente. Você precisa executar manualmente a recuperação para um estado consistente.
+
+Para recuperação quando nenhum log é aplicado, o SnapManager recupera até o último SCN do último arquivo de log de arquivamento criado durante o backup. Se o banco de dados for consistente até este SCN, o banco de dados será aberto com sucesso. Se o banco de dados não for consistente neste ponto, o SnapManager ainda tenta abrir o banco de dados, que será aberto com sucesso, se o banco de dados já for consistente.
+
+
+NOTE: O SnapManager não oferece suporte à recuperação dos backups somente de log de arquivamento.
+
+Se o destino do log de arquivamento não for um storage com capacidade para captura instantânea, o SnapManager permite recuperar os backups de banco de dados restaurados usando o perfil. Antes de executar operações SnapManager em armazenamento não compatível com Snapshot, você deve adicionar os destinos para archivedLogs.exclude em smsap.config.
+
+Você deve garantir que você defina o parâmetro Excluir antes de criar um perfil. Somente depois de definir o parâmetro Excluir no arquivo de configuração do SnapManager, a criação do perfil será bem-sucedida.
+
+Se o backup já estiver montado, o SnapManager não montará o backup novamente e usará o backup já montado. Se o backup for montado por um usuário diferente e se o usuário atual não tiver acesso ao backup montado anteriormente, outros usuários terão que fornecer as permissões. Todos os arquivos de log de arquivamento têm permissões de leitura para os proprietários de grupos; o usuário atual pode não obter as permissões, se o backup for montado por um grupo de usuários diferente. Os usuários podem dar permissões aos arquivos de log de arquivo montados manualmente e, em seguida, tentar novamente a restauração ou recuperação.
+
+Você pode especificar a opção -dump como um parâmetro opcional para coletar os arquivos de despejo após a operação de restauração bem-sucedida ou com falha.
+
+. Introduza o seguinte comando:
++
+`smsap backup restore -profileprofile_name-labellabel-complete-recover -alllogs [-recover-from-locationpath [,path2]]-dump-verbose`
+
++
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 - complete -recover -alllogs -verbose`
+
+. Para restaurar dados para diferentes cenários, execute um dos seguintes procedimentos:
++
+[cols="1a,1a"]
+|===
+| Se você quiser restaurar... | Exemplo de comando 
+
+
+ a| 
+Banco de dados completo sem arquivos de controle e recuperar para um número específico de SCN (3794392). Neste caso, os arquivos de controle atuais existem, mas todos os arquivos de dados estão danificados ou perdidos. Restaure e recupere o banco de dados de um backup on-line completo existente para um ponto imediatamente antes desse SCN.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until 3794392 -verbose`
+
+
+
+ a| 
+Banco de dados completo sem arquivos de controle e recuperar até uma data e hora.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until 2008-09-15:15:29:23 -verbose`
+
+
+
+ a| 
+Banco de dados completo sem arquivos de controle e recuperar até um dado e tempo. Neste caso, os arquivos de controle atuais existem, mas todos os arquivos de dados estão danificados ou perdidos ou um erro lógico ocorreu após um tempo específico. Restaure e recupere o banco de dados de um backup on-line completo existente para uma data e hora imediatamente antes do ponto de falha.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until "2008-09-15:15:29:23" -verbose`
+
+
+
+ a| 
+Banco de dados parcial (um ou mais arquivos de dados) sem arquivos de controle e recuperar usando todos os Registros disponíveis. Neste caso, os arquivos de controle atuais existem, mas um ou mais arquivos de dados estão danificados ou perdidos. Restaure esses arquivos de dados e recupere o banco de dados de um backup on-line completo existente usando todos os logs disponíveis.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -files E:\disks\s02.dbf E:\disks\sales03.dbf E:\disks\sales04.dbf -recover -alllogs -verbose`
+
+
+
+ a| 
+Banco de dados parcial (um ou mais espaços de tablespaces) sem arquivos de controle e recuperar usando todos os logs disponíveis. Neste caso, os arquivos de controle atuais existem, mas um ou mais espaços de tabela são descartados ou um dos mais arquivos de dados pertencentes ao espaço de tabela são danificados ou perdidos. Restaure esses espaços de tablespaces e recupere o banco de dados de um backup on-line completo existente usando todos os logs disponíveis.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -tablespaces users -recover -alllogs -verbose`
+
+
+
+ a| 
+Controle apenas arquivos e recupere usando todos os logs disponíveis. Neste caso, os arquivos de dados existem, mas todos os arquivos de controle estão danificados ou perdidos. Restaure apenas os arquivos de controle e recupere o banco de dados de um backup on-line completo existente usando todos os logs disponíveis.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -controlfiles -recover -alllogs -verbose`
+
+
+
+ a| 
+Banco de dados completo sem arquivos de controle e recuperar usando os arquivos de controle de backup e todos os Registros disponíveis. Neste caso, todos os arquivos de dados estão danificados ou perdidos. Restaure apenas os arquivos de controle e recupere o banco de dados de um backup on-line completo existente usando todos os logs disponíveis.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -using-backup-controlfile -recover -alllogs -verbose`
+
+
+
+ a| 
+Recupere o banco de dados restaurado usando os arquivos de log de arquivo do local de log de arquivo externo.
+ a| 
+`smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -using-backup-controlfile -recover -alllogs -recover-from-location E:\\archive -verbose`
+
+|===
+. Especifique locais de log de arquivo externo usando a opção -Recover-from-localização.
+
+
+*Informações relacionadas*
+
+xref:task-restoring-backups-from-an-alternate-location.adoc[Restaurar backups de um local alternativo]
+
+xref:reference-the-smosmsapbackup-restore-command.adoc[O comando smsap backup restore]

@@ -1,0 +1,14 @@
+---
+permalink: unix-administration/concept-restoring-protected-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, backup, protect, secondary, storage, primary, restoring, 
+summary: É possível restaurar backups protegidos do storage secundário. No entanto, não é possível restaurar backups do armazenamento secundário se o backup também existir no armazenamento primário. 
+---
+= Restaurar backups protegidos do storage secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+É possível restaurar backups protegidos do storage secundário. No entanto, não é possível restaurar backups do armazenamento secundário se o backup também existir no armazenamento primário.

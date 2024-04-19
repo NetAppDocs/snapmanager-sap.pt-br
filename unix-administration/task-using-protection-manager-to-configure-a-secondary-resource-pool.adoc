@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-a-secondary-resource-pool.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, organize, snapvault, license, resource, pool 
+summary: Para dar suporte ao backup do banco de dados para o storage secundário, o administrador de storage usa o Gerenciador de proteção para organizar os sistemas de storage secundário habilitados com a licença secundária SnapVault em um pool de recursos para os backups. 
+---
+= Use o Protection Manager para configurar um pool de recursos secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para dar suporte ao backup do banco de dados para o storage secundário, o administrador de storage usa o Gerenciador de proteção para organizar os sistemas de storage secundário habilitados com a licença secundária SnapVault em um pool de recursos para os backups.
+
+*O que você vai precisar*
+
+Idealmente, os sistemas de armazenamento em um pool de recursos são intercambiáveis em termos de sua aceitabilidade como destinos para backups. Por exemplo, ao desenvolver a estratégia de proteção para o banco de dados de folha de pagamento, você, como administrador de storage, identificou sistemas de storage secundários com desempenho e qualidade semelhantes de níveis de serviço que seriam membros adequados do mesmo pool de recursos.
+
+Você já criou agregados de espaço não utilizado em sistemas de storage que pretende atribuir a pools de recursos. Isso garante que haja espaço adequado para conter os backups.
+
+.Passos
+. Vá para o console de gerenciamento do NetApp do Gerenciador de proteção.
+. Na barra de menus, clique em *dados* > *pools de recursos*.
++
+A janela pools de recursos é exibida.
+
+. Clique em *Add*.
++
+O assistente Adicionar pool de recursos é iniciado.
+
+. Conclua as etapas no assistente para criar o pool de recursos *paydb_backup_resource*.
++
+Use as seguintes configurações:
+
++
+** Nome: Use *paydb-backup_resource*
+** Limites de espaço (use os padrões):
++
+*** Limites de utilização de espaço: Ativado
+*** Limite quase total (para pool de recursos): 80%
+*** Limite total (para pool de recursos): 90%
+
+
+
+
+

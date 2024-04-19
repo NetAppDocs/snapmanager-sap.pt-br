@@ -1,0 +1,136 @@
+---
+permalink: windows/task-create-profiles.html 
+sidebar: sidebar 
+keywords: create, profile, assign, oracle, database, policy, set, retention, count, class 
+summary: Ao criar perfis, você pode atribuir uma conta de usuário de banco de dados Oracle específica ao perfil. Você pode definir a política de retenção para o perfil e definir a contagem e a duração de retenção para cada classe de retenção. 
+---
+= Crie perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao criar perfis, você pode atribuir uma conta de usuário de banco de dados Oracle específica ao perfil. Você pode definir a política de retenção para o perfil e definir a contagem e a duração de retenção para cada classe de retenção.
+
+
+
+== Sobre esta tarefa
+
+Se você não fornecer os valores dos `-login` parâmetros , `-password` e `-port` do banco de dados, o modo de autenticação do sistema operacional (SO) usará as credenciais padrão.
+
+Durante a criação de um perfil, o SnapManager executa uma verificação de qualificação de restauração para determinar o mecanismo de restauração que pode ser usado para restaurar o banco de dados.
+
+O SnapManager (3,2 ou posterior) permite separar arquivos de log de arquivo dos arquivos de dados enquanto cria um novo perfil ou atualiza um perfil existente. Depois de separar o backup usando o perfil, você pode criar apenas o backup somente de arquivos de dados ou o backup somente de log do arquivo do banco de dados. Pode utilizar o novo perfil ou o perfil atualizado para criar a cópia de segurança que contém os ficheiros de dados e os ficheiros de registo de arquivo. No entanto, você não pode usar o perfil para criar o backup completo ou reverter as configurações.
+
+*Perfis para criar backups completos e parciais*
+
+Você pode criar perfis para criar o backup completo do banco de dados contendo os arquivos de dados, arquivos de controle e arquivos de log de arquivamento e backup parcial do banco de dados contendo arquivos de dados especificados ou espaços de tabela, todos os arquivos de controle e todos os arquivos de log de arquivamento. O SnapManager não permite que você crie backups de log de arquivamento separados usando os perfis criados para backups totais e parciais.
+
+* Perfis para criar backups somente de arquivos de dados e backups somente de arquivogs*
+
+Ao criar um novo perfil, você pode incluir `-separate-archivelog-backups` para separar o backup do log de arquivamento do backup do arquivo de dados. Também pode atualizar o perfil existente para separar a cópia de segurança do registo de arquivo da cópia de segurança do ficheiro de dados.
+
+Usando as novas opções de perfil para separar os backups de log de arquivamento, você pode executar as seguintes operações do SnapManager:
+
+* Crie uma cópia de segurança do registo de arquivo
+* Eliminar uma cópia de segurança do registo de arquivo
+* Montar um backup de log de arquivamento
+* Gratuito um backup de log de arquivo
+
+
+Ao criar o perfil para separar os backups do log de arquivamento do backup dos arquivos de dados, se os arquivos de log de arquivamento não existirem no banco de dados para o qual o perfil é criado, uma mensagem de aviso será exibida.
+
+
+WARNING: `Archived log file does not exist in the active file system. The archived log file versions earlier than the <archive log thread version> log file will not be included in the backup`
+
+Mesmo que você crie backups para esse banco de dados, os arquivos de log de arquivamento não estarão disponíveis nos backups do banco de dados.
+
+
+NOTE: Se você encontrar um erro ao criar um perfil, use o `smsap system dump` comando. Depois de criar um perfil, se encontrar um erro, utilize os `smsap operation dump` comandos e. `smsap profile dump`
+
+.Passo
+. Para criar um perfil com um nome de usuário, senha e porta (autenticação Oracle), digite o seguinte comando:
++
+`*smsap profile create -profileprofile [-profile-passwordprofile_password] -repository-dbnamerepo_dbname-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | {-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][-summary-notification] [-notification [-success-emailemail_address1, email_address2-subjectsubject_pattern] [-failure-emailemail_address1, email_address2-subjectsubject_pattern]][-separate-archivelog-backups-retain-archivelog-backups-hourshours | -daysdays | -weeksweeks| -monthsmonths [-include-with-online-backups | -no-include-with-online-backups]] [-dump]*`
+
++
+Outras opções para este comando são as seguintes:
+
++
+[`-force`[`-noprompt`] ]
+
++
+[`quiet` `verbose` | ]
+
++
+Você também pode incluir outras opções ao criar perfis, dependendo de como você deseja acessar o banco de dados.
+
++
+|===
+| Se... | Então... 
+
+
+ a| 
+*Você deseja usar a autenticação de banco de dados para criar um perfil*
+ a| 
+Especifique os detalhes de login do banco de dados.
+
+
+
+ a| 
+*Você deseja especificar uma política de retenção de backup para backups*
+ a| 
+Especifique a contagem de retenção ou a duração de uma classe de retenção ou ambas. A duração é em unidades da classe (por exemplo, horas por hora, dias por dia).
+
+** `-hourly` é a classe de retenção por hora, para a qual [`-count n` [`-duration m`] são a contagem de retenção e a duração de retenção, respetivamente.
+** `-daily` é a classe de retenção diária, para a qual [`-count n` [`-duration m`] são a contagem de retenção e a duração de retenção, respetivamente.
+** `-weekly` é a classe de retenção semanal, para a qual [`-count n` [`-duration m`] ] são a contagem de retenção e a duração de retenção, respetivamente.
+** `-monthly` é a classe de retenção mensal, para a qual [`-count n` [`-duration m`] ] são a contagem de retenção e a duração de retenção, respetivamente.
+
+
+
+
+ a| 
+*Você deseja ativar a notificação por e-mail para o status de conclusão das operações do banco de dados*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** `-summary-notification` permite configurar uma notificação de e-mail de resumo para vários perfis em um banco de dados de repositório.
+** `-notification` permite receber uma notificação por e-mail para o status de conclusão da operação do banco de dados para um perfil.
+** `-success-emailemail_address2` permite receber uma notificação por e-mail na operação bem-sucedida do banco de dados realizada usando um perfil novo ou existente.
+** `-failure-emailemail_address2` permite receber uma notificação por e-mail na operação de banco de dados com falha realizada usando um perfil novo ou existente.
+** `-subjectsubject_text` especifica o texto do assunto da notificação por e-mail ao criar um novo perfil ou um perfil existente. Se as configurações de notificação não estiverem configuradas para o repositório e você tentar configurar as notificações de perfil ou resumo usando a CLI, a seguinte mensagem será registrada no log do console: `SMSAP-14577: Notification Settings not configured`.
++
+Se você tiver configurado as configurações de notificação e tentar configurar a notificação de resumo usando a CLI sem ativar a notificação de resumo para o repositório, a seguinte mensagem será exibida no log do console: `SMSAP-14575: Summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+*Você deseja fazer backup dos arquivos de log de arquivamento separadamente dos arquivos de dados*
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** `-separate-archivelog-backups` permite separar a cópia de segurança do registo de arquivo da cópia de segurança do ficheiro de dados.
+** `-retain-archivelog-backups` define a duração de retenção para backups de log de arquivamento. Você deve especificar uma duração de retenção positiva.
++
+Os backups do log de arquivamento são mantidos com base na duração de retenção do log de arquivamento. Os backups dos arquivos de dados são mantidos com base nas políticas de retenção existentes.
+
+** `-include-with-online-backups` inclui o backup de log de arquivamento juntamente com o backup de banco de dados on-line.
++
+Essa opção permite criar um backup de arquivos de dados on-line e um backup de logs de arquivamento juntos para clonagem. Quando esta opção é definida, sempre que você cria um backup de arquivos de dados on-line, os backups de logs de arquivo são criados juntamente com os arquivos de dados imediatamente.
+
+** `-no-include-with-online-backups` não inclui a cópia de segurança do registo de arquivo juntamente com a cópia de segurança da base de dados.
+
+
+
+
+ a| 
+*Você pode coletar os arquivos de despejo após a operação de criação de perfil bem-sucedida*
+ a| 
+Especifique a `-dump` opção no final `profile create` do comando.
+
+|===
+

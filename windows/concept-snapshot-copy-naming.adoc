@@ -1,0 +1,166 @@
+---
+permalink: windows/concept-snapshot-copy-naming.html 
+sidebar: sidebar 
+keywords: specify, convention, pattern, snapshot, copies, copy, create, update, custom, text, snapshot, name 
+summary: Você pode especificar uma convenção de nomenclatura ou um padrão para descrever as cópias Snapshot relacionadas ao perfil que você cria ou atualiza. Você também pode incluir texto personalizado em todos os nomes de cópia Snapshot. 
+---
+= Nomenclatura de cópia Snapshot
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode especificar uma convenção de nomenclatura ou um padrão para descrever as cópias Snapshot relacionadas ao perfil que você cria ou atualiza. Você também pode incluir texto personalizado em todos os nomes de cópia Snapshot.
+
+Você pode alterar o padrão de nomenclatura da cópia Snapshot ao criar um perfil ou após o perfil ser criado. O padrão atualizado se aplica apenas a cópias Snapshot que ainda não ocorreram. As cópias Snapshot que existem mantêm o padrão de nome de parada anterior.
+
+Os exemplos a seguir mostram os dois nomes de cópia Snapshot obtidos para um volume. A segunda cópia Snapshot listada tem _F_H_1_ no meio de seu nome. O "1" indica que é a primeira cópia Snapshot obtida no conjunto de backup. A primeira cópia Snapshot listada é a mais recente e tem um "2", o que significa que é a segunda cópia Snapshot obtida. A cópia Snapshot "1" inclui os arquivos de dados; a cópia Snapshot "2" inclui os arquivos de controle. Como as cópias Snapshot do arquivo de controle precisam ser tiradas após a cópia Snapshot do arquivo de dados, duas cópias Snapshot são necessárias.
+
+[listing]
+----
+smsap_profile_sid_f_h_2_8ae482831ad14311011ad14328b80001_0
+smsap_profile_sid_f_h_1_8ae482831ad14311011ad14328b80001_0
+----
+O padrão padrão padrão inclui o smid necessário, como mostrado no seguinte:
+
+* Padrão padrão: Smsap__profile_dB-sid_
+* Exemplo: smsap_my_profile_rac51_f_h_2_8abc01e915a55ac50115a55acc8d0001_0
+
+
+Você pode usar as seguintes variáveis no nome da cópia Snapshot:
+
+|===
+| Nome da variável | Descrição | Exemplo de valor 
+
+
+ a| 
+SMID (obrigatório)
+ a| 
+O ID exclusivo do SnapManager é o único elemento necessário ao criar um nome para a cópia Snapshot. Esse ID garante que você crie um nome de captura instantânea exclusivo.
+ a| 
+8abc01e915a55ac50115a55acc8d0001_0
+
+
+
+ a| 
+Classe (opcional)
+ a| 
+Classe de retenção associada ao backup para o perfil e indicada por hora (h), diária (d), semanal (W), mensal (m) ou ilimitado (u).
+ a| 
+d
+
+
+
+ a| 
+Comentário (opcional)
+ a| 
+Comentário associado ao backup do perfil. Os espaços neste campo serão convertidos em sublinhados quando o nome da cópia Instantânea estiver concluído.
+ a| 
+sample_comment_spaces_replied
+
+
+
+ a| 
+Data (opcional)
+ a| 
+Data em que o backup ocorre para o perfil. Os valores de data são preenchidos com zeros, se necessário. (yyyymmdd)
+ a| 
+20070218
+
+
+
+ a| 
+db-host (opcional)
+ a| 
+Nome do host do banco de dados associado ao perfil que está sendo criado ou atualizado.
+ a| 
+my_host
+
+
+
+ a| 
+db-name (opcional)
+ a| 
+Nome do banco de dados associado à cópia Snapshot criada.
+ a| 
+rac5
+
+
+
+ a| 
+db-sid (opcional)
+ a| 
+sid do banco de dados associado à cópia Snapshot criada.
+ a| 
+rac51
+
+
+
+ a| 
+Etiqueta (opcional)
+ a| 
+Etiqueta associada ao backup para o perfil.
+ a| 
+sample_label
+
+
+
+ a| 
+Modo (opcional)
+ a| 
+Especifica se o backup é concluído on-line (h) ou off-line (c).
+ a| 
+h
+
+
+
+ a| 
+Perfil (opcional)
+ a| 
+Nome do perfil associado ao backup criado.
+ a| 
+my_profile
+
+
+
+ a| 
+Escopo (opcional)
+ a| 
+Especifica se o backup é completo (f) ou parcial (p).
+ a| 
+f
+
+
+
+ a| 
+Tempo (opcional)
+ a| 
+Hora em que o backup ocorre para o perfil. Os valores de tempo para esta variável usam o relógio de 24 horas e são preenchidos com zeros, se necessário. Por exemplo, 5:32 e 8 segundos aparecem como 053208 (hhhmmss).
+ a| 
+170530
+
+
+
+ a| 
+Fuso horário (opcional)
+ a| 
+Fuso horário especificado para o host do banco de dados de destino.
+ a| 
+EST
+
+
+
+ a| 
+Texto do usuário (opcional)
+ a| 
+Texto personalizado que você pode inserir.
+ a| 
+prod
+
+|===
+[NOTE]
+====
+O SnapManager para SAP não suporta o símbolo de dois pontos (:) nas formas longas dos nomes para cópias Snapshot.
+
+====

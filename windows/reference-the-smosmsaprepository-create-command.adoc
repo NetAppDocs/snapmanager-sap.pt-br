@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-the-smosmsaprepository-create-command.html 
+sidebar: sidebar 
+keywords: command, create, repository, store, database, profile, associate, credential, adequate, smsap 
+summary: Este comando cria um repositório no qual armazenar perfis de banco de dados e credenciais associadas. Este comando também verifica se o tamanho do bloco é adequado. 
+---
+= O comando smsap repositório create
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+
+
+== Sintaxe
+
+Este comando cria um repositório no qual armazenar perfis de banco de dados e credenciais associadas. Este comando também verifica se o tamanho do bloco é adequado.
+
+[listing]
+----
+
+smsap repository create
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-repository`*
++
+As opções que seguem -repositório especificam os detalhes do banco de dados para o repositório
+
+* *`-port _repo_port_`*
++
+Especifica o número da porta TCP usado para acessar o banco de dados que armazena o repositório.
+
+* *`-dbname _repo_service_name_`*
++
+Especifica o nome do banco de dados que armazena o repositório. Use o nome global ou o SID.
+
+* *`-host _repo_host_`*
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados do repositório é executado.
+
+* *`-login`*
++
+Inicia os detalhes de login do repositório.
+
+* *`-username _repo_username_`*
++
+Especifica o nome de usuário necessário para acessar o banco de dados que armazena o repositório.
+
+* *`-force`*
++
+Tenta forçar a criação do repositório. O uso dessa opção resulta em SnapManager solicitando que você faça backup do repositório antes de criar o repositório.
+
+* *`-noprompt`*
++
+Não exibe o prompt para fazer backup do repositório antes de criá-lo se você usar a `-force` opção. Usar a `-noprompt` opção garante que o prompt não apareça, facilitando a criação de repositórios usando um script.
+
+* *`-quiet`*
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* *`-verbose`*
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+
+
+== Exemplo de comando
+
+O exemplo a seguir cria um repositório no banco de dados SMSAPREPO no hotspur host.
+
+[listing]
+----
+smsap repository create -repository -port 1521 -dbname SMSAPREPO -host hotspur -login -username grabal21 -verbose
+SMSAP-09202 [INFO ]: Creating new schema as grabal21 on jdbc:oracle:thin:@//hotspur:1521/SMSAPREPO.
+SMSAP-09205 [INFO ]: Schema generation complete.
+SMSAP-09209 [INFO ]: Performing repository version INSERT.
+SMSAP-09210 [INFO ]: Repository created with version: 30
+SMSAP-13037 [INFO ]: Successfully completed operation: Repository Create
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:08.844
+----

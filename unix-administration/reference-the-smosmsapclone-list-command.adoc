@@ -1,0 +1,66 @@
+---
+permalink: unix-administration/reference-the-smosmsapclone-list-command.html 
+sidebar: sidebar 
+keywords: command, list, clone, database, profile, smsap 
+summary: Este comando lista os clones do banco de dados para um determinado perfil. 
+---
+= O comando smsap clone list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando lista os clones do banco de dados para um determinado perfil.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone list
+-profile _profile_name_
+-delimiter _character_
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* ``*-profile _profile_name_*``
++
+Especifica a lista de clones associados ao perfil. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+* ``*-delimiter _character_*``
++
+Quando esse parâmetro é especificado, o comando lista os atributos em cada linha separados pelo caractere especificado.
+
+* ``*-quiet*``
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+'''
+
+
+== Exemplo de comando
+
+O exemplo a seguir lista os clones do banco de dados no perfil SALES1.
+
+[listing]
+----
+smsap clone list -profile SALES1 -verbose
+----
+[listing]
+----
+ID Status SID Host Label Comment
+-------- ------- ----- ------- ---------- -------
+8ab...01 SUCCESS hsdbc server1 back1clone test comment
+----
+'''

@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/task-clone-databases-in-the-current-state.html 
+sidebar: sidebar 
+keywords: create, backup, clone, database, current, state, single, command, cloning 
+summary: Você pode criar um backup e um clone do banco de dados a partir do estado atual do banco de dados usando um único comando. 
+---
+= Clonar bancos de dados no estado atual
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar um backup e um clone do banco de dados a partir do estado atual do banco de dados usando um único comando.
+
+*Sobre esta tarefa*
+
+Quando você especifica o perfil com a `-current` opção, o SnapManager cria primeiro um backup e, em seguida, um clone do estado atual do banco de dados.
+
+Na configuração de perfil, se você tiver ativado o backup de arquivos de dados e Registros de arquivamento juntos para clonagem, sempre que fizer backup dos arquivos de dados on-line, os logs de arquivamento também serão copiados. Durante a clonagem do banco de dados, o SnapManager cria o backup de arquivos de dados juntamente com o backup de log de arquivamento e cria o clone do banco de dados. Se o backup do log de arquivamento não estiver incluído, o SnapManager não criará o backup do log de arquivamento e, portanto, não poderá criar o clone do banco de dados.
+
+.Passo
+. Para clonar o banco de dados em seu estado atual, digite o seguinte comando:
++
+`*smsap clone create -profile _profile_name_ -current -label _clone_name_ -clonespec _./clonespec_filename.xml_*`
+
++
+Esse comando utiliza um backup automático completo (gerando a etiqueta de backup) e imediatamente faz um clone desse backup, usando uma especificação de clone existente que você deseja usar.
+
++
+
+NOTE: Você pode especificar a `-dump` opção como um parâmetro opcional para coletar os arquivos de despejo após as operações bem-sucedidas ou com falha. O despejo é coletado para as operações de backup e clone.
+
+

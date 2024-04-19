@@ -1,0 +1,75 @@
+---
+permalink: windows/task-viewing-backup-details.html 
+sidebar: sidebar 
+keywords: view, detail, information, backup, profile, smsap, show, command 
+summary: Você pode visualizar as informações detalhadas sobre um backup específico em um perfil usando o comando smsap backup show. 
+---
+= Visualização dos detalhes da cópia de segurança
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode visualizar as informações detalhadas sobre um backup específico em um perfil usando o comando smsap backup show.
+
+O comando smsap backup show exibe as seguintes informações para cada backup:
+
+* A ID da cópia de segurança
+* Se a cópia de segurança foi bem sucedida ou falhou
+* Escopo de backup (completo, parcial, on-line ou off-line)
+* Modo de cópia de segurança
+* Estado da montagem
+* A etiqueta de cópia de segurança
+* Comentário
+* A data e a hora em que a operação começou e terminou
+* Informações sobre se o backup foi verificado
+* A classe de retenção de backup
+* O banco de dados e o nome do host
+* O número de mudança do sistema (SCN) do ponto de verificação
+* O SCN de backup final (somente para backups online)
+* Os espaços de tabela e os arquivos de dados do banco de dados fizeram backup
+* Os arquivos de controle do banco de dados fizeram backup
+* Os registos de arquivo do banco de dados fizeram backup
+* O sistema de armazenamento e os volumes onde os arquivos estão localizados
+* As cópias Snapshot feitas e sua localização
+* O status dos recursos de storage primário
+* O status da proteção de backup
+* Modo de cópia de segurança
+
+
+Se você especificar a opção -verbose, as seguintes informações adicionais serão exibidas:
+
+* Os clones foram feitos a partir do backup, se houver algum
+* Informações de verificação
+* Se o backup estiver montado, o SnapManager exibirá os pontos de montagem em uso
+
+
+Para a cópia de segurança do ficheiro de registo de arquivo, é apresentada a mesma informação que a da outra cópia de segurança da base de dados, exceto para as seguintes informações:
+
+* Checkpoint SCN
+* Terminar cópia de segurança SCN
+* Espaço de tabela
+* Controlar ficheiros
+
+
+No entanto, o backup do arquivo de log contém as seguintes informações adicionais:
+
+* O primeiro número de alteração do backup
+* O próximo número de alteração do backup
+* Número da rosca
+* Repor ID de registos
+* Encarnação
+* Nome do ficheiro de registo
+
+
+.Passo
+. Introduza o seguinte comando:
++
+`smsap backup show -profile profile_name {-label label [data | -archivelogs] | -id id [-quiet | -verbose]`
+
+
+
+*Informações relacionadas*
+
+xref:reference-the-smosmsapbackup-show-command.adoc[O comando smsap backup show]

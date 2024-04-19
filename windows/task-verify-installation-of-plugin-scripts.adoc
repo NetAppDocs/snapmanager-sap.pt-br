@@ -1,0 +1,47 @@
+---
+permalink: windows/task-verify-installation-of-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, install, custom, script, operation, backup, restore, operation, automate, clone, verify, plug-in 
+summary: O SnapManager permite que você instale e use scripts personalizados para executar várias operações. O SnapManager fornece plugins para as operações de backup, restauração e clone, que você pode usar para automatizar seus scripts personalizados antes e depois das operações de backup, restauração e clone. 
+---
+= Verifique a instalação de scripts de plug-in
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite que você instale e use scripts personalizados para executar várias operações. O SnapManager fornece plugins para as operações de backup, restauração e clone, que você pode usar para automatizar seus scripts personalizados antes e depois das operações de backup, restauração e clone.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap plugin check -osaccount _os db user name_*`
+
++
+Se você não fornecer a opção -osaccount, a verificação da instalação do script de plug-in acontece para o administrador em vez de para um usuário especificado.
+
++
+*Exemplo*
+
++
+A saída a seguir indica que os scripts policy1, pré-plugin1 e pré-plugin2 foram instalados com êxito. No entanto, o script pós-plugin1 não está operacional.
+
++
+[listing]
+----
+
+            smsap plugin check
+Checking plugin directory structure ...
+<installdir>\plugins\clone\policy
+   OK: 'policy1' is executable
+
+<installdir>\plugins\clone\pre
+   OK: 'pre-plugin1' is executable and returned status 0
+   OK: 'pre-plugin2' is executable and returned status 0
+
+<installdir>\plugins\clone\post
+   ERROR: 'post-plugin1' is executable and returned status 3
+Command complete.
+----
+

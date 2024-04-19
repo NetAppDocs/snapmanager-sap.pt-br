@@ -1,0 +1,21 @@
+---
+permalink: windows/task-using-snapmanager-commands.html 
+sidebar: sidebar 
+keywords: start, snapmanager, host, server, enter, command, prompt 
+summary: Depois de iniciar o servidor host do SnapManager, você pode usar o SnapManager inserindo comandos no prompt do host. 
+---
+= Usando comandos SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de iniciar o servidor host do SnapManager, você pode usar o SnapManager inserindo comandos no prompt do host.
+
+. Para efetuar uma operação:
++
+** No caso de um host Windows, vá para *Iniciar* > *todos os programas* > *NetApp* > *SnapManager para SAP* > *Iniciar interface de linha de comando (CLI)*
+
+
+

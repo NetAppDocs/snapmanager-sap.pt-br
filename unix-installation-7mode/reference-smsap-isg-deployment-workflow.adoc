@@ -1,0 +1,16 @@
+---
+permalink: unix-installation-7mode/reference-smsap-isg-deployment-workflow.html 
+sidebar: sidebar 
+keywords: create, backup, snapmanager, install, snapdrive, unix, sap, deployment, workflow 
+summary: Antes de criar backups com o SnapManager, você precisa primeiro instalar o SnapDrive para UNIX e, em seguida, instalar o SnapManager para SAP. 
+---
+= Fluxo de trabalho de implantação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de criar backups com o SnapManager, você precisa primeiro instalar o SnapDrive para UNIX e, em seguida, instalar o SnapManager para SAP.
+
+image::../media/smsap_deployment_workflow_7mode.gif[fluxo de trabalho de implantação do smsap para 7mode]

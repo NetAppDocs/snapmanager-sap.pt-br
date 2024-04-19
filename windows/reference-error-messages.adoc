@@ -1,0 +1,751 @@
+---
+permalink: windows/reference-error-messages.html 
+sidebar: sidebar 
+keywords: information, error, message, associate, snapmanager, operation 
+summary: Você pode encontrar informações sobre as mensagens de erro associadas a diferentes operações do SnapManager. 
+---
+= Mensagens de erro
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode encontrar informações sobre as mensagens de erro associadas a diferentes operações do SnapManager.
+
+
+
+== Mensagens de erro mais comuns
+
+A tabela a seguir lista alguns dos erros mais comuns e importantes associados ao SnapManager para SAP:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SD-10038: File system is not writable`.
+ a| 
+O processo SnapManager não tem acesso de gravação ao sistema de arquivos.
+ a| 
+Você deve garantir que o processo SnapManager tenha acesso de gravação ao sistema de arquivos. Depois de corrigir isso, você pode precisar tirar outro snapshot.
+
+
+
+ a| 
+`SMSAP-05075: Unable to create Profile. You must configure the DP/XDP relationship properly or choose the correct protection policy per the underlying relationship`.
+ a| 
+Os volumes subjacentes não estão em uma relação SnapVault ou SnapMirror.
+ a| 
+Você deve configurar uma relação de proteção de dados entre os volumes de origem e destino e inicializar a relação.
+
+
+
+ a| 
+`[SMSAP-05503] You have specified the same name to the profile. Specify a different name to rename the profile`.
+ a| 
+Perfis com nomes idênticos não podem existir em um repositório.
+ a| 
+Forneça um nome de perfil que não esteja em uso.
+
+
+
+ a| 
+`SMSAP-05505: Unable to update dataset metadata`.
+ a| 
+O conjunto de dados pode ter sido eliminado ou não existe.
+ a| 
+Antes de atualizar os metadados do conjunto de dados, verifique se o conjunto de dados existe usando o console de gerenciamento do NetApp.
+
+
+
+ a| 
+`SMSAP-05506: You cannot update the profile since there are operation(s) running on the profile. You must wait until the operation(s) complete and then update the profile`
+ a| 
+O perfil não pode ser atualizado quando as operações de backup, restauração e clonagem estão em andamento.
+ a| 
+Atualize o perfil após a conclusão da operação atual.
+
+
+
+ a| 
+`SMSAP-05509: Invalid archivelog primary retention duration - Specify a positive integer value`.
+ a| 
+A duração de retenção dos backups de log de arquivamento não pode ser negativa.
+ a| 
+Especifique um valor positivo para a duração de retenção de backups de log de arquivamento.
+
+
+
+ a| 
+`SMSAP-07463: This backup restore requires the database to be in required state. Failed to bring the database to the required state`.
+ a| 
+O banco de dados não está no estado necessário para uma operação de backup.
+ a| 
+Verifique se o banco de dados está em um estado relevante antes de criar uma cópia de backup. O estado do banco de dados a ser restaurado depende do tipo de processo de restauração que você deseja executar e do tipo de arquivos que devem ser incluídos.
+
+
+
+ a| 
+`SMSAP-09315: After performing repository upgrade or update operation, you might not receive the summary notification for notifications set in previous version unless you update the summary notification with the notification host details`.
+ a| 
+As configurações de notificação não são configuradas para o repositório após uma atualização contínua.
+ a| 
+Após uma atualização contínua, atualize as configurações de notificação de resumo para receber notificações.
+
+
+
+ a| 
+`SMSAP-02076: Label name should not contain any special characters other than underscore`.
+ a| 
+O nome da etiqueta contém carateres especiais que não o sublinhado.
+ a| 
+O nome da etiqueta deve ser único dentro do perfil. O nome pode conter letras, números, um sublinhado (_) e um hífen (-) (mas não pode começar com um hífen). Certifique-se de que os rótulos não contêm carateres especiais, exceto o sublinhado.
+
+
+
+ a| 
+`SMSAP-06308: Exception when attempting to start schedule: java.lang.NullPointerException`
+ a| 
+O nome de domínio totalmente qualificado (FQDN) do host de perfil é configurado em vez do nome de host do sistema e o FQDN do host de perfil não pode ser resolvido.
+ a| 
+Certifique-se de usar o nome do host do sistema e não o FQDN.
+
+
+
+ a| 
+`Failure in ExecuteRestoreSteps: ORACLE-10003: Error executing SQL "DROP DISKGROUP;control diskgroup name; INCLUDING CONTENTS" against Oracle database +ASM1: ORA-15039: diskgroup not dropped ORA-15027: active use of diskgroup; "control diskgroup name;" precludes its dismount`
+ a| 
+A operação para restaurar um backup com arquivos de controle não consegue soltar o grupo de discos de controle. Esse problema ocorre se houver arquivos de controle de backup obsoletos no grupo de discos de controle.
+ a| 
+Identifique os arquivos de controle obsoletos e exclua-os manualmente.
+
+
+
+ a| 
+`RMAN-06004: ORACLE error from recovery catalog database: ORA-01424: missing or illegal character following the escape character`
+ a| 
+Falha ao remover a cópia de backup do catálogo quando o SnapManager está integrado ao RMAN.
+ a| 
+Verifique se há scripts externos usados para remover os backups do RMAN. Execute o `CROSSCHECK BACKUP` comando no RMAN para atualizar o repositório RMAN e o `resync catalog` comando para sincronizar o arquivo de controle do banco de dados de destino com o catálogo de recuperação.
+
+
+
+ a| 
+`[DEBUG]: Exception while pruning backup. java.lang.IllegalStateException: [Assertion failed] - this state invariant must be true`
+ a| 
+Várias cópias Snapshot são criadas para uma única ID de operação.
+ a| 
+Exclua as cópias Snapshot manualmente e use scripts para excluir as entradas do repositório.
+
+
+
+ a| 
+A hora do sistema e a hora exibida pelo SnapManager nos arquivos de log não coincidem ou não são sincronizados.
+ a| 
+Uma alteração de fuso horário ainda não é suportada pelo Java 7.
+ a| 
+Aplique o `tzupdater` patch fornecido pela Oracle.
+
+
+
+ a| 
+`DISC-00001: Unable to discover storage: The following identifier does not exist or is not of the expected type: ASM File`
+ a| 
+Dados ou arquivos de controle ou logs de refazer são multiplexados em um banco de dados ASM.
+ a| 
+Remova a multiplexação Oracle.
+
+
+
+ a| 
+`0001-SMSAP-02016: There may have been external tables in the database not backed up as part of this backup operation (since the database was not OPEN during this backup ALL_EXTERNAL_LOCATIONS could not be queried to determine whether or not external tables exist)`.
+ a| 
+O SnapManager não faz backup de tabelas externas (por exemplo, tabelas que não são armazenadas em arquivos .dbf). Esse problema ocorre porque o banco de dados não estava aberto durante o backup, o SnapManager não pode determinar se nenhuma tabela externa está sendo usada.
+ a| 
+Pode ter havido tabelas externas no banco de dados que não são backup como parte desta operação (porque o banco de dados não estava aberto durante o backup).
+
+
+
+ a| 
+`0002-332 Admin error: Could not check SD.SnapShot.Clone access on volume "volume_name" for user username on Operations Manager server(s) "dfm_server". Reason: Invalid resource specified. Unable to find its ID on Operations Manager server "dfm_server"`
+ a| 
+As funções e os Privileges de acesso adequados não estão definidos.
+ a| 
+Defina Access Privileges ou funções para os usuários que estão tentando executar o comando.
+
+
+
+ a| 
+`[WARN] FLOW-11011: Operation aborted [ERROR] FLOW-11008: Operation failed: Java heap space`.
+ a| 
+Há mais número de arquivos de log no banco de dados do que o máximo permitido.
+ a| 
+. Navegue até o diretório de instalação do SnapManager.
+. Abra o `launch-java` ficheiro.
+. Aumente o valor do `java -Xmx160m` parâmetro espaço de heap Java . Por exemplo, você pode modificar o valor do valor padrão de 160m para 200m como `java -Xmx200m`.
+
+
+
+
+ a| 
+`SMSAP-21019: The archive log pruning failed for the destination: "E:\dest" with the reason: "ORACLE-00101: Error executing RMAN command: [DELETE NOPROMPT ARCHIVELOG 'E:\dest']`
+ a| 
+A eliminação do registo de arquivo falha num dos destinos. Em tal cenário, o SnapManager continua a podar os arquivos de log do arquivo dos outros destinos. Se algum arquivo for excluído manualmente do sistema de arquivos ativo, o RMAN não consegue remover os arquivos de log do arquivo desse destino.
+ a| 
+Conete-se ao RMAN a partir do host SnapManager. Execute o comando RMAN `CROSSCHECK ARCHIVELOG ALL` e execute novamente a operação de eliminação nos arquivos de log de arquivo.
+
+
+
+ a| 
+`SMSAP-13032: Cannot perform operation: Archive log Prune. Root cause: RMAN Exception: ORACLE-00101: Error executing RMAN command`.
+ a| 
+Os ficheiros de registo de arquivo são eliminados manualmente dos destinos de registo de arquivo.
+ a| 
+Conete-se ao RMAN a partir do host SnapManager. Execute o comando RMAN `CROSSCHECK ARCHIVELOG ALL` e execute novamente a operação de eliminação nos arquivos de log de arquivo.
+
+
+
+ a| 
+`Unable to parse shell output: (java.util.regex.Matcher[pattern=Command complete. region=0,18 lastmatch=]) does not match (name:backup_script) Unable to parse shell output: (java.util.regex.Matcher[pattern=Command complete. region=0,25 lastmatch=]) does not match (description:backup script)`
+
+`Unable to parse shell output: (java.util.regex.Matcher[pattern=Command complete. region=0,9 lastmatch=]) does not match (timeout:0)`
+ a| 
+As variáveis de ambiente são definidas não corretamente nos scripts pré-tarefa ou pós-tarefa.
+ a| 
+Verifique se os scripts pré-tarefa ou pós-tarefa seguem a estrutura padrão do plug-in do SnapManager. Para obter informações adicionais sobre como usar as variáveis ambientais no script, xref:concept-operations-in-task-scripts.adoc[Operações em scripts de tarefas]consulte .
+
+
+
+ a| 
+`ORA-01450: maximum key length (6398) exceeded`.
+ a| 
+Quando você executa uma atualização do SnapManager 3,2 para SAP para o SnapManager 3,3 para SAP, a operação de atualização falha com esta mensagem de erro. Este problema pode ocorrer devido a um dos seguintes motivos:
+
+* O tamanho do bloco do espaço de tablespace no qual o repositório existe é menor que 8k.
+* O `nls_length_semantics` parâmetro é definido como `char`.
+
+ a| 
+Você deve atribuir os valores aos seguintes parâmetros:
+
+* `block_size`* 8192 *
+* `nls_length`* byte*
+
+
+Depois de modificar os valores dos parâmetros, é necessário reiniciar o banco de dados.
+
+Para obter mais informações, consulte o artigo 2017632 da base de dados de Conhecimento.
+
+|===
+
+
+== Mensagens de erro associadas ao processo de backup do banco de dados (série 2000)
+
+A tabela a seguir lista os erros comuns associados ao processo de backup do banco de dados:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-02066: You cannot delete or free the archive log backup "data-logs" as the backup is associated with data backup "data-logs"`.
+ a| 
+O backup do log de arquivamento é feito junto com o backup dos arquivos de dados e você tentou excluir o backup do log de arquivamento.
+ a| 
+Utilize a `_-force_` opção para eliminar ou libertar a cópia de segurança.
+
+
+
+ a| 
+`SMSAP-02067: You cannot delete, or free the archive log backup "data-logs" as the backup is associated with data backup "data-logs" and is within the assigned retention duration`.
+ a| 
+O backup do log de arquivamento está associado ao backup do banco de dados e está dentro do período de retenção, e você tentou excluir o backup do log de arquivamento.
+ a| 
+Utilize a `-force` opção para eliminar ou libertar a cópia de segurança.
+
+
+
+ a| 
+`SMSAP-07142: Archived Logs excluded due to exclusion pattern <exclusion> pattern`.
+ a| 
+Você exclui alguns arquivos de log de arquivamento durante a operação criar perfil ou criar backup.
+ a| 
+Nenhuma ação é necessária.
+
+
+
+ a| 
+`SMSAP-07155: <count> archived log files do not exist in the active file system. These archived log files will not be included in the backup`.
+ a| 
+Os ficheiros de registo de arquivo não existem no sistema de ficheiros ativo durante a operação criar perfil ou criar cópia de segurança. Estes ficheiros de registo arquivados não estão incluídos na cópia de segurança.
+ a| 
+Nenhuma ação é necessária.
+
+
+
+ a| 
+`SMSAP-07148: Archived log files are not available`.
+ a| 
+Não são criados ficheiros de registo de arquivo para a base de dados atual durante a operação criar perfil ou criar cópia de segurança.
+ a| 
+Nenhuma ação é necessária.
+
+
+
+ a| 
+`SMSAP-07150: Archived log files are not found`.
+ a| 
+Todos os ficheiros de registo de arquivo estão em falta no sistema de ficheiros ou excluídos durante a operação de criação de perfil ou cópia de segurança.
+ a| 
+Nenhuma ação é necessária.
+
+
+
+ a| 
+`SMSAP-13032: Cannot perform operation: Backup Create. Root cause: ORACLE-20001: Error trying to change state to OPEN for database instance dfcln1: ORACLE-20004: Expecting to be able to open the database without the RESETLOGS option, but oracle is reporting that the database needs to be opened with the RESETLOGS option. To keep from unexpectedly resetting the logs, the process will not continue. Please ensure that the database can be opened without the RESETLOGS option and try again`.
+ a| 
+Você tenta fazer backup do banco de dados clonado que foi criado com a -`no-resetlogs` opção. O banco de dados clonado não é um banco de dados completo. No entanto, você pode executar operações do SnapManager, como criar perfis e backups, e assim por diante com o banco de dados clonado, mas as operações do SnapManager falham porque o banco de dados clonado não está configurado como um banco de dados completo.
+ a| 
+Recupere o banco de dados clonado ou converta o banco de dados em um banco de dados do Data Guard Standby.
+
+|===
+
+
+== Mensagens de erro associadas ao processo de restauração (série 3000)
+
+A tabela a seguir mostra os erros comuns associados ao processo de restauração:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-03031:Restore specification is required to restore backup <variable> because the storage resources for the backup has already been freed`.
+ a| 
+Você tentou restaurar um backup que tenha seus recursos de armazenamento liberados sem especificar uma especificação de restauração.
+ a| 
+Especifique uma especificação de restauração.
+
+
+
+ a| 
+`SMSAP-03032:Restore specification must contain mappings for the files to restore because the storage resources for the backup has already been freed. The files that need mappings are: <variable> from Snapshots: <variable>`
+ a| 
+Você tentou restaurar um backup que tenha seus recursos de armazenamento liberados junto com uma especificação de restauração que não contém mapeamento para todos os arquivos a serem restaurados.
+ a| 
+Corrija o arquivo de especificação de restauração para que os mapeamentos correspondam aos arquivos a serem restaurados.
+
+
+
+ a| 
+`ORACLE-30028: Unable to dump log file <filename>. The file may be missing/inaccessible/corrupted. This log file will not be used for recovery`.
+ a| 
+Os arquivos de log refazer on-line ou arquivos de log de arquivamento não podem ser usados para recuperação. Esse erro ocorre devido aos seguintes motivos:
+
+* Os arquivos de log refazer on-line ou os arquivos de log arquivados mencionados na mensagem de erro não têm números de alteração suficientes para solicitar a recuperação. Isso ocorre quando o banco de dados está on-line sem quaisquer transações. Os arquivos de log refazer ou arquivados não têm nenhum número de alteração válido que possa ser aplicado para recuperação.
+* O arquivo de log refazer on-line ou arquivo de log arquivado mencionado na mensagem de erro não tem Privileges de acesso suficiente para Oracle.
+* O arquivo de log refazer on-line ou arquivo de log arquivado mencionado na mensagem de erro está corrompido e não pode ser lido pela Oracle.
+* O ficheiro de registo de refazer online ou o ficheiro de registo arquivado mencionado na mensagem de erro não é encontrado no caminho mencionado.
+
+ a| 
+Se o arquivo mencionado na mensagem de erro for um arquivo de log arquivado e se você tiver fornecido manualmente para recuperação, verifique se o arquivo tem permissões de acesso total para Oracle.mesmo que o arquivo tenha permissões completas e a mensagem continue, o arquivo de log de arquivo não tem nenhum número de alteração a ser aplicado para recuperação, e essa mensagem pode ser ignorada.
+
+|===
+
+
+== Mensagens de erro associadas ao processo de clone (série 4000)
+
+A tabela a seguir mostra os erros comuns associados ao processo de clone:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-04133: Dump destination must not exist`
+ a| 
+Você está usando o SnapManager para criar novos clones; no entanto, os destinos de despejo a serem usados pelo novo clone já existem. O SnapManager não pode criar um clone se existirem destinos de despejo.
+ a| 
+Remova ou renomeie os destinos de despejo antigos antes de criar um clone.
+
+
+
+ a| 
+`SMSAP-13032:Cannot perform operation: Clone Create. Root cause: ORACLE-00001: Error executing SQL: [ALTER DATABASE OPEN RESETLOGS;]. The command returned: ORA-38856: cannot mark instance UNNAMED_INSTANCE_2 (redo thread 2) as enabled`.
+ a| 
+A criação do clone falha quando você cria o clone a partir do banco de dados em espera usando a seguinte configuração:
+
+* O modo de espera é criado usando RMAN para fazer o backup dos arquivos de dados.
+
+ a| 
+Adicione o `_no_recovery_through_resetlogs=TRUE` parâmetro no arquivo de especificação do clone antes de criar o clone. Consulte a documentação Oracle (ID 334899,1) para obter informações adicionais. Certifique-se de que você tem seu nome de usuário e senha do Oracle metalink.
+
+
+
+ a| 
+ a| 
+Você não forneceu um valor para um parâmetro no arquivo de especificação clone.
+ a| 
+Você deve fornecer um valor para o parâmetro ou excluir esse parâmetro se ele não for necessário do arquivo de especificação do clone.
+
+|===
+
+
+== Mensagens de erro associadas ao processo de gerenciamento do perfil (série 5000)
+
+A tabela a seguir mostra os erros comuns associados ao processo de clone:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-20600: Profile "profile1" not found in repository "repo_name". Please run "profile sync" to update your profile-to-repository mappings`.
+ a| 
+A operação de despejo não pode ser executada quando a criação do perfil falhar.
+ a| 
+ `smsap system dump`Use .
+
+|===
+
+
+== Mensagens de erro associadas à liberação de recursos de backup (backups série 6000)
+
+A tabela a seguir mostra os erros comuns associados às tarefas de backup:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-06030: Cannot remove backup because it is in use: <variable>`
+ a| 
+Você tentou executar a operação de backup livre usando comandos, quando o backup é montado ou está marcado para ser mantido em uma base ilimitada.
+ a| 
+Desmonte o backup ou altere a política de retenção ilimitada. Se houver clones, exclua-os.
+
+
+
+ a| 
+`SMSAP-06045: Cannot free backup <variable> because the storage resources for the backup have already been freed`
+ a| 
+Tentou executar a operação de backup livre usando comandos, quando o backup já foi liberado.
+ a| 
+Você não pode liberar o backup se ele já estiver liberado.
+
+
+
+ a| 
+`SMSAP-06047: Only successful backups can be freed. The status of backup <ID> is <status>`.
+ a| 
+Tentou executar a operação sem backup usando comandos, quando o status da cópia de segurança não foi bem-sucedido.
+ a| 
+Tente novamente após uma cópia de segurança bem sucedida.
+
+
+
+ a| 
+`SMSAP-13082: Cannot perform operation <variable> on backup <ID> because the storage resources for the backup have been freed`.
+ a| 
+Usando comandos, você tentou montar um backup que tenha seus recursos de armazenamento liberados.
+ a| 
+Não é possível montar, clonar, verificar ou executar a restauração de backint em um backup que tenha seus recursos de storage liberados.
+
+|===
+
+
+== Mensagens de erro associadas ao processo de atualização progressiva (série 9000)
+
+A tabela a seguir mostra os erros comuns associados ao processo de atualização contínua:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-09234:Following hosts does not exist in the old repository. <hostnames>`.
+ a| 
+Você tentou executar a atualização contínua de um host, que não existe na versão anterior do repositório.
+ a| 
+Verifique se o host existe no repositório anterior usando o `repository show-repository` comando da versão anterior da CLI do SnapManager.
+
+
+
+ a| 
+`SMSAP-09255:Following hosts does not exist in the new repository. <hostnames>`.
+ a| 
+Você tentou executar a reversão de um host, que não existe na nova versão do repositório.
+ a| 
+Verifique se o host existe no novo repositório usando o `repository show-repository` comando da versão posterior da CLI do SnapManager.
+
+
+
+ a| 
+`SMSAP-09256:Rollback not supported, since there exists new profiles <profilenames>.for the specified hosts <hostnames>`.
+ a| 
+Você tentou reverter um host que contém novos perfis existentes no repositório. No entanto, esses perfis não existiam no host da versão anterior do SnapManager.
+ a| 
+Exclua novos perfis na versão mais recente ou atualizada do SnapManager antes da reversão.
+
+
+
+ a| 
+`SMSAP-09257:Rollback not supported, since the backups <backupid> are mounted in the new hosts`.
+ a| 
+Você tentou reverter uma versão posterior do host SnapManager que montou backups. Esses backups não são montados na versão anterior do host SnapManager.
+ a| 
+Desmonte os backups na versão posterior do host SnapManager e execute a reversão.
+
+
+
+ a| 
+`SMSAP-09258:Rollback not supported, since the backups <backupid> are unmounted in the new hosts`.
+ a| 
+Você tentou reverter uma versão posterior do host SnapManager que tem backups que estão sendo desmontados.
+ a| 
+Monte os backups na versão posterior do host SnapManager e execute a reversão.
+
+
+
+ a| 
+`SMSAP-09298:Cannot update this repository since it already has other hosts in the higher version. Please perform rollingupgrade for all hosts instead`.
+ a| 
+Você realizou uma atualização contínua em um único host e atualizou o repositório para esse host.
+ a| 
+Execute uma atualização contínua em todos os hosts.
+
+
+
+ a| 
+`SMSAP-09297: Error occurred while enabling constraints. The repository might be in inconsistent state. It is recommended to restore the backup of repository you have taken before the current operation`.
+ a| 
+Você tentou executar uma operação de atualização contínua ou reversão se o banco de dados do repositório for deixado em um estado inconsistente.
+ a| 
+Restaure o repositório que você fez backup anteriormente.
+
+|===
+
+
+== Execução das operações (série 12.000)
+
+A tabela a seguir mostra os erros comuns associados às operações:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-12347 [ERROR]: SnapManager server not running on host <host> and port <port>. Please run this command on a host running the SnapManager server`.
+ a| 
+Ao configurar o perfil, você inseriu informações sobre o host e a porta. No entanto, o SnapManager não pode executar essas operações porque o servidor SnapManager não está sendo executado no host e na porta especificados.
+ a| 
+Digite o comando em um host executando o servidor SnapManager. Você pode verificar a porta com o `lsnrctl status` comando e ver a porta na qual o banco de dados está sendo executado. Altere a porta no comando backup, se necessário.
+
+|===
+
+
+== Execução de componentes de processo (série 13.000)
+
+A tabela a seguir mostra os erros comuns associados ao componente processo do SnapManager:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-13083: Snapname pattern with value "x" contains characters other than letters, numbers, underscore, dash, and curly braces`.
+ a| 
+Ao criar um perfil, você personalizou o padrão Snapname; no entanto, você incluiu carateres especiais que não são permitidos.
+ a| 
+Remova carateres especiais que não sejam letras, números, sublinhado, traço e chaves.
+
+
+
+ a| 
+`SMSAP-13084: Snapname pattern with value "x" does not contain the same number of left and right braces`.
+ a| 
+Quando você estava criando um perfil, você personalizou o padrão Snapname; no entanto, as chaves esquerda e direita não coincidem.
+ a| 
+Insira colchetes correspondentes de abertura e fechamento no padrão Snapname.
+
+
+
+ a| 
+`SMSAP-13085: Snapname pattern with value "x" contains an invalid variable name of "y"`.
+ a| 
+Quando você estava criando um perfil, você personalizou o padrão Snapname; no entanto, você incluiu uma variável que não é permitida.
+ a| 
+Remova a variável ofensiva. Para ver uma lista de variáveis aceitáveis, xref:concept-snapshot-copy-naming.adoc[Nomenclatura de cópia Snapshot]consulte .
+
+
+
+ a| 
+`SMSAP-13086 Snapname pattern with value "x" must contain variable "smid"`.
+ a| 
+Quando você estava criando um perfil, você personalizou o padrão Snapname; no entanto, você omitiu a variável necessária `smid`.
+ a| 
+Insira a variável necessária `smid`.
+
+|===
+
+
+== Mensagens de erro associadas aos utilitários SnapManager (série 14.000)
+
+A tabela a seguir mostra os erros comuns associados aos utilitários SnapManager:
+
+|===
+| Mensagem de erro | Explicação | Resolução 
+
+
+ a| 
+`SMSAP-14501: Mail ID cannot be blank`.
+ a| 
+Você não inseriu o endereço de e-mail.
+ a| 
+Introduza um endereço de correio eletrónico válido.
+
+
+
+ a| 
+`SMSAP-14502: Mail subject cannot be blank`.
+ a| 
+Você não inseriu o assunto do e-mail.
+ a| 
+Insira o assunto do e-mail apropriado.
+
+
+
+ a| 
+`SMSAP-14506: Mail server field cannot be blank`.
+ a| 
+Você não inseriu o nome do host do servidor de e-mail ou o endereço IP.
+ a| 
+Introduza o nome de anfitrião ou o endereço IP do servidor de correio válido.
+
+
+
+ a| 
+`SMSAP-14507: Mail Port field cannot be blank`.
+ a| 
+Não introduziu o número da porta de correio eletrónico.
+ a| 
+Introduza o número da porta do servidor de correio eletrónico.
+
+
+
+ a| 
+`SMSAP-14508: From Mail ID cannot be blank`.
+ a| 
+Você não inseriu o endereço de e-mail do remetente.
+ a| 
+Insira o endereço de e-mail de um remetente válido.
+
+
+
+ a| 
+`SMSAP-14509: Username cannot be blank`.
+ a| 
+Você ativou a autenticação e não forneceu o nome de usuário.
+ a| 
+Introduza o nome de utilizador da autenticação de correio eletrónico.
+
+
+
+ a| 
+`SMSAP-14510: Password cannot be blank. Please enter the password`.
+ a| 
+Você ativou a autenticação e não forneceu a senha.
+ a| 
+Introduza a palavra-passe de autenticação de correio eletrónico.
+
+
+
+ a| 
+`SMSAP-14550: Email status <success/failure>`.
+ a| 
+O número da porta, o servidor de correio ou o endereço de correio eletrónico do destinatário são inválidos.
+ a| 
+Forneça valores adequados durante a configuração de e-mail.
+
+
+
+ a| 
+`SMSAP-14559: Sending email notification failed: <error>`.
+ a| 
+Isto pode dever-se a um número de porta inválido, a um servidor de correio inválido ou a um endereço de correio do recetor inválido.
+ a| 
+Forneça valores adequados durante a configuração de e-mail.
+
+
+
+ a| 
+`SMSAP-14560: Notification failed: Notification configuration is not available`.
+ a| 
+O envio de notificação falhou, porque a configuração de notificação não está disponível.
+ a| 
+Adicionar configuração de notificação.
+
+
+
+ a| 
+`SMSAP-14565: Invalid time format. Please enter time format in HH:mm`.
+ a| 
+Introduziu a hora num formato incorreto.
+ a| 
+Introduza a hora no formato hh:mm.
+
+
+
+ a| 
+`SMSAP-14566: Invalid date value. Valid date range is 1-31`.
+ a| 
+A data configurada está incorreta.
+ a| 
+A data deve estar no intervalo de 1 a 31.
+
+
+
+ a| 
+`SMSAP-14567: Invalid day value. Valid day range is 1-7`.
+ a| 
+O dia configurado está incorreto.
+ a| 
+Introduza o intervalo de dias das 1h às 7H.
+
+
+
+ a| 
+`SMSAP-14569: Server failed to start Summary Notification schedule`.
+ a| 
+O servidor SnapManager foi desligado devido a razões desconhecidas.
+ a| 
+Inicie o servidor SnapManager.
+
+
+
+ a| 
+`SMSAP-14570: Summary Notification not available`.
+ a| 
+Você não configurou a notificação de resumo.
+ a| 
+Configurar a notificação de resumo.
+
+
+
+ a| 
+`SMSAP-14571: Both profile and summary notification cannot be enable`.
+ a| 
+Você selecionou as opções de notificação de perfil e resumo.
+ a| 
+Ative a notificação de perfil ou a notificação de resumo.
+
+
+
+ a| 
+`SMSAP-14572: Provide success or failure option for notification`.
+ a| 
+Você não ativou as opções de sucesso ou falha.
+ a| 
+Você deve selecionar a opção sucesso ou falha ou ambas.
+
+|===

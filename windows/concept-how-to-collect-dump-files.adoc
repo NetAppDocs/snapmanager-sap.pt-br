@@ -1,0 +1,39 @@
+---
+permalink: windows/concept-how-to-collect-dump-files.html 
+sidebar: sidebar 
+keywords: dump, snapmanager, command, collect, file, successful, fail, operation 
+summary: Você pode incluir -dump no comando SnapManager para coletar os arquivos de despejo após uma operação SnapManager bem-sucedida ou com falha. 
+---
+= Como coletar arquivos de despejo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode incluir `-dump` no comando SnapManager para coletar os arquivos de despejo após uma operação SnapManager bem-sucedida ou com falha.
+
+Você pode coletar arquivos de despejo para as seguintes operações do SnapManager:
+
+* Criando perfis
+* A atualizar perfis
+* Criação de backups
+* Verificando backups
+* Eliminar cópias de segurança
+* Liberando backups
+* Montagem de backups
+* Desmontar backups
+* Restaurando backups
+* Criação de clones
+* Exclusão de clones
+
+
+
+NOTE: Quando você cria um perfil, você pode coletar arquivos de despejo somente se a operação for bem-sucedida. Se você encontrar um erro ao criar um perfil, você deve usar o `smsap system dump` comando. Para perfis bem-sucedidos, você pode usar os `smsap operation dump` comandos e `smsap profile dump` para coletar os arquivos de despejo.
+
+*Exemplo*
+
+[listing]
+----
+ smsap backup create -profile targetdb1_prof1 -auto -full -online -dump
+----

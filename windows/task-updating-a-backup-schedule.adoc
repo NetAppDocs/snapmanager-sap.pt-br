@@ -1,0 +1,21 @@
+---
+permalink: windows/task-updating-a-backup-schedule.html 
+sidebar: sidebar 
+keywords: list, schedule, operation, update, scheduling, frequency, cronstring, expression, user, backup, updating 
+summary: Você pode visualizar uma lista de operações agendadas e atualizá-las, se necessário. Você pode atualizar a frequência de agendamento, a hora de início da programação, a expressão de cronstring e o usuário que agendou o backup. 
+---
+= Atualizando um agendamento de backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode visualizar uma lista de operações agendadas e atualizá-las, se necessário. Você pode atualizar a frequência de agendamento, a hora de início da programação, a expressão de cronstring e o usuário que agendou o backup.
+
+.Passo
+. Para atualizar a programação de uma cópia de segurança, introduza este comando:
++
+`smsap schedule update -profile profile_name-schedule-nameschedulename [-schedule-commentschedule comment] -interval {-hourly | -daily | -weekly | -monthly | -onetimeonly} -start-timestarttime-cronstringcronstring-runasuserrunasuser [-quiet | -verbose]`
+
+

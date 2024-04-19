@@ -1,0 +1,188 @@
+---
+permalink: unix-administration/concept-primary-and-secondary-storage-configuration-and-topology.html 
+sidebar: sidebar 
+keywords: techco, corportation, payroll, database, server, snapmanager, sap, host, fifty, mile, primary, secondary, storage, configuration, topology 
+summary: Neste exemplo, a empresa TechCo executa seu banco de dados de folha de pagamento em um servidor de banco de dados que também é um host SnapManager para SAP e armazena seus dados de banco de dados de folha de pagamento e arquivos de configuração em sistemas de storage primário na sede da empresa. O requisito corporativo é proteger esse banco de dados com backups diários e semanais para o armazenamento local, bem como backups para sistemas de armazenamento em um local de armazenamento secundário a 50 km de distância. 
+---
+= Configuração e topologia de storage primário e secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Neste exemplo, a empresa TechCo executa seu banco de dados de folha de pagamento em um servidor de banco de dados que também é um host SnapManager para SAP e armazena seus dados de banco de dados de folha de pagamento e arquivos de configuração em sistemas de storage primário na sede da empresa. O requisito corporativo é proteger esse banco de dados com backups diários e semanais para o armazenamento local, bem como backups para sistemas de armazenamento em um local de armazenamento secundário a 50 km de distância.
+
+A ilustração a seguir mostra os componentes de recursos de proteção de dados do SnapManager para SAP e do Console de Gerenciamento do NetApp necessários para oferecer suporte à proteção de backup local e secundário.
+
+image::../media/scrn_en_drw_smsap_architecture.gif[Esta figura exibe os componentes associados a uma arquitetura combinada de proteção de banco de dados do SnapManager for SAP e do Console de Gerenciamento]
+
+Para gerenciar o banco de dados de folha de pagamento e suportar sua proteção de backup local e secundária, conforme ilustrado no gráfico anterior, a seguinte implantação é usada.
+
+* * SnapManager host*
++
+O host SnapManager, payroll.techco.com, está localizado na sede da empresa e é executado em um servidor UNIX, que também executa o programa de banco de dados que gera e mantém o banco de dados de folha de pagamento.
+
++
+** *Conexões*
++
+Para oferecer suporte a backup local e proteção de backup secundário, o host SnapManager tem conexões de rede com os seguintes componentes:
+
++
+*** SnapManager para cliente SAP
+*** Repositório SnapManager, que executa o programa de banco de dados, SnapDrive para UNIX e SnapManager
+*** Sistemas de storage primário
+*** Sistemas de storage secundário
+*** Servidor DataFabric Manager
+
+
+** *Produtos instalados*
++
+O host SnapManager é instalado com os seguintes produtos para este exemplo:
+
++
+*** Servidor SnapManager
+*** SnapDrive para UNIX
+*** Utilitários do host
+
+
+
+
+* *Sistemas de armazenamento primário TechCo*
++
+O banco de dados de folha de pagamento, incluindo arquivos de dados associados, arquivos de log e arquivos de controle, reside nos principais sistemas de armazenamento. Eles estão localizados na sede da empresa TechCo, juntamente com o host SnapManager e a rede conetando o armazenamento primário e o host SnapManager. As mais recentes transações e atualizações de banco de dados de folha de pagamento são gravadas nos sistemas de storage primário. As cópias snapshot, que fornecem proteção local de backup do banco de dados de folha de pagamento, também residem nos sistemas de storage primário.
+
++
+** *Conexões*
++
+Para dar suporte à proteção secundária de backup, os sistemas de storage primário têm conexões de rede com os seguintes componentes:
+
++
+*** Host SnapManager executando o programa de banco de dados, SnapDrive para UNIX e SnapManager
+*** Sistemas de storage secundário
+*** Servidor DataFabric Manager
+
+
+** *Produtos instalados*
++
+As seguintes licenças devem ser ativadas nestes sistemas para este exemplo:
+
++
+*** Data ONTAP 7.3.1 ou posterior
+*** SnapVaultData ONTAP primário
+*** FlexVol (necessário para NFS)
+*** SnapRestore
+*** Protocolo NFS
+
+
+
+
+* *Sistemas de armazenamento secundário TechCo*
++
+Os sistemas de armazenamento secundário, localizados em um local de armazenamento secundário conetado à rede a cinquenta quilômetros de distância, são usados para armazenar backups secundários do banco de dados de folha de pagamento.
+
++
+** *Conexões*
++
+Para oferecer suporte à proteção de backup secundária, os sistemas de storage secundário têm conexões de rede com os seguintes componentes:
+
++
+*** Sistemas de storage primário
+*** Servidor DataFabric Manager
+
+
+** *Produtos instalados*
++
+As seguintes licenças devem ser habilitadas nos sistemas de storage secundário para este exemplo:
+
++
+*** Data ONTAP
+*** SnapVaultData ONTAP secundário
+*** SnapRestore
+*** FlexVol (necessário para NFS)
+*** Protocolo NFS
+
+
+
+
+* *Servidor DataFabric Manager*
++
+O servidor DataFabric Manager, techco_dfm, está localizado na sede da empresa em um local acessível pelo administrador de armazenamento. O servidor DataFabric Manager, entre outras funções, coordena as tarefas de backup entre armazenamento primário e secundário.
+
++
+** *Conexões*
++
+Para oferecer suporte à proteção secundária de backup, o servidor DataFabric Manager mantém conexões de rede com os seguintes componentes:
+
++
+*** Console de gerenciamento do NetApp
+*** Sistemas de storage primário
+*** Sistemas de storage secundário
+
+
+** *Produtos instalados*
++
+O servidor DataFabric Manager é licenciado para os seguintes produtos de servidor, por exemplo:
+
++
+*** DataFabric Manager
+
+
+
+
+* *Repositório SnapManager*
++
+O repositório do SnapManager, localizado em um servidor dedicado, armazena dados sobre operações executadas pelo SnapManager, por exemplo, o tempo de backups, espaços de tabela e backups de dados, sistemas de storage usados, clones feitos e cópias Snapshot criadas. Quando um DBA tenta uma restauração completa ou parcial, o SnapManager consulta o repositório para identificar backups criados pelo SnapManager para o SAP para restauração.
+
++
+** *Conexões*
++
+Para oferecer suporte à proteção de backup secundária, os sistemas de storage secundário têm conexões de rede com os seguintes componentes:
+
++
+*** Host SnapManager
+*** SnapManager para cliente SAP
+
+
+
+
+* *Console de Gerenciamento do NetApp*
++
+O console de gerenciamento do NetApp é o console de interface gráfica do usuário usado pelo administrador de storage para configurar programações, políticas, conjuntos de dados e atribuições de pool de recursos para permitir o backup em sistemas de storage secundário, que podem ser acessados pelo administrador de storage.
+
++
+** *Conexões*
++
+Para oferecer suporte à proteção secundária de backup, o console de gerenciamento do NetApp tem conexões de rede com os seguintes componentes:
+
++
+*** Sistemas de storage primário
+*** Sistemas de storage secundário
+*** Servidor DataFabric Manager
+
+
+
+
+* *SnapManager para cliente SAP*
++
+O cliente SnapManager for SAP é a interface gráfica do usuário e o console de linha de comando usados pelo DBA para o banco de dados de folha de pagamento, neste exemplo, para configurar e realizar backup e backup locais para armazenamento secundário.
+
++
+** *Conexões*
++
+Para suportar backup local e proteção de backup secundário, o cliente SnapManager para SAP tem conexões de rede com os seguintes componentes:
+
++
+*** Host SnapManager
+*** Repositório SnapManager, executando o programa de banco de dados, SnapDrive para UNIX e SnapManager
+*** Host de banco de dados (se separado do host que executa o SnapManager)
+*** Servidor DataFabric Manager
+
+
+** *Produtos instalados*
++
+Para dar suporte a backup local e proteção secundária de backup, o software cliente SnapManager para SAP deve ser instalado neste componente.
+
+
+
+

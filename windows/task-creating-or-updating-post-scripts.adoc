@@ -1,0 +1,30 @@
+---
+permalink: windows/task-creating-or-updating-post-scripts.html 
+sidebar: sidebar 
+keywords: create, post, script, default, install, directory, plugin, creating, update, updating 
+summary: Você pode criar novos scripts POST ou usar os scripts disponíveis no default_install_Directory. 
+---
+= Criando ou atualizando os scripts POST
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode criar novos scripts POST ou usar os scripts disponíveis no default_install_Directory.
+
+Você deve estruturar o script de uma maneira particular para que ele possa ser executado dentro do contexto de uma operação SnapManager. Crie o script com base nas operações esperadas, nos parâmetros de entrada disponíveis e nas convenções de código de retorno.
+
+. Crie um novo script ou use os scripts de amostra disponíveis.
+. Modifique ou inclua as funções, variáveis e parâmetros conforme necessário.
+. Salve o script personalizado.
+. Adicione o nome do script e as entradas necessárias no arquivo XML de especificação de tarefa de pós-processamento ou forneça as entradas da GUI selecionando o script e o parâmetro de entrada adequados.
++
+
+NOTE: Você não precisa fornecer detalhes de armazenamento secundário no arquivo XML de especificação de tarefa.
+
+
+
+*Informações relacionadas*
+
+xref:concept-creating-task-specification-file-and-scripts-for-snapmanager-operations.adoc[Criando arquivo de especificação de tarefa e scripts para operações SnapManager]

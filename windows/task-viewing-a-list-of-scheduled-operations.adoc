@@ -1,0 +1,21 @@
+---
+permalink: windows/task-viewing-a-list-of-scheduled-operations.html 
+sidebar: sidebar 
+keywords: view, list, schedule, operation, profile 
+summary: Você pode exibir uma lista de operações agendadas para um perfil. 
+---
+= Exibindo uma lista de operações agendadas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode exibir uma lista de operações agendadas para um perfil.
+
+.Passo
+. Para exibir informações sobre a operação programada, digite este comando:
++
+`smsap schedule list -profile profile_name[-quiet | -verbose]`
+
+

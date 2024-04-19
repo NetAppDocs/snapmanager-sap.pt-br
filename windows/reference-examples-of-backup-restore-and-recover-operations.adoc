@@ -1,0 +1,125 @@
+---
+permalink: windows/reference-examples-of-backup-restore-and-recover-operations.html 
+sidebar: sidebar 
+keywords: information, backup, restore, recover, scenario, accomplish, data, protection, goal, operation 
+summary: Você pode encontrar informações sobre alguns dos cenários de backup, restauração e recuperação que você pode usar para atingir suas metas de proteção de dados. 
+---
+= Exemplos de operações de backup, restauração e recuperação
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode encontrar informações sobre alguns dos cenários de backup, restauração e recuperação que você pode usar para atingir suas metas de proteção de dados.
+
+A ilustração a seguir mostra o conteúdo do espaço da tabela:
+
+image::../media/prnt_en_drw_smo_smsap_db_tables.gif[prnt en drw smo smsap db tables]
+
+Na ilustração, Tablespace1 tem uma tabela e dois arquivos de banco de dados associados a ele. Tablespace2 tem duas tabelas e um arquivo de banco de dados associado a ele.
+
+As tabelas a seguir descrevem alguns cenários de backup, restauração e recuperação completos e parciais:
+
+
+
+== Exemplos de operações completas de backup, restauração e recuperação
+
+|===
+| Backup completo | Restaurar | Recuperar 
+
+
+ a| 
+O SnapManager faz um backup de tudo no banco de dados DB1, incluindo os arquivos de dados, Registros de arquivo e arquivos de controle.
+ a| 
+Restauração completa com arquivos de controle SnapManager restaura todos os arquivos de dados, espaços de tabela e arquivos de controle no backup.
+ a| 
+Pode especificar uma das seguintes opções:
+
+* SCN - Insira um SCN, como 384641.
+* Data/hora - Insira uma data e hora do backup, como 2005-11-25:19:06:22.
+* A última transação feita para o banco de dados.
+
+
+
+
+ a| 
+Restauração completa sem arquivos de controle SnapManager restaura todos os espaços de tablespaces e arquivos de dados, sem os arquivos de controle.
+
+
+
+ a| 
+Restaure arquivos de dados ou espaços de tablespaces com arquivos de controle especifique um dos seguintes:
+
+* Tablespaces
+* Ficheiros de dados
+
+ a| 
+SnapManager recupera os dados para a última transação feita para o banco de dados.
+
+
+
+ a| 
+Restaure arquivos de dados ou espaços de tabela sem arquivos de controle o SnapManager restaura um dos seguintes itens:
+
+* Tablespaces
+* Ficheiros de dados
+
+
+
+
+ a| 
+Restaurar apenas ficheiros de controlo
+
+|===
+
+
+== Exemplos de operações parciais de backup, restauração e recuperação
+
+|===
+| Backup parcial | Restaurar | Recuperar 
+
+
+ a| 
+Você pode escolher uma das seguintes opções:
+
+* Tablespaces
++
+Você pode especificar Tablespace1 e Tablespace2 ou apenas um deles.
+
+* Ficheiros de dados
++
+Você pode especificar todos os três arquivos de banco de dados (TS1_1.dbf, TS1_2.dbf e TS2_1.dbf), dois arquivos ou um arquivo.
+
+
+
+Independentemente de qual opção você selecionar, o backup inclui todos os arquivos de controle. Os arquivos de log de arquivamento são incluídos no backup parcial se o perfil não estiver habilitado para criar os backups de log de arquivamento separadamente.
+ a| 
+O SnapManager restaura todos os arquivos de dados, espaços de tabela e arquivos de controle especificados no backup parcial.
+ a| 
+O SnapManager recupera os dados para a última transação feita para a instância do banco de dados.
+
+
+
+ a| 
+Restaure arquivos de dados ou espaços de tabela com arquivos de controle SnapManager restaura um dos seguintes itens:
+
+* Todos os arquivos de dados especificados
+* Todos os espaços de tabela especificados
+
+ a| 
+Restaurar arquivos de dados ou espaços de tablespaces sem arquivos de controle o SnapManager restaura um dos seguintes:
+
+* Tablespaces
++
+Especifique qualquer um dos espaços de tablespaces. O SnapManager restaura apenas os espaços de tabela especificados. Se o backup contiver Tablespace1, o SnapManager restaurará apenas essa lacuna de tabela.
+
+* Ficheiros de dados
++
+Especifique qualquer um dos arquivos do banco de dados. O SnapManager restaura apenas os arquivos de dados especificados. Se o backup contiver arquivos de banco de dados (TS1_1.dbf e TS1_2.dbf), o SnapManager restaura apenas esses arquivos.
+
+
+ a| 
+Restaurar apenas ficheiros de controlo
+
+|===

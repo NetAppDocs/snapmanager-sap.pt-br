@@ -1,0 +1,81 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-schedule-recurring-backups.html 
+sidebar: sidebar 
+keywords: schedule, backup, operation, initiate, automatic, regular, interval, hourly, daily, weekly, monthly, one-time, basis, scheduling, recur 
+summary: Você pode agendar operações de backup para que os backups sejam iniciados automaticamente em intervalos regulares. O SnapManager permite que você programe backups por hora, diariamente, semanalmente, mensalmente ou em uma única vez. 
+---
+= Agendar backups recorrentes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode agendar operações de backup para que os backups sejam iniciados automaticamente em intervalos regulares. O SnapManager permite que você programe backups por hora, diariamente, semanalmente, mensalmente ou em uma única vez.
+
+*Sobre esta tarefa*
+
+Você pode atribuir várias programações de backup para um único banco de dados. No entanto, ao agendar vários backups para o mesmo banco de dados, você deve garantir que os backups não sejam agendados ao mesmo tempo.
+
+Estas etapas mostram como criar um agendamento de backup para seu banco de dados usando a interface de usuário (UI) do SnapManager. Você também pode usar a interface de linha de comando (CLI), se preferir. Para obter informações sobre como agendar backups usando a CLI, consulte o guia _SnapManager for SAP Administration para UNIX_.
+
+. Na árvore repositórios, clique com o botão direito do Mouse no perfil que contém o banco de dados para o qual você deseja criar um agendamento de backup e selecione *Agendar backup*.
+. Em *Label*, insira um nome personalizado para o backup.
++
+Você não deve incluir espaços ou carateres especiais no nome. Se você não especificar um nome, o SnapManager criará automaticamente um rótulo de backup.
+
++
+No SnapManager 3,4, você pode modificar o rótulo de backup criado automaticamente pelo SnapManager. Você pode editar as `override.default.backup.pattern` variáveis de configuração e `new.default.backup.pattern` para criar seu próprio padrão de etiqueta de backup padrão.
+
+. Selecione *permitir inicialização ou desligamento do banco de dados, se necessário*, para modificar o estado do banco de dados, se necessário.
++
+Essa opção garante que, se o banco de dados não estiver no estado necessário para criar um backup, o SnapManager automaticamente leva o banco de dados para o estado desejado para concluir a operação.
+
+. Na página *Database, tablespaces ou Datafiles to Backup*, execute o seguinte:
++
+.. Selecione *Backup de dados* para fazer backup do banco de dados completo, arquivos de dados selecionados ou espaços de tabela selecionados.
+.. Selecione *Backup Archivelogs* para fazer backup dos arquivos de log de arquivamento separadamente.
+.. Selecione *Prune Archivelogs* se quiser excluir os arquivos de log do arquivo do sistema de arquivos ativo que já está em backup.
++
+
+NOTE: Se a Área de recuperação de Flash (FRA) estiver ativada para arquivos de log de arquivo, o SnapManager não consegue definir os arquivos de log de arquivamento.
+
+.. Selecione *Proteja o backup* se quiser ativar a proteção de backup.
++
+Esta opção só é ativada se a política de proteção tiver sido selecionada durante a criação do perfil.
+
+.. Selecione *proteger agora* se quiser proteger o backup imediatamente para o armazenamento secundário substituindo o cronograma de proteção do Protection Manager.
+.. Na lista suspensa *Type*, selecione o tipo de backup (offline ou online) que deseja criar.
++
+Se você selecionar _Auto_, o SnapManager criará um backup com base no estado atual do banco de dados.
+
+.. Na lista suspensa *Classe de retenção*, selecione a classe de retenção.
+.. Marque a caixa de seleção *verificar backup usando o utilitário Oracle DBVERIFY* se quiser garantir que os arquivos de backup não estejam corrompidos.
+
+
+. No campo *Nome da programação*, insira um nome personalizado da programação.
++
+Você não deve incluir espaços no nome.
+
+. Na página *Configurar agendamento de backup*, execute o seguinte procedimento:
++
+.. Na lista suspensa *Perform this operation* (Executar esta operação), selecione a frequência do agendamento de backup.
+.. No campo *Data de início*, especifique a data em que deseja iniciar o agendamento de backup.
+.. No campo *hora de início*, especifique a hora em que deseja iniciar o agendamento de backup.
+.. Especifique o intervalo no qual os backups serão criados.
++
+Por exemplo, se você selecionou a frequência como hora e especificar o intervalo como 2, os backups serão programados a cada 2 horas.
+
+
+
+. Na página *ativação de tarefas*, especifique se deseja executar tarefas antes e depois que as operações de backup forem concluídas.
+. Na página *Executar operação de agendamento de backup*, verifique as informações e clique em *Agendar*.
+. Clique em *Finish* para fechar o assistente.
++
+Se a operação falhar, clique em *Detalhes da operação* para ver o que causou a falha da operação.
+
+
+
+*Informações relacionadas*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guia de administração do SnapManager 3.4.1 para UNIX"^]

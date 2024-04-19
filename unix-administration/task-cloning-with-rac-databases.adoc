@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/task-clone-with-rac-databases.html 
+sidebar: sidebar 
+keywords: clone, rac, database, cloning 
+summary: Você pode clonar seu banco de dados RAC para um banco de dados não RAC ou cloná-lo para um banco de dados não RAC e alterá-lo para um banco de dados RAC. 
+---
+= Clone com bancos de dados RAC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode clonar seu banco de dados RAC para um banco de dados não RAC ou cloná-lo para um banco de dados não RAC e alterá-lo para um banco de dados RAC.
+
+.Passos
+. Para clonar seu banco de dados RAC, digite o seguinte comando:
++
+`*smsap clone create -backup-label _backup_label_ -profile _profile_name_ -newsid _new_SID_ -clonespec _full_path_to_clonespec_file_ -verbose*`
+
+. Para alterar o banco de dados não-RAC clonado para um banco de dados RAC, renomeie o arquivo de `_initclone_SID.ora_` para `_initclone_local_instance_SID.ora_`.
+. Edite o arquivo renomeado para definir o parâmetro `cluster.database` como `_true_`. Informações da base de dados RAC.
+. Registre o banco de dados RAC clonado com srvctl.
+

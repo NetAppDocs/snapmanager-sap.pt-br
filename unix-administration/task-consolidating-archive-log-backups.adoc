@@ -1,0 +1,43 @@
+---
+permalink: unix-administration/task-consolidate-archive-log-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, consolidate, archivelog-only, backup, consolidation, consolidating, archive, log 
+summary: O SnapManager consolida os backups somente de archivelog cada vez que você faz um backup, liberando os backups duplicados somente de archivelog. Por padrão, a consolidação está ativada. 
+---
+= Consolide backups de log de arquivamento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager consolida os backups somente de archivelog cada vez que você faz um backup, liberando os backups duplicados somente de archivelog. Por padrão, a consolidação está ativada.
+
+*Sobre esta tarefa*
+
+O SnapManager identifica os backups somente de archivelog que possuem arquivos de log de arquivamento em outros backups e os libera para manter o número mínimo de backups somente de archivelog com arquivos de log de arquivamento exclusivos.
+
+Se os backups somente do archivelog forem liberados pela consolidação, esses backups serão excluídos com base na duração de retenção do log de arquivamento.
+
+Quando o banco de dados está no estado de desligamento ou nomount durante a consolidação do log de arquivamento, o SnapManager altera o banco de dados para o estado de montagem.
+
+Se o backup ou a eliminação de arquivos de log de arquivo falhar, a consolidação não será feita. A consolidação de backups somente de arquivamentos é seguida somente após backups bem-sucedidos e operações de eliminação bem-sucedidas.
+
+.Passos
+. Para habilitar a consolidação dos backups somente do archivelog, modifique o parâmetro de configuração `consolidation` e defina o valor como `true` no arquivo de configuração do SnapManager (smsap.config).
++
+Uma vez que o parâmetro é definido, os backups somente archivelog são consolidados.
+
++
+Se o backup somente de archivelog recém-criado contiver os mesmos arquivos de log de arquivo em qualquer um dos backups anteriores somente de archivelog, os backups anteriores somente de archive-log serão liberados.
+
++
+
+NOTE: O SnapManager não consolida o backup de log de arquivamento feito junto com o backup de datafiles. O SnapManager consolida o backup somente do archivelog.
+
++
+
+NOTE: O SnapManager consolida os backups do log de arquivamento, mesmo quando o usuário exclui manualmente os arquivos de log de arquivamento dos destinos do log de arquivamento ou quando os arquivos de log de arquivamento estão corrompidos e pode ser incluído o backup.
+
+. Para desativar a consolidação dos backups de log de arquivamento, modifique o parâmetro de configuração `consolidation` e defina o valor como `false` no arquivo de configuração do SnapManager (smsap.config).
+

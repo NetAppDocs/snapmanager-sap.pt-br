@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/concept-what-cloning-is.html 
+sidebar: sidebar 
+keywords: clone, database, create, replica, database, backup, cloning 
+summary: Você pode clonar um banco de dados para criar uma réplica exata do banco de dados original. Você pode criar o clone a partir de um backup completo ou do estado atual do banco de dados. 
+---
+= O que é Clonagem
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode clonar um banco de dados para criar uma réplica exata do banco de dados original. Você pode criar o clone a partir de um backup completo ou do estado atual do banco de dados.
+
+Algumas das vantagens de criar um clone usando o SnapManager são as seguintes:
+
+[cols="1a,4a"]
+|===
+| Vantagens | Detalhes 
+
+
+ a| 
+Velocidade
+ a| 
+A operação clone do SnapManager usa o recurso FlexClone disponível com o Data ONTAP. Isso permite clonar rapidamente grandes volumes de dados.
+
+
+
+ a| 
+Eficiência de espaço
+ a| 
+Quando você cria um clone usando o SnapManager, o espaço é necessário apenas para as alterações entre o backup e o clone. Um clone do SnapManager é uma cópia Snapshot gravável do banco de dados original e pode ser expandido conforme a necessidade. Em contraste, um clone físico do banco de dados requer que você tenha espaço suficiente disponível para copiar todo o banco de dados.
+
+
+
+ a| 
+Cópia virtual
+ a| 
+Você pode usar o banco de dados clonado como se fosse o banco de dados original. Por exemplo, você pode usar um clone para verificações de teste, plataforma e atualização, várias simulações em um grande conjunto de dados e testes e testes de escritório remoto. As alterações ao clone não afetam o banco de dados original. Depois que o banco de dados é clonado, o banco de dados clonado está totalmente operacional.
+
+
+
+ a| 
+Simplicidade
+ a| 
+Você pode clonar um banco de dados para qualquer host usando comandos SnapManager.
+
+|===
+Você pode clonar um backup no storage primário (local) ou em um backup protegido no storage secundário (remoto). No entanto, você não pode clonar um backup se a operação de backup estiver em andamento ou se o backup tiver sido transferido para o storage secundário.
+
+Você deve garantir que os seguintes pré-requisitos sejam atendidos antes que um banco de dados possa ser clonado:
+
+* Certifique-se de que o `[/etc|/var/opt/oracle]/oratab` diretório não contém uma entrada apontando para o identificador de sistema de destino.
+* Exclua o `spfile<SID>.ora` arquivo do `$ORACLE_HOME/dbs`.
+* Exclua o `init<SID>.ora` arquivo do `$ORACLE_HOME/dbs`.
+* Exclua destinos de despejo Oracle especificados no arquivo de especificação do clone.
+* Exclua os arquivos de controle Oracle especificados no arquivo de especificação clone.
+* Exclua os arquivos de log redo Oracle especificados no arquivo de especificação do clone.
+
+
+Você deve fornecer ao clone um novo identificador de sistema. Não é possível executar simultaneamente dois bancos de dados com o mesmo identificador de sistema no mesmo host. Você pode ter um clone em um host diferente usando o mesmo identificador de sistema. Você pode dar ao clone um rótulo ou permitir que o SnapManager crie um rótulo usando o identificador do sistema, a data e a hora em que o clone foi criado.
+
+Ao inserir um rótulo, você não deve incluir espaços ou carateres especiais.
+
+Como parte do processo de clonagem, o SnapManager cria os arquivos e os parâmetros necessários do Oracle para o banco de dados clonado. Um exemplo de um arquivo Oracle necessário é `init<SID>.ora`.
+
+Ao clonar um banco de dados, o SnapManager cria um novo `init<SID>.ora` arquivo para o banco de dados no `$ORACLE_HOME/dbs` diretório.
+
+Você pode clonar um banco de dados do Real Application Cluster (RAC), bem como um banco de dados não agrupado. Um clone do RAC começa como um único banco de dados.
+
+Você pode clonar um backup de banco de dados para o host no qual o banco de dados reside ou para um host alternativo.
+
+Se o banco de dados clonado estiver usando um `spfile`, o SnapManager criará um `spfile` para o clone. Ele coloca esse arquivo no `$ORACLE_HOME/dbs` diretório e cria a estrutura de diretório para os arquivos de diagnóstico. O nome do ficheiro é `spfile <SID>.ora`.

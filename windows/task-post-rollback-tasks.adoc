@@ -1,0 +1,39 @@
+---
+permalink: windows/task-post-rollback-tasks.html 
+sidebar: sidebar 
+keywords: perform, additional, step, rollback, repository, database, downgrade, snapmanager, host, schedule, create, version, post, task 
+summary: Você deve executar algumas etapas adicionais depois de reverter um banco de dados de repositório e fazer o downgrade do host SnapManager do SnapManager 3,2 para o SnapManager 3,0, para exibir as programações criadas na versão anterior do banco de dados de repositório. 
+---
+= Tarefas pós-reversão
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve executar algumas etapas adicionais depois de reverter um banco de dados de repositório e fazer o downgrade do host SnapManager do SnapManager 3,2 para o SnapManager 3,0, para exibir as programações criadas na versão anterior do banco de dados de repositório.
+
+.Passos
+. Navegue até `C:\Program Files\NetApp\SnapManager for Oracle\repositories`.
++
+O `repositories` diretório pode conter dois arquivos para cada repositório. O nome do arquivo com o sinal de número ( no) é criado usando o SnapManager 3,1 ou posterior e o nome do arquivo com o hífen (-) é criado usando o SnapManager 3,0.
+
++
+*Exemplo*
+
++
+Os nomes dos arquivos podem ser os seguintes:
+
++
+** `repository#SMSAP300a#SMSAPREPO1#10.72.197.141#1521`
+** `repository-smsap300a-smsaprepo1-10.72.197.141-1521`
+
+
+. Substitua o sinal de número ( no) no nome do arquivo pelo hífen (-).
++
+*Exemplo*
+
++
+O nome do arquivo que tinha o sinal de número ( no), agora contém hífen (-): `repository-SMSAP300a-SMSAPREPO1-10.72.197.141-1521.`
+
+

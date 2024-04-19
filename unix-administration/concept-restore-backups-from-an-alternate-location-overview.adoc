@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/concept-restore-backups-from-an-alternate-location-overview.html 
+sidebar: sidebar 
+keywords: restore, database, backup, alternate, location, overview 
+summary: Para restaurar um backup de banco de dados de um local alternativo, use as etapas principais a seguir, cada uma das quais é descrita mais nesta seção. 
+---
+= Restaure backups de uma visão geral de local alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para restaurar um backup de banco de dados de um local alternativo, use as etapas principais a seguir, cada uma das quais é descrita mais nesta seção.
+
+* Siga um destes procedimentos, dependendo do layout do banco de dados e do que precisa ser restaurado:
++
+** Restaure os arquivos de dados necessários de fita, SnapVault, SnapMirror ou qualquer outra Mídia para qualquer sistema de arquivos montado no host do banco de dados.
+** Restaure o sistema de arquivos necessário e monte-o no host do banco de dados.
+** Conete-se aos dispositivos brutos necessários que existem no host local.
+
+
+* Crie um arquivo XML (Extensible Markup Language) de especificação de restauração que inclua os mapeamentos que o SnapManager requer para restaurar do local alternativo para o local original. Salve o arquivo em um local que o SnapManager pode acessar.
+* Use o SnapManager para restaurar e recuperar os dados usando o arquivo XML de especificação de restauração.
+

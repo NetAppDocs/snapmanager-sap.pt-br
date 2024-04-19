@@ -1,0 +1,27 @@
+---
+permalink: windows/task-issue-commands-from-an-alternate-host.html 
+sidebar: sidebar 
+keywords: issue, cli, command, host, database, snapmanager, route, alternate 
+summary: Você pode emitir comandos CLI de um host diferente do host do banco de dados e o SnapManager encaminhará os comandos inseridos para o host apropriado. 
+---
+= Emita comandos de um host alternativo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode emitir comandos CLI de um host diferente do host do banco de dados e o SnapManager encaminhará os comandos inseridos para o host apropriado.
+
+
+
+== Sobre esta tarefa
+
+Para que o sistema envie uma operação para o host correto, ele deve primeiro saber onde encontrar o perfil para a operação. Neste procedimento, o sistema mantém as informações de mapeamento do perfil para o repositório de um arquivo no diretório inicial do usuário no host local.
+
+.Passo
+. Para que o diretório home do usuário local saiba dos mapeamentos de perfil para repositório para que ele possa rotear a solicitação de operação, digite o seguinte comando:
++
+`*smsap profile sync -repository -dbname _repo_dbname_ -host _repo_host_ -port _repo_port_ -login -username _repo_username_ [-quiet | -verbose]*`
+
+

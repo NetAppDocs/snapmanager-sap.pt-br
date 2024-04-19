@@ -1,0 +1,21 @@
+---
+settings:
+  name: SnapManager for SAP
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: pt-br,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es,fr-fr,it-it
+sidebar:
+  entries:
+  - title: SnapManager para documentos SAP
+    url: "/index.html"
+  - title: Notas de lançamento
+    url: "/reference-releasenotes.html"
+  - section: unix-installation-cmode
+  - section: unix-installation-7mode
+  - section: unix-administration
+  - section: windows
+  - title: Avisos legais
+    url: "/legal-notices.html"

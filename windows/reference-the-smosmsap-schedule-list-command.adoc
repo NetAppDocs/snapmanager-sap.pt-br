@@ -1,0 +1,35 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-list-command.html 
+sidebar: sidebar 
+keywords: command, list, schedule, operation, associate, profile, smsap 
+summary: Este comando lista as operações agendadas associadas a um perfil. 
+---
+= O comando smsap schedule list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando lista as operações agendadas associadas a um perfil.
+
+
+
+== Sintaxe
+
+[listing]
+----
+
+smsap schedule list
+-profile profile_name
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o nome do perfil relacionado ao banco de dados, usando o qual você pode exibir uma lista de operações agendadas. O perfil contém o identificador da base de dados e outras informações da base de dados.
+
+

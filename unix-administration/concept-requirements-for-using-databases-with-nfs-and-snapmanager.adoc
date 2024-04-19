@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/concept-requirements-for-using-databases-with-nfs-and-snapmanager.html 
+sidebar: sidebar 
+keywords: requirement, database, network, file, system, nfs, snapmanager, root, attribute, caching, cache, sybolic, link 
+summary: 'Você precisa conhecer os requisitos para usar bancos de dados com NFS (Network File System) e SnapManager. As recomendações incluem a execução como root, cache de atributos e links simbólicos.' 
+---
+= Requisitos para uso de bancos de dados com NFS e SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa conhecer os requisitos para usar bancos de dados com NFS (Network File System) e SnapManager. As recomendações incluem a execução como root, cache de atributos e links simbólicos.
+
+* Você deve executar o SnapManager como root; o SnapManager deve ser capaz de acessar os sistemas de arquivos que contêm arquivos de dados, arquivos de controle, logs de refazer on-line, logs de arquivamento e a casa do banco de dados.
++
+Defina uma das seguintes opções de exportação NFS para garantir que a raiz possa acessar os sistemas de arquivos:
+
++
+** raiz=`_host name_`
+** rw=`_host name_`, 0
+
+
+* Você deve desativar o armazenamento em cache de atributos para todos os volumes que contêm arquivos de dados de banco de dados, arquivos de controle, logs de refazer e arquivar e a casa de banco de dados.
++
+Exporte os volumes usando as opções noac (para Solaris e AIX) ou actimeo 0 (para Linux).
+
+* Você deve vincular os arquivos de dados do banco de dados do armazenamento local ao NFS para oferecer suporte a links simbólicos apenas no nível do ponto de montagem.
+

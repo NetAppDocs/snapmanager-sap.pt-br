@@ -1,0 +1,57 @@
+---
+permalink: unix-administration/concept-workflow-summary-for-local-and-secondary-database-backup.html 
+sidebar: sidebar 
+keywords: dba, snapmanager, storage, administrator, netapp, management, console, data, protection, capability, local, backup, protect, database, target, workflow, summary, local, secondary, backup 
+summary: 'Neste exemplo, o DBA (usando o SnapManager) e o administrador de storage (usando o recurso de proteção de dados do console de gerenciamento do NetApp) coordenam ações para configurar o backup local e o backup secundário (também conhecido como backup protegido) do banco de dados de destino.' 
+---
+= Resumo do fluxo de trabalho para backup de banco de dados local e secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Neste exemplo, o DBA (usando o SnapManager) e o administrador de storage (usando o recurso de proteção de dados do console de gerenciamento do NetApp) coordenam ações para configurar o backup local e o backup secundário (também conhecido como backup protegido) do banco de dados de destino.
+
+A sequência de acões realizadas é resumida da seguinte forma:
+
+* *Configuração secundária do pool de recursos*
++
+O administrador de storage usa a funcionalidade de proteção de dados do console de gerenciamento do NetApp para configurar um pool de recursos de sistemas de storage no local secundário que pode ser usado para armazenar o backup do banco de dados de folha de pagamento.
+
+* * Programação de backup secundário*
++
+O administrador de storage usa a funcionalidade de proteção de dados do Console de Gerenciamento do NetApp para configurar programações de backup secundárias.
+
+* *Configuração da política de proteção*
++
+O administrador de storage usa a funcionalidade de proteção de dados do Console de Gerenciamento do NetApp para configurar uma política de proteção de backup secundária para o banco de dados de destino. A política de proteção inclui os agendamentos e especifica o tipo de base de proteção para implementar a proteção de backup (backup, espelhamento ou uma combinação de ambos) e as políticas de retenção de nomes para nós de storage primário, secundário e, às vezes, terciário.
+
+* * Atribuição de política de configuração e proteção de perfil de banco de dados*
++
+O DBA usa o SnapManager para criar ou editar um perfil do banco de dados de destino que suporte backup secundário. Ao configurar o perfil, o DBA:
+
++
+** Ativa a proteção de backup no storage secundário.
+** Atribui a nova política de proteção, que foi criada e recuperada da capacidade de proteção de dados do Console de Gerenciamento do NetApp, a este perfil.
++
+A atribuição da política de proteção inclui automaticamente o banco de dados de destino em um conjunto de dados de capacidade de proteção de dados do console de gerenciamento do NetApp. Quando totalmente provisionado, a configuração do conjunto de dados permite o backup do banco de dados de destino para o storage secundário.
+
++
+O nome do conjunto de dados usa esta sintaxe `_smsap_hostname_databasename_`: , Que se traduz em "smsap_prod01.sample.com_p01".
+
+
+
+* *Provisionamento de armazenamento secundário e terciário*
++
+O administrador de storage usa a funcionalidade de proteção de dados do Console de gerenciamento do NetApp para atribuir pools de recursos para provisionar os nós de storage secundário e, às vezes, terciário (se a política de proteção atribuída especificar nós de storage terciário).
+
+* *Backup no armazenamento local*
++
+O DBA abre o perfil com a proteção ativada no SnapManager e cria um backup completo para o armazenamento local. O novo backup é exibido no SnapManager como programado para proteção, mas ainda não protegido.
+
+* * Confirmação de backup secundário*
++
+Como o backup foi baseado em um perfil habilitado para proteção, o backup é transferido para o secundário de acordo com o cronograma da política de proteção. O DBA usa o SnapManager para confirmar a transferência do backup para o armazenamento secundário. Depois de copiar a cópia de segurança para o armazenamento secundário, o SnapManager altera o estado de proteção da cópia de segurança de "não protegido" para "protegido".
+
+

@@ -1,0 +1,51 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-create-a-protected-backup.html 
+sidebar: sidebar 
+keywords: create, creating, backup, example, dba, select, full, set, secondary, storage, local, protection-enabled, profile, transfer, protection, policy 
+summary: Ao criar um backup para este exemplo, o DBA seleciona criar um backup completo, define opções de backup e seleciona proteção para armazenamento secundário. Embora o backup seja feito inicialmente no storage local, como esse backup é baseado em um perfil habilitado para proteção, o backup é transferido para o storage secundário de acordo com a programação da política de proteção, conforme definido no Protection Manager. 
+---
+= Use o SnapManager para SAP para criar um backup protegido
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao criar um backup para este exemplo, o DBA seleciona criar um backup completo, define opções de backup e seleciona proteção para armazenamento secundário. Embora o backup seja feito inicialmente no storage local, como esse backup é baseado em um perfil habilitado para proteção, o backup é transferido para o storage secundário de acordo com a programação da política de proteção, conforme definido no Protection Manager.
+
+.Passos
+. Vá para o cliente SnapManager para SAP.
+. Na árvore Repositório do SnapManager, clique com o botão direito do Mouse no perfil que contém o banco de dados que você deseja fazer backup e selecione *Backup*.
++
+O Assistente de Backup do SnapManager para SAP é iniciado.
+
+. Introduza
++
+`*Production_payroll*`
+
++
+como a etiqueta.
+
+. Introduza
++
+`*Production payroll Jan 19 backup*`
+
++
+como o comentário.
+
+. Selecione *Auto* como o tipo de backup que você deseja criar.
++
+Isso permite que o SnapManager determine se deve executar um backup on-line ou off-line.
+
+. Selecione *Daily* ou *Weekly* como a frequência do backup.
+. Para confirmar se o backup está em um formato válido para o Oracle, marque a caixa ao lado de *verificar backup*.
++
+Esta operação usa o Oracle DBVerify para verificar o formato e a estrutura do bloco.
+
+. Para forçar o estado do banco de dados para o modo apropriado (por exemplo, de aberto para montado), selecione *permitir inicialização ou desligamento do banco de dados, se necessário*, e clique em *Avançar*.
+. Na página Banco de dados, tablespaces ou Datafiles para Backup, selecione *Backup completo* e clique em *Avançar*.
+. Para proteger o backup no armazenamento secundário, marque *Proteja o Backup* e clique em *Avançar*.
+. Na página Executar operação, verifique as informações fornecidas e clique em *Backup*.
+. Na página de progresso, visualize o progresso e os resultados da criação da cópia de segurança.
+. Para ver os detalhes da operação, clique em *Detalhes da operação*.
+

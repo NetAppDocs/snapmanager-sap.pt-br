@@ -1,0 +1,27 @@
+---
+permalink: unix-administration/task-edit-the-configuration-parameters.html 
+sidebar: sidebar 
+keywords: depend, environment, change, default, value, assign, configuration, parameter, edit 
+summary: Dependendo do seu ambiente, você pode alterar os valores padrão atribuídos ao parâmetro de configuração. 
+---
+= Edite os parâmetros de configuração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dependendo do seu ambiente, você pode alterar os valores padrão atribuídos ao parâmetro de configuração.
+
+.Passos
+. Abra o arquivo de configuração do seguinte local padrão:
++
+`_default installation location_/properties/smsap.config`
+
+. Altere os valores padrão dos parâmetros de configuração.
++
+
+NOTE: Você também pode adicionar parâmetros de configuração suportados que não estão incluídos no arquivo de configuração e atribuir valores a eles.
+
+. Reinicie o servidor SnapManager para SAP.
+

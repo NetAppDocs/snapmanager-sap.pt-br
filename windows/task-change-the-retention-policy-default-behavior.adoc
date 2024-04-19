@@ -1,0 +1,32 @@
+---
+permalink: windows/task-change-the-retention-policy-default-behavior.html 
+sidebar: sidebar 
+keywords: backup, expire, retention, policy, snapmanager, delete, set 
+summary: Quando um backup expira com base na política de retenção, o SnapManager determina se deseja excluir o backup com base nas configurações de retenção. A exclusão de backups é o comportamento padrão. Você pode alterar esse comportamento padrão e optar por liberar os backups desprotegidos. 
+---
+= Altere o comportamento padrão da política de retenção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando um backup expira com base na política de retenção, o SnapManager determina se deseja excluir o backup com base nas configurações de retenção. A exclusão de backups é o comportamento padrão. Você pode alterar esse comportamento padrão e optar por liberar os backups desprotegidos.
+
+
+
+== Sobre esta tarefa
+
+Por padrão, o Snap Manager exclui o backup quando eles expiram.
+
+.Passos
+. Acesse o seguinte local padrão:
++
+`default smsap installation location\properties\smsap.config`
+
+. Edite o `smsap.config` ficheiro.
+. Defina a `retain.alwaysFreeExpiredBackups` propriedade no `smsap.config` arquivo como *true*.
++
+Por exemplo, `*retain.alwaysFreeExpiredBackups = true*`
+
+

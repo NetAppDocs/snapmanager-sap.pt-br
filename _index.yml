@@ -1,0 +1,39 @@
+---
+indexpage:
+  title: Documentação do SnapManager para SAP
+  summary: O SnapManager para SAP automatiza e simplifica os processos complexos,
+    manuais e demorados associados ao backup, à recuperação e à clonagem de bancos
+    de dados. Você pode usar o SnapManager com a tecnologia ONTAP SnapMirror para
+    criar cópias de backups em outro volume e com a tecnologia ONTAP SnapVault para
+    arquivar backups com eficiência no disco.
+  keywords: snapmanager, sap, installation, setup, deployment, workflow, configuration,product.
+  lead: O SnapManager para SAP automatiza e simplifica os processos complexos, manuais
+    e demorados associados ao backup, à recuperação e à clonagem de bancos de dados.
+    Você pode usar o SnapManager com a tecnologia ONTAP SnapMirror para criar cópias
+    de backups em outro volume e com a tecnologia ONTAP SnapVault para arquivar backups
+    com eficiência no disco.
+  tiles:
+  - title: Comece agora
+    links:
+    - title: Visão geral do produto
+      url: "/unix-installation-cmode/reference-smsap-isg-product-overview.html"
+    - title: Notas de lançamento
+      url: reference-releasenotes.html
+  - title: Administração
+    links:
+    - title: Configurando o SnapManager para UNIX
+      url: "/unix-administration/concept-configuring-snapmanager-for-oraclesap.html"
+    - title: Configurando o SnapManager para Windows
+      url: "/windows/concept-configuring-snapmanager-for-oraclesap.html"
+  - title: Instalação e configuração
+    links:
+    - title: Fluxo de trabalho de implementação (modo 7D)
+      url: "/unix-installation-7mode/reference-smsap-isg-deployment-workflow.html"
+    - title: Fluxo de trabalho de implantação (modo de cluster)
+      url: "/unix-installation-cmode/reference-smsap-isg-deployment-workflow.html"
+  - title: Mais recursos
+    links:
+    - title: Suporte à NetApp
+      url: https://mysupport.netapp.com/site/global/dashboard
+    - title: Comunidades NetApp
+      url: https://community.netapp.com/

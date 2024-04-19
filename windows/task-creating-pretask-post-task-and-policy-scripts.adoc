@@ -1,0 +1,179 @@
+---
+permalink: windows/task-creating-pretask-post-task-and-policy-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, script, preprocess, activity, post-process, policy, task, backup, restore, clone, operation, installation, directory, pretask, post-task, creating 
+summary: O SnapManager permite criar os scripts para a atividade de pré-processamento, a atividade de pós-processamento e tarefas de política das operações de backup, restauração e clone. Você deve colocar os scripts no diretório de instalação correto para executar a atividade de pré-processamento, atividade de pós-processamento e tarefas de política da operação SnapManager. 
+---
+= Criando scripts de pré-tarefa, pós-tarefa e política
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager permite criar os scripts para a atividade de pré-processamento, a atividade de pós-processamento e tarefas de política das operações de backup, restauração e clone. Você deve colocar os scripts no diretório de instalação correto para executar a atividade de pré-processamento, atividade de pós-processamento e tarefas de política da operação SnapManager.
+
+*Conteúdo do script de pré-tarefa e pós-tarefa*
+
+Todos os scripts devem incluir o seguinte:
+
+* Operações específicas (verificar, descrever e executar)
+* (Opcional) variáveis de ambiente predefinidas
+* Código específico de manipulação de erros (código de retorno (rc))
+
+
+
+NOTE: Você deve incluir o código correto de manipulação de erros para validar o script.
+
+Você pode usar os scripts de pré-tarefa para muitos fins, por exemplo, limpar um espaço em disco antes que a operação SnapManager seja iniciada. Você também pode usar os scripts pós-tarefa, por exemplo, para estimar se o SnapManager tem espaço em disco suficiente para concluir a operação.
+
+*Conteúdo do script de tarefa de política*
+
+Você pode executar o script de política sem usar operações específicas, como verificar, descrever e executar. O script inclui as variáveis ambientais predefinidas (opcional) e o código específico de manipulação de erros.
+
+O script de política é executado antes das operações de backup, restauração e clone.
+
+*Formato suportado*
+
+Um arquivo de comando com uma extensão .cmd pode ser usado como prescritor e pós-script.
+
+
+NOTE: Se você selecionar o arquivo de script shell, a operação SnapManager não responderá. Para resolver isso, você deve fornecer o arquivo de comando no diretório plug-in e executar a operação SnapManager novamente.
+
+* Diretório de instalação de scripts*
+
+O diretório no qual você instala o script afeta como ele é usado. Você pode colocar os scripts no diretório e executar o script antes ou depois que a operação de backup, restauração ou clone ocorrer. Você deve colocar o script no diretório especificado na tabela e usá-lo de forma opcional quando especificar a operação de backup, restauração ou clone.
+
+
+NOTE: Você deve garantir que o diretório plugins tenha a permissão executável antes de usar os scripts para a operação SnapManager.
+
+|===
+
+
+| Atividade | Backup | Restaurar | Clone 
+
+
+ a| 
+Pré-processamento
+ a| 
+<default_installation_directory>/plugins/backup/criar/pre
+ a| 
+<default_installation_directory>/plugins/restaurar/criar/pre
+ a| 
+<default_installation_directory>/plugins/clonar/criar/pré
+
+
+
+ a| 
+Pós-processamento
+ a| 
+<default_installation_directory>/plugins/backup/criar/publicar
+ a| 
+<default_installation_directory>/plugins/restaurar/criar/publicar
+ a| 
+o <default_installation_directory> clonou criar ou publicar
+
+
+
+ a| 
+Baseado em políticas
+ a| 
+<default_installation_directory>/plugins/backup/criar/política
+ a| 
+<default_installation_directory>/plugins/restaurar/criar/política
+ a| 
+<default_installation_directory>/plugins/clonar/criar/política
+
+|===
+*Locais de exemplo de scripts*
+
+A seguir estão algumas amostras dos scripts de pré-tarefa e pós-tarefa para as operações de backup e clone disponíveis no caminho do diretório de instalação:
+
+* <default_installation_directory>/plugins/exemplos/backup/criar/pre
+* <default_installation_directory>, exemplos, backup, criação e publicação
+* <default_installation_directory>/plugins/exemplos/clonar/criar/pré
+* <default_installation_directory>, exemplos, clonar, criar ou publicar
+
+
+*O que você pode alterar no script*
+
+Se você estiver criando um novo script, poderá alterar apenas as operações de descrição e execução. Cada script deve conter as seguintes variáveis: Contexto, tempo limite e parâmetro.
+
+As variáveis que você descreveu na função descrever do script devem ser declaradas no início do script. Você pode adicionar novos valores de parâmetro em parâmetro() e, em seguida, usar os parâmetros na função executar.
+
+
+
+== Exemplo de script
+
+A seguir está um script de exemplo com um código de retorno especificado pelo usuário para estimar o espaço no host SnapManager:
+
+[listing]
+----
+@echo off
+REM $Id: //depot/prod/capstan/Rcapstan_ganges/src/plugins/windows/examples/clone/create/policy/validate_sid.cmd#1 $
+REM $Revision: #1 $ $Date: 2011/12/06 $
+REM
+REM
+
+set /a EXIT=0
+
+set name="Validate SID"
+set description="Validate SID used on the target system"
+set parameter=()
+
+rem reserved system IDs
+set INVALID_SIDS=("ADD" "ALL" "AND" "ANY" "ASC" "COM" "DBA" "END" "EPS" "FOR" "GID" "IBM" "INT" "KEY" "LOG" "MON" "NIX" "NOT" "OFF" "OMS" "RAW" "ROW" "SAP" "SET" "SGA" "SHG" "SID" "SQL" "SYS" "TMP" "UID" "USR" "VAR")
+
+if /i "%1" == "-check" goto :check
+if /i "%1" == "-execute" goto :execute
+if /i "%1" == "-describe" goto :describe
+
+:usage:
+	echo usage: %0 "{ -check | -describe | -execute }"
+	set /a EXIT=99
+	goto :exit
+
+:check
+	set /a EXIT=0
+	goto :exit
+
+:describe
+	echo SM_PI_NAME:%name%
+	echo SM_PI_DESCRIPTION:%description%
+	set /a EXIT=0
+	goto :exit
+
+:execute
+	set /a EXIT=0
+
+	rem SM_TARGET_SID must be set
+	if "%SM_TARGET_SID%" == "" (
+		set /a EXIT=4
+		echo SM_TARGET_SID not set
+		goto :exit
+	)
+
+	rem exactly three alphanumeric characters, with starting with a letter
+	echo %SM_TARGET_SID% | findstr "\<[a-zA-Z][a-zA-Z0-9][a-zA-Z0-9]\>" >nul
+	if %ERRORLEVEL% == 1 (
+		set /a EXIT=4
+		echo SID is defined as a 3 digit value starting with a letter. [%SM_TARGET_SID%] is not valid.
+		goto :exit
+	)
+
+	rem not a SAP reserved SID
+	echo %INVALID_SIDS% | findstr /i \"%SM_TARGET_SID%\" >nul
+	if %ERRORLEVEL% == 0 (
+		set /a EXIT=4
+		echo SID [%SM_TARGET_SID%] is reserved by SAP
+		goto :exit
+	)
+
+	goto :exit
+
+
+
+:exit
+	echo Command complete.
+	exit /b %EXIT%
+----

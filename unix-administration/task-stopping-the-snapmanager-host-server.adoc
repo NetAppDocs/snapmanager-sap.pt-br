@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-stop-the-snapmanager-host-server.html 
+sidebar: sidebar 
+keywords: finish, snapmanager, stop, server, host 
+summary: Quando terminar de usar o SnapManager, talvez você queira parar o servidor. 
+---
+= Pare o servidor host do SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quando terminar de usar o SnapManager, talvez você queira parar o servidor.
+
+.Passo
+. Para parar o servidor, digite o seguinte comando, como usuário root:
++
+`*smsap_server stop*`
+
+

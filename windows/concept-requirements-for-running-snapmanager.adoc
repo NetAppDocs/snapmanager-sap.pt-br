@@ -1,0 +1,32 @@
+---
+permalink: windows/concept-requirements-for-running-snapmanager.html 
+sidebar: sidebar 
+keywords: deploy, snapmanager, environment, requirement, run 
+summary: Antes de implantar o SnapManager em seu ambiente, você deve conhecer os diferentes requisitos. 
+---
+= Requisitos para executar o SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de implantar o SnapManager em seu ambiente, você deve conhecer os diferentes requisitos.
+
+Antes de usar o SnapManager, você deve rever as matrizes de compatibilidade de todos os produtos necessários. Você também deve revisar o seguinte:
+
+* Matriz de compatibilidade SnapManager e SnapDrive na seção interoperabilidade para obter a versão mais recente e informações de patch para todos os hosts, sistemas de armazenamento e outros componentes listados nesta seção.
+* O Guia de configuração para produtos NetApp FCP e iSCSI.
+
+
+
+NOTE: O SnapManager requer versões específicas do Oracle em algumas plataformas.
+
+Consulte o kit de documentação para obter mais informações sobre as configurações recomendadas para os sistemas host e armazenamento.
+
+
+NOTE: Entre em Contato com seu representante de vendas se precisar de uma configuração do SnapManager que não seja mencionada no kit de documentação.
+
+*Informações relacionadas*
+
+http://support.netapp.com/NOW/products/interoperability/["Matriz de interoperabilidade: Support.NetApp.com/NOW/Products/Interoperability"^]

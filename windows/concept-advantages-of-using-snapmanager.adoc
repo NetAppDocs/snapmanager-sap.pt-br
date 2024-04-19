@@ -1,0 +1,38 @@
+---
+permalink: windows/concept-advantages-of-using-snapmanager.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, database, manage, data, advantage, use 
+summary: Você pode usar o SnapManager para SAP para executar diferentes tarefas nos bancos de dados e gerenciar dados com eficiência. 
+---
+= Vantagens de usar o SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o SnapManager para SAP para executar diferentes tarefas nos bancos de dados e gerenciar dados com eficiência.
+
+O SnapManager para SAP trabalha com sistemas de storage e permite que você execute as seguintes tarefas:
+
+* Crie backups com uso eficiente de espaço no storage primário ou secundário e agende backups.
++
+Você pode criar backups de bancos de dados completos e parciais e aplicar políticas de duração de retenção.o SnapManager (3,2 ou posterior) permite criar backups apenas dos arquivos de dados e Registros de arquivamento.
+
++
+** O SnapManager (3,2 ou posterior) permite executar o pré-processamento ou pós-processamento antes ou depois das operações de backup e restauração.
+** O SnapManager (3,2 ou posterior) permite proteger backups usando scripts de pós-processamento.
+
+
+* Restaure bancos de dados completos ou parciais usando a operação de restauração baseada em arquivo.
+* Restaure e recupere backups de bancos de dados automaticamente.
++
+O SnapManager (3,2 ou posterior) permite a restauração e recuperação de backups de bancos de dados automaticamente. O SnapManager recupera automaticamente o banco de dados restaurado descobrindo, montando e aplicando os arquivos de log de arquivamento dos backups.
+
+* Podar arquivos de log de arquivamento dos destinos de log de arquivamento ao criar backups apenas para os logs de arquivamento.
+* Guarde automaticamente o número mínimo de backups de log de arquivamento mantendo apenas os backups com arquivos de log de arquivo exclusivos.
+* Acompanhe os detalhes da operação e produza relatórios por host, perfil, backup ou clone.
+* Verifique o status da cópia de segurança.
+* Manter o histórico das operações do SnapManager associadas a um perfil.
+* Crie clones de backups com uso eficiente de espaço no storage primário.
+

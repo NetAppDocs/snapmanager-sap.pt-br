@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/task-verify-database-backups.html 
+sidebar: sidebar 
+keywords: backup, verify, command, block, database, backup, corrupt, operation, invoke, oracle, utility, data, file 
+summary: Você pode usar o comando backup Verify para verificar se os blocos no backup do banco de dados não estão corrompidos. A operação verificar invoca o utilitário verificar banco de dados Oracle para cada arquivo de dados no backup. 
+---
+= Verifique os backups do banco de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o `backup verify` comando para verificar se os blocos no backup do banco de dados não estão corrompidos. A operação verificar invoca o utilitário verificar banco de dados Oracle para cada arquivo de dados no backup.
+
+*Sobre esta tarefa*
+
+O SnapManager permite que você execute a operação de verificação a qualquer momento que seja conveniente para você e para os usuários em seu sistema. Você pode executar a verificação imediatamente após a criação do backup. Você deve especificar o perfil que contém o backup e o rótulo ou o ID do backup que você criou.
+
+
+NOTE: Você pode especificar -dump para coletar os arquivos de despejo após a operação de verificação de backup.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap backup verify -profile _profile_name_ [-label _label_ | -id _id_] [-force] [ -dump] [-quiet | -verbose]*`
+
+

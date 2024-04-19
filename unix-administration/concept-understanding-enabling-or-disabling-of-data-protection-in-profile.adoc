@@ -1,0 +1,88 @@
+---
+permalink: unix-administration/concept-understanding-enabling-or-disabling-of-data-protection-in-profile.html 
+sidebar: sidebar 
+keywords: enable, disable, data, protection, creating, create, update, updating, database, profile, understand, enabling, disabling 
+summary: Você pode ativar ou desativar a proteção de dados ao criar ou atualizar um perfil de banco de dados. 
+---
+= Compreender a ativação ou desativação da proteção de dados no perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode ativar ou desativar a proteção de dados ao criar ou atualizar um perfil de banco de dados.
+
+Para criar um backup protegido de um banco de dados nos recursos de storage secundário, os administradores de banco de dados e os administradores de storage executam as seguintes ações.
+
+[cols="1a,2a"]
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Criar ou editar um perfil
+ a| 
+Para criar ou editar um perfil, execute o seguinte:
+
+* Ative a proteção de backup no storage secundário.
+* Se você estiver usando o Data ONTAP operando no modo 7 e tiver instalado o Gerenciador de proteção, poderá selecionar as políticas criadas pelo administrador de armazenamento ou backup no Gerenciador de proteção.
++
+Se você estiver usando o Data ONTAP operando no modo 7 e a proteção estiver ativada, o SnapManager criará um conjunto de dados para o banco de dados. Um conjunto de dados consiste em uma coleção de conjuntos de armazenamento, juntamente com informações de configuração associadas aos seus dados. Os conjuntos de armazenamento associados a um conjunto de dados incluem um conjunto de armazenamento primário usado para exportar dados para clientes e o conjunto de réplicas e arquivos que existem em outros conjuntos de armazenamento. Os conjuntos de dados representam dados de usuário exportáveis. Se o administrador desativar a proteção de um banco de dados, o SnapManager excluirá o conjunto de dados.
+
+* Se você estiver usando o ONTAP, você deve selecionar a política _SnapManager_cDOT_Mirror_ ou _SnapManager_cDOT_Vault_ dependendo da relação SnapMirror ou SnapVault criada.
+
+
+Quando você desativa a proteção de backup, uma mensagem de aviso é exibida informando que o conjunto de dados será excluído e não será possível restaurar ou clonar backups para esse perfil.
+
+
+
+ a| 
+Veja o perfil
+ a| 
+Como o administrador de armazenamento ainda não atribuiu recursos de armazenamento para implementar a política de proteção, o perfil aparece como não conformante na interface gráfica do usuário do SnapManager e na `profile show` saída do comando.
+
+
+
+ a| 
+Atribua recursos de storage no Console de gerenciamento do Protection Manager
+ a| 
+No Console de gerenciamento do Protection Manager, o administrador de storage visualiza o conjunto de dados não protegido e atribui um pool de recursos para cada nó do conjunto de dados que está associado ao perfil. Em seguida, o administrador do storage garante que os volumes secundários sejam provisionados e que as relações de proteção sejam inicializadas.
+
+
+
+ a| 
+Veja o perfil do conformante no SnapManager
+ a| 
+No SnapManager, o administrador do banco de dados vê que o perfil mudou para o estado de conformante tanto na interface gráfica do usuário quanto na `profile show` saída do comando, indicando que os recursos foram atribuídos.
+
+
+
+ a| 
+Crie a cópia de segurança
+ a| 
+* Selecione cópia de segurança completa.
+* Além disso, selecione se o backup deve ser protegido e selecione a classe de retenção primária (por exemplo, por hora ou por dia).
+* Se você estiver usando o Data ONTAP operando no modo 7 e quiser proteger o backup imediatamente para o armazenamento secundário substituindo o cronograma de proteção do Gerenciador de proteção, especifique a `-protectnow` opção.
+* Se você estiver usando o ONTAP e quiser proteger o backup imediatamente para o storage secundário, especifique a `protect` opção.
++
+
+NOTE: A `protectnow` opção não é aplicável no Clustered Data ONTAP.
+
+
+
+
+
+ a| 
+Ver a cópia de segurança
+ a| 
+O novo backup é mostrado como programado para proteção, mas ainda não protegido (na interface SnapManager e na `backup show` saída do comando). O estado de proteção é mostrado como "não protegido".
+
+
+
+ a| 
+Ver a lista de cópias de segurança
+ a| 
+Depois que o administrador do armazenamento verificar se o backup foi copiado para o armazenamento secundário, o SnapManager altera o estado de proteção de backup de "'não protegido'" para "'protegido'".
+
+|===

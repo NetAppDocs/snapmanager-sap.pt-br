@@ -1,0 +1,45 @@
+---
+permalink: windows/reference-the-smosmsap-clone-detach-command.html 
+sidebar: sidebar 
+keywords: split, clone, volume, parent, data, ontap, detach, command, snapmanager, smsap 
+summary: Depois de dividir um volume clonado de seu volume pai no Data ONTAP, você pode executar o comando clone desanexar do SnapManager para informar o SnapManager de que o volume não é mais um clone. 
+---
+= O comando smsap clone desanexar
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de dividir um volume clonado de seu volume pai no Data ONTAP, você pode executar o `clone detach` comando do SnapManager para que o SnapManager saiba que o volume não é mais um clone.
+
+
+
+== Sintaxe
+
+`smsap clone detach -profile profile_name -label clone_label`
+
+
+
+== Parâmetros
+
+* *`-profile _profile_name_`*
++
+Especifica o nome do perfil a partir do qual o clone é criado.
+
+* *`-label _clone_label_`*
++
+Especifica o nome gerado pela operação clone.
+
+
+
+
+
+== Exemplo
+
+O seguinte comando desprende o clone:
+
+[listing]
+----
+smsap clone detach -profile SALES1 -label sales1_clone
+----

@@ -1,0 +1,90 @@
+---
+permalink: windows/task-customizing-e-mail-subject-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: customize, email, subject, profile, create, cusomtizing 
+summary: Você pode personalizar o assunto do e-mail para o novo perfil ao criá-lo. 
+---
+= Personalizar o assunto do e-mail para um novo perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode personalizar o assunto do e-mail para o novo perfil ao criá-lo.
+
+Você pode personalizar o assunto do e-mail usando o padrão dB-sid__host_dB-date____start-date_end-date_____status ou digite seu próprio texto.
+
+|===
+| Nome da variável | Descrição | Exemplo de valor 
+
+
+ a| 
+perfil
+ a| 
+Nome do perfil usado para a operação do banco de dados
+ a| 
+PROF1
+
+
+
+ a| 
+nome da operação
+ a| 
+Nome da operação do banco de dados
+ a| 
+Cópia de segurança, cópia de segurança de dados, cópia de segurança de dados e registos de arquivo
+
+
+
+ a| 
+db-sid
+ a| 
+SID do banco de dados
+ a| 
+DB1
+
+
+
+ a| 
+db-host
+ a| 
+Nome do servidor anfitrião
+ a| 
+HostA
+
+
+
+ a| 
+data de início
+ a| 
+Hora de início da operação do banco de dados no formato mmdd:hh:ss aaaa
+ a| 
+Abril 27 21:00:45 PST 2012
+
+
+
+ a| 
+data de fim
+ a| 
+Hora de fim da operação do banco de dados no formato mmdd:hh:ss aaaa
+ a| 
+Abril 27 21:10:45 PST 2012
+
+
+
+ a| 
+estado
+ a| 
+Estado da operação da base de dados
+ a| 
+Sucesso
+
+|===
+Se você não fornecer nenhum valor para as variáveis, o SnapManager exibirá a seguinte mensagem de erro: Valor(s) ausente(s) -Assunto.
+
+. Introduza o seguinte comando:
++
+`smsap profile create -profileprofile [-profile-passwordprofile_password] -repository-dbnamerepo_service_name-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | {-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][ [ ]] [-notification [-success-emailemail_address1,email_address2-subjectsubject_pattern] [-failure-emailemail_address1,email_address2-subjectsubject_pattern]]`
+
+

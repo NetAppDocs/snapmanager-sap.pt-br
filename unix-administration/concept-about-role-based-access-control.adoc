@@ -1,0 +1,65 @@
+---
+permalink: unix-administration/concept-about-role-based-access-control.html 
+sidebar: sidebar 
+keywords: role-based, access, control, rbac, control, access, snapmanager, operation, administrator, environment, role 
+summary: 'Com o controle de acesso baseado em função (RBAC), você controla quem tem acesso às operações do SnapManager. O RBAC permite que os administradores gerenciem grupos de usuários definindo funções e atribuindo usuários a essas funções. Talvez você queira usar o SnapManager RBAC em ambientes onde o RBAC já esteja em vigor.' 
+---
+= Sobre os controles de acesso baseados em função
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Com o controle de acesso baseado em função (RBAC), você controla quem tem acesso às operações do SnapManager. O RBAC permite que os administradores gerenciem grupos de usuários definindo funções e atribuindo usuários a essas funções. Talvez você queira usar o SnapManager RBAC em ambientes onde o RBAC já esteja em vigor.
+
+O RBAC inclui os seguintes componentes:
+
+* Recursos: Volumes e LUNs que detêm os arquivos de dados que compõem o seu banco de dados.
+* Capacidades: Tipos de operações que podem ser executadas em um recurso.
+* Usuários: Pessoas a quem você concede recursos.
+* Papéis: Um conjunto de recursos e capacidades permitidos em recursos. Você atribui uma função específica a um usuário que deve executar esses recursos.
+
+
+Ative o RBAC no SnapDrive. Em seguida, você pode configurar recursos específicos por função na interface gráfica de usuário ou na interface de linha de comando do Operations Manager Web. As verificações RBAC ocorrem no servidor DataFabric Manager.
+
+A tabela a seguir lista algumas funções e suas tarefas típicas, conforme definido no Operations Manager.
+
+[cols="1a,3a"]
+|===
+| Função | Tarefas típicas 
+
+
+ a| 
+Administrador de base SAP
+ a| 
+* Criação, manutenção e monitoramento de um banco de dados Oracle que reside em um host
+* Agendamento e criação de backups de bancos de dados
+* Garantir que os backups sejam válidos e possam ser restaurados
+* Clonar bancos de dados
+
+
+
+
+ a| 
+Administrador do servidor
+ a| 
+* Configuração de sistemas de storage e agregados
+* Monitoramento de volumes para espaço livre
+* Provisionamento de storage em solicitações dos usuários
+* Configuração e monitoramento do espelhamento de recuperação de desastres
+
+
+
+
+ a| 
+Arquiteto de storage
+ a| 
+* Tomar decisões de arquitetura sobre armazenamento
+* Planejamento do crescimento da capacidade de storage
+* Planejamento de estratégias de recuperação de desastres
+* Delegando capacidades aos membros da equipe
+
+
+|===
+Se o RBAC estiver em uso (o que significa que o Operations Manager está instalado e o RBAC está habilitado no SnapDrive), o administrador de storage precisará atribuir permissões de RBAC em todos os volumes e sistemas de storage para os arquivos de banco de dados.

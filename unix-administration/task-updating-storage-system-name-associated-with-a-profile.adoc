@@ -1,0 +1,89 @@
+---
+permalink: unix-administration/task-update-storage-system-name-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, ability, update, host, name, ip, address, storage, system, associate, profile, updating 
+summary: O SnapManager 3,3 ou posterior permite atualizar o nome do host ou o endereço IP de um sistema de armazenamento associado a um perfil. 
+---
+= Atualize o nome do sistema de armazenamento associado a um perfil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager 3,3 ou posterior permite atualizar o nome do host ou o endereço IP de um sistema de armazenamento associado a um perfil.
+
+*O que você vai precisar*
+
+Você deve garantir o seguinte:
+
+* O perfil tem pelo menos um backup.
++
+Se o perfil não tiver nenhum backup, então não há necessidade de atualizar o nome do sistema de armazenamento para esse perfil.
+
+
+
+*Sobre esta tarefa*
+
+* Nenhuma operação está em execução para o perfil.
+
+
+Você pode atualizar o nome do sistema de armazenamento ou o endereço IP usando a interface de linha de comando (CLI) do SnapManager. Durante a atualização do nome do sistema de storage, os metadados armazenados somente no banco de dados do repositório são atualizados. Depois de renomear o nome do sistema de storage, você pode executar todas as operações do SnapManager como anteriormente.
+
+
+NOTE: Não é possível alterar o nome do sistema de storage usando a interface gráfica do usuário (GUI) do SnapManager.
+
+Você deve garantir que as cópias Snapshot estejam disponíveis no novo sistema de storage. O SnapManager não verifica a existência de cópias Snapshot no sistema de storage.
+
+No entanto, você deve se lembrar do seguinte durante a atualização progressiva e reversão do host após renomear o nome do sistema de armazenamento:
+
+* Se você estiver executando a atualização progressiva do host após renomear o nome do sistema de armazenamento, será necessário atualizar o perfil com o novo nome do sistema de armazenamento.
++
+Consulte _solução de problemas de nome do sistema de armazenamento_ para obter informações sobre como usar os comandos SnapDrive para alterar o nome do sistema de armazenamento.
+
+* Se você estiver revertendo o host após renomear o sistema de storage, deverá garantir que altere o nome do sistema de storage de volta para o nome do sistema de storage anterior para usar os perfis, backups e clones do sistema de storage anterior para executar operações SnapManager.
+
+
+
+NOTE: Se o SnapDrive não conseguiu identificar o sistema de armazenamento e exibir mensagens de erro, você pode inserir o comando ipmigrate com os nomes de host anteriores e posteriores do sistema de armazenamento. Para obter informações adicionais sobre problemas de nome do sistema de armazenamento, consulte _solução de problemas de nome do sistema de armazenamento_.
+
+.Passo
+. Introduza o seguinte comando:
++
+`*smsap storage rename -profile _profile_ -oldname _old_storage_name_ -newname _new_storage_name_ [quiet | -verbose]`*
+
++
+[cols="1a,2a"]
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Atualize o nome do sistema de armazenamento associado a um perfil
+ a| 
+Especifique a `-profile` opção.
+
+
+
+ a| 
+Atualize o nome do sistema de armazenamento ou o endereço IP associado a um perfil
+ a| 
+Especifique as seguintes opções e variáveis:
+
+** `-oldname _old_storage_name_` É o nome do host ou endereço IP do sistema de armazenamento.
+** `-newname _new_storage_name_` É o nome do host ou endereço IP do sistema de armazenamento.
+
+
+|===
++
+'''
++
+O exemplo a seguir mostra o nome do sistema de armazenamento que está sendo atualizado:
+
+
+
+[listing]
+----
+smsap storage rename -profile mjullian -oldname lech -newname hudson -verbose
+----
+'''

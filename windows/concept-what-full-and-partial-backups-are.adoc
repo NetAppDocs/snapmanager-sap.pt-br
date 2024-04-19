@@ -1,0 +1,43 @@
+---
+permalink: windows/concept-what-full-and-partial-backups-are.html 
+sidebar: sidebar 
+keywords: entire, database, portion, tablespace, data, file, backup, full, partial 
+summary: Você pode optar por fazer backup de todo o banco de dados ou apenas uma parte dele. Se você optar por fazer o backup de uma parte do banco de dados, poderá optar por fazer o backup de um grupo de espaços de tabela ou arquivos de dados. Você pode optar por fazer um backup separado de ambos os espaços de tabela e arquivos de dados. 
+---
+= Quais são os backups completos e parciais
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode optar por fazer backup de todo o banco de dados ou apenas uma parte dele. Se você optar por fazer o backup de uma parte do banco de dados, poderá optar por fazer o backup de um grupo de espaços de tabela ou arquivos de dados. Você pode optar por fazer um backup separado de ambos os espaços de tabela e arquivos de dados.
+
+A tabela a seguir lista os benefícios e as consequências de cada tipo de backup:
+
+|===
+| Tipo de cópia de segurança | Vantagens | Desvantagens 
+
+
+ a| 
+Cheio
+ a| 
+Minimiza o número de cópias Snapshot. Para backups online, cada espaço de tabela está no modo de backup durante todo o tempo da operação de backup. O SnapManager obtém uma cópia Snapshot para cada volume que o banco de dados usa, além de uma cópia Snapshot para cada volume que os arquivos de log ocupam.
+ a| 
+Para backups online, cada espaço de tabela está no modo de backup durante todo o tempo da operação de backup.
+
+
+
+ a| 
+Parcial
+ a| 
+Minimiza a quantidade de tempo que cada tablespace gasta no modo de backup. O SnapManager agrupa as cópias snapshot que são necessárias por tablespace. Cada espaço de tabela está no modo de backup apenas tempo suficiente para criar as cópias Snapshot. Esse método de agrupamento das cópias Snapshot minimiza as gravações de bloco físico nos arquivos de log durante um backup on-line.
+ a| 
+O backup pode exigir a criação de cópias Snapshot de vários espaços de tabela no mesmo volume. Esse método pode fazer com que o SnapManager crie várias cópias snapshot de um único volume durante a operação de backup.
+
+|===
+[NOTE]
+====
+Embora você possa executar um backup parcial, você deve sempre executar um backup completo de todo o banco de dados.
+
+====

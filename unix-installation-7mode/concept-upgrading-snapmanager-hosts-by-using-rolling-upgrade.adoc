@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/concept-upgrading-snapmanager-hosts-by-using-rolling-upgrade.html 
+sidebar: sidebar 
+keywords: roll, upgrade, approach, enable, host, stagger, host-by-host, manner, support, snapmanager, upgrading 
+summary: A abordagem de atualização progressiva que permite atualizar os hosts de maneira escalonada e host por host é suportada pelo SnapManager 3,1. 
+---
+= Atualizando hosts do SnapManager usando a atualização progressiva
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A abordagem de atualização progressiva que permite atualizar os hosts de maneira escalonada e host por host é suportada pelo SnapManager 3,1.
+
+O SnapManager 3,0 ou anterior apenas permitiu que você atualizasse todos os hosts simultaneamente. Isso resultou em tempo de inatividade de todos os hosts do SnapManager e das operações agendadas durante a operação de atualização.
+
+A atualização contínua oferece os seguintes benefícios:
+
+* Melhor desempenho do SnapManager porque apenas um host é atualizado de uma vez.
+* Capacidade de testar os novos recursos em um host de servidor SnapManager antes de atualizar os outros hosts.
+
+
+
+NOTE: Você pode executar a atualização contínua somente usando a interface de linha de comando (CLI).
+
+image::../media/scrn_en_drw_rollupgrade_architecture.gif[scrn en drw rollupgrade architecture]
+
+Após a conclusão bem-sucedida da atualização contínua, os hosts, perfis, programações, backups e clones do SnapManager associados aos perfis dos bancos de dados de destino são migrados do banco de dados de repositório da versão anterior do SnapManager para o banco de dados de repositório da nova versão. Os detalhes sobre as operações realizadas usando os perfis, programações, backups e clones criados na versão anterior do SnapManager agora estão disponíveis no banco de dados de repositório da nova versão. Você pode iniciar a GUI usando os valores de configuração padrão do arquivo user.config. Os valores configurados no arquivo user.config da versão anterior do SnapManager não são considerados.
+
+O servidor SnapManager atualizado agora pode se comunicar com o banco de dados do repositório atualizado. Os hosts que não foram atualizados podem gerenciar seus bancos de dados de destino usando o repositório da versão anterior do SnapManager e, assim, podem usar os recursos disponíveis na versão anterior.
+
+
+NOTE: Antes de executar a atualização contínua, você deve garantir que todos os hosts sob o banco de dados do repositório possam ser resolvidos. Para obter informações sobre como resolver os hosts, consulte a seção solução de problemas em _SnapManager for SAP Administration Guide for UNIX_.
+
+*Informações relacionadas*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guia de administração do SnapManager 3.4.1 para UNIX"^]

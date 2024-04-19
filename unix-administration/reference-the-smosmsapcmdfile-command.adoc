@@ -1,0 +1,71 @@
+---
+permalink: unix-administration/reference-the-smosmsapcmdfile-command.html 
+sidebar: sidebar 
+keywords: cmdfile, command, shell, host, limit, number, character, smsap, line 
+summary: Você pode usar o comando cmdfile para executar qualquer comando se o shell em seu host limitar o número de carateres que podem aparecer em uma linha de comando. 
+---
+= O comando smsap cmdfile
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode usar o `cmdfile` comando para executar qualquer comando se o shell em seu host limitar o número de carateres que podem aparecer em uma linha de comando.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap cmdfile
+-file _file_name_
+[-quiet | -verbose\]]
+----
+Você pode incluir o comando em um arquivo de texto e usar o `smsap cmdfile` comando para executar o comando. Você pode adicionar apenas um comando em um arquivo de texto. Você não deve incluir smsap na sintaxe de comando.
+
+
+NOTE: O `smsap cmdfile` comando substitui o `smsap pfile` comando. O `smsap cmdfile` não é compatível com o `smsap pfile` comando.
+
+
+
+== Parâmetros
+
+* ``*-file _file_name_*``
++
+Especifica o caminho para o arquivo de texto que contém o comando que deseja executar.
+
+* ``*-quiet*``
++
+Especifica que somente mensagens de erro são exibidas no console. O padrão é exibir mensagens de erro e aviso.
+
+* ``*-verbose*``
++
+Especifica que mensagens de erro, aviso e informações são exibidas no console.
+
+
+
+'''
+
+
+== Exemplo
+
+Este exemplo cria um perfil incluindo o `profile create` comando em `command.txt` localizado em `/tmp`. Você pode então executar o `smsap cmdfile` comando.
+
+O arquivo de texto contém as seguintes informações:
+
+[listing]
+----
+profile create -profile SALES1 -repository -dbname SNAPMGRR
+-login -username server1_user -password ontap -port 1521 -host server1
+-database -dbname SMSMSAP -sid SMSMSAP -login -username sys -password oracle -port 1521
+-host Host2 -osaccount oracle -osgroup db2
+----
+Agora você pode criar o perfil executando o `smsap cmdfile` comando com o `command.txt` arquivo:
+
+[listing]
+----
+smsap cmdfile -file /tmp/command.txt
+----
+'''

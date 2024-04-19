@@ -1,0 +1,78 @@
+---
+permalink: unix-administration/task-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, protect, backup, secondary, storage, copy, data, back, primary, storage, restoring 
+summary: Você pode restaurar backups protegidos do storage secundário e escolher como deseja copiar os dados de volta para o storage primário. 
+---
+= Restaurar backups de um storage secundário
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode restaurar backups protegidos do storage secundário e escolher como deseja copiar os dados de volta para o storage primário.
+
+*Sobre esta tarefa*
+
+Você pode usar o `backup restore` comando com a `-from-secondary` opção para restaurar os dados do armazenamento secundário. Se você não especificar a `-from-secondary` opção, o SnapManager restaurará os dados das cópias Snapshot no storage primário.
+
+Não é possível usar a `-from-secondary` opção se o backup existir no storage primário; o backup primário deve ser liberado antes que um backup possa ser restaurado do storage secundário. Se utilizar um volume temporário, tem de especificar o volume utilizando a `-temp-volume` opção.
+
+Você deve especificar a `-copy-id` opção sempre que especificar a `-from-secondary` opção. Se houver mais de um backup no sistema de armazenamento secundário, a `-copy-id` opção será usada para especificar qual cópia de backup no armazenamento secundário deve ser usada para a operação de restauração.
+
+
+NOTE: Se você estiver usando o Data ONTAP operando no modo 7, você deve especificar um valor válido para a `-copy-id` opção. No entanto, se você estiver usando o Clustered Data ONTAP, a `-copy-id` opção não será necessária.
+
+Ao restaurar dados do storage secundário, o SnapManager primeiro tenta restaurar dados diretamente do sistema de storage secundário para o sistema de storage primário (sem envolver o host). Se o SnapManager não puder executar esse tipo de restauração (por exemplo, se os arquivos não fizerem parte do sistema de arquivos), o SnapManager voltará para uma restauração de cópia de arquivo do lado do host. O SnapManager tem dois métodos de executar uma restauração de cópia de arquivo no lado do host a partir do storage secundário. O método que o SnapManager seleciona é configurado no `smsap.config` arquivo.
+
+* Se `_restore.secondaryAccessPolicy_ = *direct*`o , o SnapManager clonar os dados no storage secundário, montará os dados clonados do sistema de storage secundário para o host e depois copiará os dados do clone para o ambiente ativo.
++
+Esta é a política de acesso secundário padrão.
+
+* Se `_restore.secondaryAccessPolicy_ = *indirect*`o , o SnapManager primeiro copia os dados para um volume temporário no storage primário, monta os dados do volume temporário no host e copia os dados do volume temporário para o ambiente ativo.
++
+Essa política deve ser usada somente se o host não tiver acesso direto ao sistema de storage secundário. As restaurações usando o método indireto levarão o dobro do tempo que o método direto, porque duas cópias dos dados são criadas.
+
+
+
+.Passo
+. Execute uma das seguintes ações:
++
+[cols="1a,3a"]
+|===
+| Se você quiser... | Então... 
+
+
+ a| 
+Restaure um banco de dados completo se o backup selecionado existir no storage primário
+ a| 
+Introduza o seguinte comando:
+
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -recover -alllogs[-copy-id _id_]*`
+
+
+
+ a| 
+Restaure um banco de dados completo se o backup selecionado não existir no armazenamento primário
+ a| 
+Introduza o seguinte comando:
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete-recover -alllogs-from-secondary [-temp-volume _<temp_volume>_] [-copy-id _id_]*`
+
+|===
+
+
+'''
+
+
+== Exemplo
+
+O comando a seguir restaura um backup protegido do sistema de storage secundário:
+
+[listing]
+----
+smsap backup restore -profile PAYDB -label daily_monday -complete
+-recover alllogs -from-secondary -copy-id 3042 -temp-volume smsap_scratch_restore_volume
+Operation Id [8abc011215d385920115d38599470001] succeeded.
+----
+'''

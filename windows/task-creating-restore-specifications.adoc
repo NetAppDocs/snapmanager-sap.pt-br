@@ -1,0 +1,51 @@
+---
+permalink: windows/task-creating-restore-specifications.html 
+sidebar: sidebar 
+keywords: restore, specification, file, sml, contain, original, alternate, location, snapmanager, location, creating, create 
+summary: O arquivo de especificação de restauração é um arquivo XML que contém os locais originais e alternativos dos quais o arquivo pode ser restaurado. O SnapManager usa esse arquivo de especificação para restaurar arquivos do local especificado. 
+---
+= Criando especificações de restauração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O arquivo de especificação de restauração é um arquivo XML que contém os locais originais e alternativos dos quais o arquivo pode ser restaurado. O SnapManager usa esse arquivo de especificação para restaurar arquivos do local especificado.
+
+Você pode criar o arquivo de especificação de restauração usando qualquer editor de texto. Você deve usar uma extensão .xml para o arquivo.
+
+. Abra um arquivo de texto.
+. Introduza o seguinte: `+<restore-specification xmlns="http://www.netapp.com">+`
+. Insira qualquer informação de mapeamento de arquivos usando o formato mostrado no exemplo a seguir:
++
+[listing]
+----
+<file-mapping>
+    <original-location>E:\disks\sysaux.dbf</original-location>
+    <alternate-location>E:\disks\sysaux.dbf</alternate-location>
+</file-mapping>
+----
++
+Mapeamento de arquivos especifica de onde um arquivo é restaurado. O local original é o local do arquivo no sistema de arquivos ativo no momento do backup. O local alternativo é o local de onde o arquivo é restaurado.
+
+. Insira qualquer informação de mapeamento do sistema de arquivos montado usando o formato mostrado no exemplo:
++
+[listing]
+----
+<mountpoint-mapping>
+     <original-location>E:\disks\sysaux.dbf</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>E:\disks\sysaux.dbf</alternate-location>
+</mountpoint-mapping>
+----
++
+Ponto de montagem refere-se ao caminho do diretório C: O mapeamento de ponto de montagem especifica o ponto de montagem a partir do qual os arquivos são restaurados. O local original é o local do ponto de montagem no sistema de arquivos ativo no momento do backup. O local alternativo é o ponto de montagem a partir do qual os arquivos no local original são restaurados. O nome da captura é o nome da cópia Snapshot na qual os arquivos originais foram copiados.
+
++
+
+NOTE: O nome da cópia Snapshot é um componente necessário porque o mesmo sistema de arquivos pode ser usado várias vezes em uma única operação de backup (por exemplo, uma vez para os arquivos de dados e uma vez para os logs).
+
+. Introduza o seguinte: `</restore-specification>`
+. Salve o arquivo como um arquivo .xml e feche a especificação.
+

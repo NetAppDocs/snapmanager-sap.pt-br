@@ -1,0 +1,66 @@
+---
+permalink: windows/reference-where-to-go-for-more-information.html 
+sidebar: sidebar 
+keywords: information, task, install, snapmanager 
+summary: Você pode encontrar informações sobre as tarefas básicas envolvidas na instalação e uso do SnapManager. 
+---
+= Onde ir para mais informações
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode encontrar informações sobre as tarefas básicas envolvidas na instalação e uso do SnapManager.
+
+|===
+| Documento | Descrição 
+
+
+ a| 
+Página de descrição do SnapManager
+ a| 
+Esta página fornece informações sobre SnapManager, ponteiros para documentação on-line e um link para a página de download do SnapManager, a partir da qual você pode baixar o software.
+
+
+
+ a| 
+_Guia de configuração de SAN Data ONTAP para 7-modo_
+ a| 
+Este documento está disponível em http://mysupport.netapp.com/["Suporte à NetApp"^].
+
+É um documento online dinâmico que contém as informações mais atualizadas sobre os requisitos para a configuração de um sistema em um ambiente SAN. Ele fornece os detalhes atuais sobre sistemas de storage e plataformas de host, problemas de cabeamento, problemas de switch e configurações.
+
+
+
+ a| 
+Matriz de compatibilidade SnapManager e SnapDrive
+ a| 
+Este documento está disponível na secção interoperabilidade em http://mysupport.netapp.com/matrix["Ferramenta de Matriz de interoperabilidade"^].
+
+É um documento online dinâmico que contém as informações mais atualizadas específicas do SnapManager e seus requisitos de plataforma.
+
+
+
+ a| 
+Notas de versão do SnapManager
+ a| 
+Este documento vem com SnapManager. Também pode transferir uma cópia a partir http://mysupport.netapp.com/["Suporte à NetApp"^]do .
+
+Ele contém qualquer informação de última hora que você precisa para colocar a configuração em funcionamento sem problemas.
+
+
+
+ a| 
+Documentação dos kits de conexão e suporte do host NetApp
+ a| 
+http://mysupport.netapp.com/["Suporte à NetApp"^].
+
+
+
+ a| 
+Sistema operacional host e informações de banco de dados
+ a| 
+Esses documentos fornecem informações sobre o sistema operacional host e o software de banco de dados.
+
+|===

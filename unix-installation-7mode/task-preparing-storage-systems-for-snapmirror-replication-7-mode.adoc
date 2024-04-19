@@ -1,0 +1,118 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapmirror-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, snapmirror, technology, mirror, snapshot, copies, copy, configure, initialize, data-protection, relationship, destination, volume, prepare, preparing, storage, system, replication 
+summary: Antes de usar a tecnologia SnapMirror integrada do SnapManager para espelhar cópias Snapshot, é necessário configurar e inicializar uma relação de proteção de dados entre os volumes de origem e destino. Na inicialização, o SnapMirror faz uma cópia Snapshot do volume de origem e, em seguida, transfere a cópia e todos os blocos de dados que ela faz referência ao volume de destino. Ele também transfere quaisquer outras cópias Snapshot menos recentes no volume de origem para o volume de destino. 
+---
+= Preparar sistemas de storage para replicação do SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de usar a tecnologia SnapMirror integrada do SnapManager para espelhar cópias Snapshot, você deve configurar e inicializar uma relação _proteção de dados_ entre os volumes de origem e destino. Na inicialização, o SnapMirror faz uma cópia Snapshot do volume de origem e, em seguida, transfere a cópia e todos os blocos de dados que ela faz referência ao volume de destino. Ele também transfere quaisquer outras cópias Snapshot menos recentes no volume de origem para o volume de destino.
+
+*Sobre esta tarefa*
+
+Você pode usar a CLI ou o OnCommand System Manager do ONTAP para executar essas tarefas. O procedimento abaixo é baseado na suposição de que você está usando a CLI. Para obter mais informações, consulte https://library.netapp.com/ecm/ecm_download_file/ECMP1368826["Guia de backup e recuperação on-line de proteção de dados do Data ONTAP 8.2 para o modo 7"^] .
+
+
+NOTE: Você não pode usar SnapManager para espelhar qtrees. O SnapManager é compatível apenas com espelhamento de volume.
+
+Não é possível usar o SnapManager para espelhamento síncrono. O SnapManager é compatível apenas com espelhamento assíncrono.
+
+
+IMPORTANT: Se você estiver armazenando arquivos de banco de dados e logs de transações em volumes diferentes, você deve criar relações entre os volumes de origem e destino para os arquivos de banco de dados e entre os volumes de origem e destino para os logs de transação.
+
+. No console do sistema de origem, use o `options snapmirror.access` comando para especificar os nomes de host de sistemas que têm permissão para copiar dados diretamente do sistema de origem.
++
+*Exemplo*
+
++
+A seguinte entrada permite a replicação para destination_systemB:
+
++
+[listing]
+----
+options snapmirror.access host=destination_systemB
+----
+. No sistema de destino, crie ou edite o `/etc/snapmirror.conf` arquivo para especificar o volume a ser copiado.
++
+*Exemplo*
+
++
+A seguinte entrada especifica a replicação de vol0 de source_systema para vol2 de destination_systemB:
+
++
+[listing]
+----
+source_systemA:vol0 destination_systemB:vol2
+----
+. Nos consoles do sistema de origem e destino, use o `snapmirror on` comando para ativar o SnapMirror.
++
+*Exemplo*
+
++
+O seguinte comando ativa o SnapMirror:
+
++
+[listing]
+----
+snapmirror on
+----
+. No console do sistema de destino, use o `vol create` comando para criar um volume de destino SnapMirror que seja igual ou maior em tamanho do que o volume de origem.
++
+*Exemplo*
+
++
+O comando a seguir cria um volume de destino de 2 GB chamado vol2 no agregado aggr1:
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. No console do sistema de destino, use o comando vol restrict para marcar o volume de destino como restrito.
++
+*Exemplo*
+
++
+O comando a seguir marca o volume de destino vol2 como restrito:
+
++
+[listing]
+----
+vol restrict vol2
+----
+. No console do sistema de origem, use o `snap sched` comando para desativar quaisquer transferências agendadas.
++
+*Exemplo*
+
++
+Você deve desativar as transferências agendadas para evitar conflitos de agendamento com o SnapDrive.
+
++
+O seguinte comando desativa as transferências agendadas:
+
++
+[listing]
+----
+snap sched vol1 -----
+----
+. No console do sistema de destino, use o `snapmirror initialize` comando para criar uma relação entre os volumes de origem e destino e inicializar a relação.
++
+O processo de inicialização executa uma _transferência de linha de base_ para o volume de destino. O SnapMirror faz uma cópia Snapshot do volume de origem e transfere a cópia e todos os blocos de dados que ele faz referência ao volume de destino. Ele também transfere quaisquer outras cópias Snapshot no volume de origem para o volume de destino.
+
++
+*Exemplo*
+
++
+O comando a seguir cria uma relação SnapMirror entre o volume de origem vol0 no source_systema e o volume de destino vol2 no destination_systemB, e inicializa a relação:
+
++
+[listing]
+----
+snapmirror initialize -S source_systemA:vol0 destination_systemB:vol2
+----
+

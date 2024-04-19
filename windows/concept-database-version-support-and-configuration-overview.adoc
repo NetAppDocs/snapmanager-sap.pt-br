@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-database-version-support-and-configuration-overview.html 
+sidebar: sidebar 
+keywords: database, version, configuration, support, snapmanager,  perform, layout, setup, operation, overview 
+summary: Você deve conhecer as diferentes versões e configurações de banco de dados compatíveis com o SnapManager. Você deve executar o layout básico do banco de dados e a configuração para garantir operações bem-sucedidas. 
+---
+= Suporte à versão do banco de dados e visão geral da configuração
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve conhecer as diferentes versões e configurações de banco de dados compatíveis com o SnapManager. Você deve executar o layout básico do banco de dados e a configuração para garantir operações bem-sucedidas.
+
+O SnapManager para SAP integra-se com as versões 10gR2 (10,2.0,5), 11gR2 (11.2.0.1 e 11,2.0,2) e 12__c__; com tecnologia nativa da Oracle, como o Gerenciador de recuperação (RMAN); e entre os protocolos Fibre Channel (FC) e iSCSI.
+
+
+NOTE: O banco de dados Oracle 9i não é suportado pelo SnapManager 3,2 e 10g R2 (anterior a 10,2.0,5) não é suportado pelo SnapManager 3,3.1.

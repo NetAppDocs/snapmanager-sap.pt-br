@@ -1,0 +1,45 @@
+---
+permalink: windows/concept-about-control-file-and-archive-log-file-handling.html 
+sidebar: sidebar 
+keywords: snapmanager, control, file, archive, log, backup, recovery, handle 
+summary: O SnapManager inclui os arquivos de controle e, opcionalmente, inclui arquivos de log de arquivamento em cada backup. Arquivos de log de arquivamento são usados para operações de recuperação. 
+---
+= Sobre o processamento de arquivos de controle e arquivos de log
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager inclui os arquivos de controle e, opcionalmente, inclui arquivos de log de arquivamento em cada backup. Arquivos de log de arquivamento são usados para operações de recuperação.
+
+O banco de dados usa arquivos de controle para identificar nomes, locais e tamanhos dos arquivos do banco de dados. O SnapManager inclui arquivos de controle em cada backup porque os arquivos de controle são usados no processo de restauração.
+
+As alterações em um banco de dados são rastreadas usando os logs de refazer on-line, que eventualmente são arquivados e conhecidos como logs de refazer arquivados (ou logs de arquivamento). O SnapManager (3,2 ou posterior) permite fazer backup de arquivos de dados e arquivar arquivos de log separadamente com diferentes retenções e frequências. O SnapManager pode fazer backups somente dos logs de arquivamento ou backups combinados de arquivos de dados e Registros de arquivamento. O SnapManager fornece gerenciamento automatizado completo de logs de arquivamento, e não requer nenhuma intervenção manual para recuperação de banco de dados e também permite a eliminação de logs de arquivamento de um ou mais destinos de log de arquivamento após o backup ser feito.
+
+
+NOTE: Para ver quais espaços de tabela e arquivos de dados estão incluídos em um backup, use a `backup show command` janela ou as Propriedades de backup.
+
+A tabela a seguir ilustra como o SnapManager lida com arquivos de log de controle e arquivamento durante cada operação:
+
+|===
+| Tipo de operação | Controlar ficheiros | Arquivar ficheiros de registo 
+
+
+ a| 
+Backup
+ a| 
+Incluído com cada backup
+ a| 
+Pode ser incluído com cada backup
+
+
+
+ a| 
+Restaurar
+ a| 
+Pode ser restaurado sozinho ou junto com as tablespaces ou arquivos de dados
+ a| 
+Pode ser usado para o processo de recuperação
+
+|===

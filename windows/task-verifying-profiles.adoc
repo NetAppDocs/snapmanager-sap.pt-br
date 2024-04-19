@@ -1,0 +1,25 @@
+---
+permalink: windows/task-verifying-profiles.html 
+sidebar: sidebar 
+keywords: verify, exist, profile, set, up, correct, snapmanager, environment, verifies, database, accessible 
+summary: Você pode verificar se um perfil existente está configurado corretamente. Quando você verifica um perfil, o SnapManager verifica o ambiente para o perfil especificado e verifica se o perfil está configurado e o banco de dados nesse perfil está acessível. 
+---
+= Verificando perfis
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você pode verificar se um perfil existente está configurado corretamente. Quando você verifica um perfil, o SnapManager verifica o ambiente para o perfil especificado e verifica se o perfil está configurado e o banco de dados nesse perfil está acessível.
+
+.Passo
+. Para verificar se o perfil está configurado corretamente, digite este comando:
++
+`smsap profile verify -profile profile_name`
+
+
+
+*Informações relacionadas*
+
+xref:reference-the-smosmsapprofile-verify-command.adoc[O comando smsap profile check]

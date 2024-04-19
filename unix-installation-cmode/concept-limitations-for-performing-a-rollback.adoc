@@ -1,0 +1,43 @@
+---
+permalink: unix-installation-cmode/concept-limitations-for-performing-a-rollback.html 
+sidebar: sidebar 
+keywords: scenario, perform, rollback, task, limitation 
+summary: Você deve estar ciente dos cenários em que você não pode executar uma reversão. No entanto, para alguns desses cenários, você pode executar algumas tarefas adicionais antes de executar a reversão. 
+---
+= Limitações para executar uma reversão
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você deve estar ciente dos cenários em que você não pode executar uma reversão. No entanto, para alguns desses cenários, você pode executar algumas tarefas adicionais antes de executar a reversão.
+
+Os cenários em que você não pode executar rollback ou tem que executar as tarefas adicionais são os seguintes:
+
+* Se você executar uma das seguintes operações depois de executar uma atualização contínua:
++
+** Crie um novo perfil.
+** Divida um clone.
+** Altere o status de proteção do perfil.
+** Atribua política de proteção, classe de retenção ou relacionamentos SnapVault e SnapMirror.
++
+Nesse cenário, depois de executar uma reversão, você deve remover manualmente a política de proteção, a classe de retenção ou os relacionamentos SnapVault e SnapMirror atribuídos.
+
+** Altere o status da montagem do backup.
++
+Nesse cenário, você deve primeiro alterar o status da montagem para seu estado original e, em seguida, executar uma reversão.
+
+** Restaurar uma cópia de segurança.
+** Altere o modo de autenticação da autenticação do banco de dados para a autenticação do sistema operacional (SO).
++
+Neste cenário, após executar uma reversão, você deve alterar manualmente o modo de autenticação de SO para banco de dados.
+
+
+
+* Se o nome do host para o perfil for alterado
+* Se os perfis estiverem separados para criar backups de log de arquivamento
++
+Nesse cenário, você não pode reverter para uma versão anterior ao SnapManager 3,2.
+
+

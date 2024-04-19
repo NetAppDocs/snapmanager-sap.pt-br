@@ -1,0 +1,278 @@
+---
+permalink: windows/reference-snapmanager-configuration-parameters.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, list, configuration, parameter, edit, requirement, smsap, config, file 
+summary: O SnapManager fornece uma lista de parâmetros de configuração que você pode editar dependendo de sua necessidade. Os parâmetros de configuração são armazenados no arquivo smsap.config. No entanto, o arquivo smsap.config pode não conter todos os parâmetros de configuração suportados. Você pode adicionar os parâmetros de configuração, dependendo de sua exigência. 
+---
+= Parâmetros de configuração do SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager fornece uma lista de parâmetros de configuração que você pode editar dependendo de sua necessidade. Os parâmetros de configuração são armazenados no `smsap.config` arquivo. No entanto, o `smsap.config` arquivo pode não conter todos os parâmetros de configuração suportados. Você pode adicionar os parâmetros de configuração, dependendo de sua exigência.
+
+A tabela a seguir lista todos os parâmetros de configuração do SnapManager suportados e também explica quando usar esses parâmetros:
+
+|===
+| Parâmetros | Descrição 
+
+
+ a| 
+* `retain.hourly.count`
+* `retain.hourly.duration`
+* `retain.monthly.count`
+* `retain.monthly.duration`
+
+ a| 
+Esses parâmetros definem a política de retenção quando você cria um perfil. Por exemplo, você pode atribuir os seguintes valores:
+
+`retain.hourly.count = 12`
+
+`retain.hourly.duration = 2`
+
+`retain.monthly.count = 2`
+
+`retain.monthly.duration = 6`
+
+
+
+ a| 
+`restore.temporaryVolumeName`
+ a| 
+Este parâmetro atribui um nome ao volume temporário. Quando o SnapManager usa o método indireto para restaurar dados do armazenamento secundário, ele requer um volume de risco no armazenamento primário para manter uma cópia temporária de dados até que sejam copiados para os arquivos do banco de dados e o banco de dados seja recuperado. Não há valor padrão. Se você não especificar um valor, deverá inserir um nome no comando restore que usa o método indireto. Por exemplo, você pode atribuir os seguintes valores:
+
+`restore.temporaryVolumeName = *smsap_temp_volume*`
+
+
+
+ a| 
+`host.credentials.persist`
+ a| 
+Este parâmetro permite que o SnapManager armazene credenciais de host. Por padrão, as credenciais do host não são armazenadas. No entanto, as credenciais do host precisam ser armazenadas se você tiver um script personalizado executado em um clone remoto e exigir acesso a um servidor remoto. Você pode habilitar o armazenamento de credenciais do host atribuindo *true* ao `host.credentials.persist`. O SnapManager criptografa e salva as credenciais do host.
+
+
+
+ a| 
+`restorePlanMaxFilesDisplayed`
+ a| 
+Este parâmetro permite definir o número máximo de ficheiros a apresentar na pré-visualização da restauração. Por predefinição, o SnapManager apresenta um máximo de 20 ficheiros na pré-visualização da restauração. No entanto, você pode alterar para um valor maior que 0. Por exemplo, você pode atribuir o seguinte valor:
+
+* `restorePlanMaxFilesDisplayed = 30`
+
+
+
+NOTE: Se você especificar um valor inválido, o número padrão de arquivos será exibido.
+
+
+
+ a| 
+snapshot.list.timeout.min
+ a| 
+Este parâmetro permite definir o tempo em minutos para o qual o SnapManager deve esperar que o `snap list` comando seja executado quando você estiver executando qualquer operação do SnapManager.por padrão, o SnapManager espera por 30 minutos. No entanto, você pode alterar para um valor maior que 0. Por exemplo, você pode atribuir o seguinte valor:
+
+* `snapshot.list.timeout.min = 40`
+
+
+
+NOTE: Se você especificar um valor inválido, o valor padrão será usado.
+
+Para qualquer operação SnapManager, se o `snap list` tempo de execução do comando exceder o valor atribuído a `snapshot.list.timeout.min`, a operação falhará com uma mensagem de erro de tempo limite.
+
+
+
+ a| 
+PruneIfFileExistsInOtherDestination
+ a| 
+Este parâmetro de eliminação permite definir o destino dos ficheiros de registos de arquivo. Os ficheiros de registo de arquivo são armazenados em vários destinos. Durante a eliminação de ficheiros de registo de arquivo, o SnapManager precisa de saber o destino dos ficheiros de registo de arquivo. Os valores possíveis que você pode atribuir são os seguintes:
+
+* Quando pretender definir os ficheiros de registo de arquivo a partir de um destino especificado, tem de atribuir *false* ao `pruneIfFileExistsInOtherDestination`.
+* Quando pretender definir os ficheiros de registo de arquivo a partir de um destino externo, tem de atribuir *true* ao `pruneIfFileExistsInOtherDestination`.
+
+
+
+
+ a| 
+`prune.archivelogs.backedup.from.otherdestination`
+ a| 
+Este parâmetro de eliminação permite que você defina os arquivos de log de arquivo que são copiados dos destinos de log de arquivo especificados ou os backups de destinos de log de arquivo externo. Os valores possíveis que você pode atribuir são os seguintes:
+
+* Quando pretender definir os ficheiros de registo de arquivo a partir dos destinos especificados e se os ficheiros de registo de arquivo forem copiados a partir dos destinos especificados utilizando `-prune-dest`, tem de atribuir *false* a `prune.archivelogs.backedup.from.otherdestination`.
+* Quando pretender definir os ficheiros de registo de arquivo a partir de destinos especificados e se os ficheiros de registo de arquivo tiverem uma cópia de segurança de pelo menos uma vez de qualquer um dos outros destinos, tem de atribuir *true* ao `prune.archivelogs.backedup.from.otherdestination`.
+
+
+
+
+ a| 
+`maximum.archivelog.files.toprune.atATime`
+ a| 
+Este parâmetro de eliminação permite definir o número máximo de ficheiros de registo de arquivo que pode podar num determinado momento. Por exemplo, você pode atribuir o seguinte `value:maximum.archivelog.files.toprune.atATime`: *998*
+
+
+NOTE: O valor a que pode ser atribuído `maximum.archivelog.files.toprune.atATime` tem de ser inferior a 1000.
+
+
+
+ a| 
+`archivelogs.consolidate`
+ a| 
+Esse parâmetro permite que o SnapManager libere os backups de log de arquivo duplicados se você atribuir *true* ao `archivelogs.consolidate`.
+
+
+
+ a| 
+`suffix.backup.label.with.logs`
+ a| 
+Este parâmetro permite especificar o sufixo que pretende adicionar para diferenciar os nomes de etiquetas do backup de dados e do backup de log de arquivo.por exemplo, quando você atribui logs ao `suffix.backup.label.with.logs`, `_logs` é adicionado como um sufixo ao rótulo de backup de log de arquivamento. O rótulo de backup do log de arquivamento seria `arch_logs`então .
+
+
+
+ a| 
+`backup.archivelogs.beyond.missingfiles`
+ a| 
+Este parâmetro permite que o SnapManager inclua os arquivos de log de arquivo ausentes no backup. Os ficheiros de registo de arquivo que não existem no sistema de ficheiros ativo não estão incluídos na cópia de segurança. Se pretender incluir todos os ficheiros de registo de arquivo, mesmo aqueles que não existem no sistema de ficheiros ativo, tem de atribuir *True* ao `backup.archivelogs.beyond.missingfiles`.
+
+Você pode atribuir false para ignorar os arquivos de log de arquivo ausentes.
+
+
+
+ a| 
+`srvctl.timeout`
+ a| 
+Este parâmetro permite definir o valor de tempo limite para o `srvctl` comando.
+
+
+NOTE: O controle de servidor (SRVCTL) é um utilitário para gerenciar instâncias RAC.
+
+Quando o SnapManager leva mais tempo para executar o comando srvctl do que o valor de tempo limite, a operação SnapManager falha com esta mensagem de erro: `Error: Timeout occurred while executing command: srvctl status`.
+
+
+
+ a| 
+`snapshot.restore.storageNameCheck`
+ a| 
+Esse parâmetro permite que o SnapManager execute a operação de restauração com cópias Snapshot criadas antes de migrar do Data ONTAP operando no modo 7 para o cluster Data ONTAP.o valor padrão atribuído ao parâmetro é false. Se você migrou do Data ONTAP operando no modo 7 para o Data ONTAP em cluster, mas deseja usar as cópias Snapshot criadas antes da migração, defina `snapshot.restore.storageNameCheck`como*True*.
+
+
+
+ a| 
+`services.common.disableAbort`
+ a| 
+Este parâmetro desativa a limpeza após falha de operações de longa execução.  `services.common.disableAbort`Por exemplo, se você estiver executando uma operação de clone que é executada por muito tempo e depois falhar por causa de um erro Oracle, talvez você não queira limpar o clone. Se você definir `services.common.disableAbort` * true*, o clone não será excluído. Você pode corrigir o problema do Oracle e reiniciar a operação de clone a partir do ponto em que falhou.
+
+
+
+ a| 
+* `backup.sleep.dnfs.layout`
+* `backup.sleep.dnfs.secs`
+
+ a| 
+Esses parâmetros ativam o mecanismo de suspensão no layout Direct NFS (DNFS). Depois de criar o backup de arquivos de controle usando DNFS ou um sistema de arquivos de rede (NFS), o SnapManager tenta ler os arquivos de controle, mas os arquivos podem não ser encontrados.para ativar o mecanismo de suspensão, certifique-se de que `backup.sleep.dnfs.layout`: * True*. O valor padrão é *true*.
+
+Quando ativar o mecanismo de suspensão, tem de atribuir o tempo de suspensão ao `backup.sleep.dnfs.secs`. O tempo de sono atribuído é em segundos e o valor depende do seu ambiente. O valor padrão é de 5 segundos.
+
+Por exemplo:
+
+* `backup.sleep.dnfs.layout`* verdadeiro*
+* `backup.sleep.dnfs.secs`* 2 *
+
+
+
+
+ a| 
+* `override.default.backup.pattern`
+* `new.default.backup.pattern`
+
+ a| 
+Quando você não especifica o rótulo de backup, o SnapManager cria um rótulo de backup padrão. Estes parâmetros SnapManager permitem personalizar a etiqueta de cópia de segurança predefinida.para ativar a personalização da etiqueta de cópia de segurança, certifique-se de que o valor de `override.default.backup.pattern` está definido como *True*. O valor padrão é *false*.
+
+Para atribuir o novo padrão do rótulo de backup, você pode atribuir palavras-chave como nome do banco de dados, nome do perfil, escopo, modo e nome do host ao `new.default.backup.pattern`. As palavras-chave devem ser separadas usando um sublinhado. Por exemplo, `new.default.backup.pattern` * dbname_profile_hostname_scope_mode*.
+
+
+NOTE: O carimbo de data/hora é incluído automaticamente no final do rótulo gerado.
+
+
+
+ a| 
+`allow.underscore.in.clone.sid`
+ a| 
+O Oracle suporta o uso do sublinhado no clone SID do Oracle 11gR2. Este parâmetro SnapManager permite que você inclua um sublinhado no nome do clone SID.para incluir um sublinhado no nome do clone SID, certifique-se de que o valor de `allow.underscore.in.clone.sid` está definido como *true*. O valor padrão é *true*.
+
+Se você estiver usando uma versão Oracle anterior ao Oracle 11gR2 ou se não quiser incluir um sublinhado no nome do clone SID, defina o valor como *false*.
+
+
+
+ a| 
+`oracle.parameters.with.comma`
+ a| 
+Este parâmetro permite especificar todos os parâmetros Oracle que têm vírgula (,) como valor.ao executar qualquer operação que o SnapManager usa `oracle.parameters.with.comma` para verificar todos os parâmetros Oracle e ignorar a divisão dos valores.
+
+Por exemplo, se o valor de `_nls_numeric_characters_` , especifique `oracle.parameters.with.comma=_nls_numeric_characters_`. Se houver vários parâmetros Oracle com vírgula como valor, você deverá especificar todos os parâmetros no `oracle.parameters.with.comma`.
+
+
+
+ a| 
+* `archivedLogs.exclude`
+* `archivedLogs.exclude.fileslike`
+* `<db-unique-name>.archivedLogs.exclude.fileslike`
+
+ a| 
+Esses parâmetros permitem que o SnapManager exclua os arquivos de log de arquivamento dos perfis e backups se o banco de dados não estiver em um sistema de armazenamento habilitado para cópia Snapshot e você quiser executar operações do SnapManager nesse sistema de armazenamento.
+
+
+NOTE: Você deve incluir os parâmetros de exclusão no arquivo de configuração antes de criar um perfil.
+
+Os valores atribuídos a esses parâmetros podem ser um diretório de nível superior ou um ponto de montagem onde os arquivos de log de arquivo estão presentes ou um subdiretório.
+
+Para excluir que os arquivos de log de arquivamento sejam incluídos no perfil e que estejam sendo copiados, você deve incluir um dos seguintes parâmetros:
+
+* `archivedLogs.exclude` para especificar uma expressão regular para excluir arquivos de log de arquivo de todos os perfis ou backups.
++
+Os arquivos de log de arquivo que correspondem à expressão regular são excluídos de todos os perfis e backups.
+
++
+Por exemplo, você pode `archivedLogs.exclude = J:\\ARCH\\.*` definir .
+
++
+
+NOTE: Se o destino tiver um separador de arquivos, um símbolo de barra adicional () deve ser adicionado ao padrão e o padrão deve terminar com um padrão de barra dupla (.*).
+
+* `archivedLogs.exclude.fileslike` Para especificar uma expressão SQL para excluir arquivos de log de arquivamento de todos os perfis ou backups.
++
+Os arquivos de log de arquivo que correspondem à expressão SQL são excluídos de todos os perfis e backups.
+
++
+Por exemplo, você pode `archivedLogs.exclude.fileslike = J:\\ARCH2\\%` definir .
+
++
+
+NOTE: Se o destino tiver um separador de arquivos, um símbolo de barra adicional () deve ser adicionado ao padrão e o padrão deve terminar com um padrão de barra dupla (%).
+
+
+
+
+
+ a| 
+ a| 
+* `<db-unique-name>.archivedLogs.exclude.fileslike` Para especificar uma expressão SQL para excluir arquivos de log de arquivo somente do perfil ou o backup criado para o banco de dados com o _dB-unique-name_ especificado.
++
+Os arquivos de log de arquivo que correspondem à expressão SQL são excluídos do perfil e backups.
+
++
+Por exemplo, você pode `mydb.archivedLogs.exclude.fileslike = J:\\ARCH2\\%` definir .
+
++
+
+NOTE: Se o destino tiver um separador de arquivos, um símbolo de barra adicional () deve ser adicionado ao padrão e o padrão deve terminar com um padrão de barra dupla (%).
+
+
+
+
+NOTE: As ferramentas BR*não suportam os seguintes parâmetros, mesmo que estes parâmetros estejam configurados para excluir arquivos de log de arquivo:
+
+* `archivedLogs.exclude.fileslike`
+* `<db-unique-name>.archivedLogs.exclude.fileslike`
+
+
+|===

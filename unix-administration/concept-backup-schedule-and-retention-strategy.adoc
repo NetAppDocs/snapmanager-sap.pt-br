@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/concept-backup-schedule-and-retention-strategy.html 
+sidebar: sidebar 
+keywords: dba, ensure, backup, loss, data, disaster, regulatory, reason, retention, policy, database, schedule 
+summary: O DBA quer garantir que os backups estejam disponíveis em caso de perda de dados, em caso de desastre e por motivos regulatórios. Isso requer uma política de retenção cuidadosamente pensada para os vários bancos de dados. 
+---
+= Cronograma de backup e estratégia de retenção
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O DBA quer garantir que os backups estejam disponíveis em caso de perda de dados, em caso de desastre e por motivos regulatórios. Isso requer uma política de retenção cuidadosamente pensada para os vários bancos de dados.
+
+Para o banco de dados de folha de pagamento de produção, o DBA segue a seguinte estratégia de retenção da TechCo:
+
+[cols="1a,1a,1a,1a"]
+|===
+| Frequência de backup | Duração da retenção | Tempo de backup | Tipo de armazenamento 
+
+
+ a| 
+Uma vez por dia
+ a| 
+10 dias
+ a| 
+7 p.m.
+ a| 
+Primário (local)
+
+
+
+ a| 
+Uma vez por dia
+ a| 
+10 dias
+ a| 
+7 p.m.
+ a| 
+Secundário (arquivo)
+
+
+
+ a| 
+Uma vez por semana
+ a| 
+52 semanas
+ a| 
+Sábados 1 a.m.
+ a| 
+Secundário (arquivo)
+
+|===
+* *Vantagens de backup local*
++
+O backup local diário fornece proteção de banco de dados, que é instantânea, usa largura de banda zero de rede, usa um mínimo de espaço de armazenamento adicional, fornece restauração instantânea e fornece recursos de backup e restauração de grãos finos.
+
++
+Como os backups semanais finais do banco de dados de folha de pagamento são retidos por um mínimo de 52 semanas em um local de armazenamento secundário, não há necessidade de manter os backups diários por mais de 10 dias.
+
+* *Vantagens de backup protegido*
++
+Os backups diários e semanais para o storage secundário em um local remoto garantem que, se os dados no local de armazenamento primário estiverem danificados, o banco de dados de destino ainda estará protegido e poderá ser restaurado do armazenamento secundário.
+
++
+Os backups diários para armazenamento secundário são feitos para proteger contra danos ao sistema de armazenamento primário. Como os backups semanais finais do banco de dados de folha de pagamento são retidos por um mínimo de 52 semanas, não há necessidade de manter os backups diários por mais de 10 dias.
+
+

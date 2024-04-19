@@ -1,0 +1,73 @@
+---
+permalink: windows/task-creating-repositories.html 
+sidebar: sidebar 
+keywords: snapmanager, require, repository, host, data, operation, perform, creating, create 
+summary: O SnapManager requer um repositório em um host para armazenar dados sobre as operações que você executa. 
+---
+= Criando repositórios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+O SnapManager requer um repositório em um host para armazenar dados sobre as operações que você executa.
+
+Certifique-se de que as seguintes tarefas estão concluídas:
+
+. Crie um usuário e uma senha Oracle no banco de dados do repositório.
+. Autorizar o acesso do usuário ao repositório.
+
+
+Para um repositório, o SnapManager para SAP requer um tamanho de bloco mínimo de 4K MB para a tablespace em que ele é instalado. Você pode verificar o tamanho do bloco usando o seguinte comando SQL:
+
+[listing]
+----
+select a.username, a.default_tablespace, b.block_size
+from dba_users a, dba_tablespaces b
+a.username = repo_user
+----
+onde
+
+* a.default_tablespace: b.tablespace_name
+* a.username: o nome de usuário no repositório
+
+
+Se você estiver atualizando repositórios, será necessário reinicializar o servidor SnapManager para reiniciar as programações associadas.
+
+. Para criar o repositório, digite o comando repositório create, usando o seguinte formato geral:
++
+`smsap repository create -repository -dbname repo_service_name -host repo_host -login -username repo_username -port repo_port [-force] [-noprompt] [-quiet | -verbose]`
+
++
+Local:
+
++
+** -repositório -dbname é o nome do banco de dados do repositório.
+** -host é o nome do host para o repositório.
+** -username é o nome do usuário do banco de dados que tem acesso ao repositório.
+** -port é a porta para o host. Outras opções para este comando são as seguintes:
+
+
++
+[-force] [-noprompt]
+
++
+E
+
++
+Observação: Se você tiver um repositório existente com o mesmo nome e usar a opção -force, todos os dados dentro de um esquema de repositório existente serão sobrescritos.
+
+
+
+
+
+== Criando um repositório
+
+A seguinte linha de comando cria um repositório.
+
+[listing]
+----
+smsap repository create -repository -dbname HR1
+-host server1 -login -username admin -port 1521
+----

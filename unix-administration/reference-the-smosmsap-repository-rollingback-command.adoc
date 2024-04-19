@@ -1,0 +1,94 @@
+---
+permalink: unix-administration/reference-the-smosmsap-repository-rollingback-command.html 
+sidebar: sidebar 
+keywords: command, enable, roll, back, revert, version, snapmanager, original, version, upgrade, smsap, repository, rollback 
+summary: Este comando permite reverter ou reverter de uma versão superior do SnapManager para a versão original a partir da qual você atualizou. 
+---
+= O comando rollback do repositório smsap
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este comando permite reverter ou reverter de uma versão superior do SnapManager para a versão original a partir da qual você atualizou.
+
+
+
+== Sintaxe
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap repository rollback
+-repository
+-dbname _repo_service_name_
+-host _repo_host_
+-login -username _repo_username_
+-port _repo_port_
+-rollbackhost _host_with_target_database_
+[-force]]
+[-quiet | -verbose]
+----
+
+
+== Parâmetros
+
+* `*-repository*`
++
+As opções que seguem -repositório especificam os detalhes do banco de dados para o repositório.
+
+* `*-dbname _repo_service_name_*`
++
+Especifica o nome do banco de dados que armazena o repositório. Use o nome global ou o SID.
+
+* `*-host _repo_host_*`
++
+Especifica o nome ou endereço IP do computador host no qual o banco de dados do repositório é executado.
+
+* `*-login*`
++
+Inicia os detalhes de login do repositório.
+
+* `*-username _repo_username_*`
++
+Especifica o nome de usuário necessário para acessar o banco de dados que armazena o repositório.
+
+* `*-rollbackhost _host_with_target_database_*`
++
+Especifica o nome do host que será revertido de uma versão superior do SnapManager para a versão inferior original.
+
+* `*-port _repo_port_*`
++
+Especifica o número da porta TCP usado para acessar o banco de dados que armazena o repositório.
+
+* `*-force*`
++
+Tenta forçar a atualização do repositório. O SnapManager solicita que você faça um backup do repositório atual antes de atualizar.
+
+* `*-noprompt*`
++
+Não exibe o prompt antes de atualizar o banco de dados do repositório. Usar a opção -noprompt garante que o prompt não apareça, facilitando a atualização de repositórios usando um script.
+
+* `*-quiet*`
++
+Exibe apenas mensagens de erro no console. O padrão é exibir mensagens de erro e aviso.
+
+* `*-verbose*`
++
+Exibe mensagens de erro, aviso e informativas no console.
+
+
+
+'''
+
+
+== Exemplo de comando
+
+O exemplo a seguir atualiza o repositório no banco de dados SALESDB.
+
+[listing]
+----
+smsap repository rollback -repository -dbname SALESDB
+-host server1 -login -username admin -port 1521 -rollbackhost hostA
+----
+'''

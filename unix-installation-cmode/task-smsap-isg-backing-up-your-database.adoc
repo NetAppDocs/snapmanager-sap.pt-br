@@ -1,0 +1,73 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-back-up-your-database.html 
+sidebar: sidebar 
+keywords: create, back up, database, schedule, initial, verification 
+summary: Depois de criar um perfil, você deve fazer backup do banco de dados. Você pode agendar backups recorrentes após o backup e a verificação iniciais. 
+---
+= Faça backup de seu banco de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Depois de criar um perfil, você deve fazer backup do banco de dados. Você pode agendar backups recorrentes após o backup e a verificação iniciais.
+
+
+
+== Sobre esta tarefa
+
+Estas etapas mostram como criar um backup de seu banco de dados usando a interface de usuário do SnapManager. Você também pode usar a interface de linha de comando (CLI), se preferir.
+
+Para obter informações sobre como criar backups usando as ferramentas CLI ou SAP BR*, consulte o guia _SnapManager for SAP Administration para UNIX_.
+
+.Passos
+. Na árvore repositórios, clique com o botão direito do Mouse no perfil que contém o banco de dados que você deseja fazer backup e selecione *Backup*.
+. Em *Label*, insira um nome personalizado para o backup.
++
+Você não deve incluir espaços ou carateres especiais no nome. Se você não especificar um nome, o SnapManager criará automaticamente um rótulo de backup.
+
++
+No SnapManager 3,4, você pode modificar o rótulo de backup criado automaticamente pelo SnapManager. Você pode editar as `override.default.backup.pattern` variáveis de configuração e `new.default.backup.pattern` para criar seu próprio padrão de etiqueta de backup padrão.
+
+. Opcional: Em *Etiqueta SnapVault*, você deve inserir o rótulo SnapMirror que você especificou nas regras da política SnapMirror enquanto configura a relação SnapVault.
++
+
+NOTE: O campo *Etiqueta SnapVault* aparece somente se você selecionou _SnapManager_cDOT_Vault_ como política de proteção ao criar o perfil.
+
+. Selecione *permitir inicialização ou desligamento do banco de dados, se necessário*, para modificar o estado do banco de dados, se necessário.
++
+Essa opção garante que, se o banco de dados não estiver no estado necessário para criar um backup, o SnapManager automaticamente leva o banco de dados para o estado desejado para concluir a operação.
+
+. Na página *Database*, *tablespaces* ou *Datafiles* to `Backup`, execute o seguinte:
++
+.. Selecione *Backup de dados* para fazer backup do banco de dados completo, arquivos de dados selecionados ou espaços de tabela selecionados.
+.. Selecione *Backup Archivelogs* para fazer backup dos arquivos de log de arquivamento separadamente.
+.. Selecione *Prune Archivelogs* se quiser excluir os arquivos de log do arquivo do sistema de arquivos ativo que já está em backup.
++
+
+NOTE: Se a Área de recuperação de Flash (FRA) estiver ativada para arquivos de log de arquivo, o SnapManager não consegue definir os arquivos de log de arquivamento.
+
+.. Selecione *Proteja o backup* se quiser ativar a proteção de backup.
++
+Esta opção só é ativada se a política de proteção tiver sido selecionada durante a criação do perfil.
+
+.. Na lista suspensa *Type*, selecione o tipo de backup (offline ou online) que deseja criar.
++
+Se você selecionar _Auto_, o SnapManager criará um backup com base no estado atual do banco de dados.
+
+.. Na lista suspensa *Classe de retenção*, selecione a classe de retenção.
+.. Marque a caixa de seleção *verificar backup usando o utilitário Oracle DBVERIFY* se quiser garantir que os arquivos de backup não estejam corrompidos.
+
+
+. Na página *ativação de tarefas*, especifique se deseja executar tarefas antes e depois que as operações de backup forem concluídas.
+. Na página *Executar operação de backup*, verifique as informações e clique em *Backup*.
+. Clique em *Finish* para fechar o assistente.
++
+Se a operação falhar, clique em *Detalhes da operação* para ver o que causou a falha da operação.
+
+
+
+*Informações relacionadas*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["Guia de administração do SnapManager 3.4.1 para UNIX"^]
